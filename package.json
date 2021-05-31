@@ -1,0 +1,23 @@
+{
+  "name": "dot2wing-firmware",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlipperLP/dot2wing-firmware.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlipperLP/dot2wing-firmware/issues"
+  },
+  "homepage": "https://github.com/FlipperLP/dot2wing-firmware#readme",
+  "dependencies": {
+    "auto-git-update": "^1.0.6"
+  }
+}
