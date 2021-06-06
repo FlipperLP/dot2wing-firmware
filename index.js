@@ -130,13 +130,14 @@ function loginSession(requestType, argument) {
 // button press and release 
 function setButton(pressed, execIndex, buttonId) {
   sendWebsocket({
-    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
+    // requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
+    requestType: 'playbacks_userInput', execIndex: execIndex - 1, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
   });  
 }
 
 function setFader(faderValue, execIndex) {
   sendWebsocket({
-    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, faderValue, type: 1, session: config.maweb.activeSession, maxRequests: 0,
+    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, faderValue, type: 1, session: config.maweb.activeSession,
   });  
 }
 
