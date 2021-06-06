@@ -128,12 +128,17 @@ function loginSession(requestType, argument) {
 //
 
 // button press and release 
-function button(pressed, execIndex, buttonId) {
+function setButton(pressed, execIndex, buttonId) {
   sendWebsocket({
-    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession, maxRequests: 0,
+    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
   });  
 }
 
+function setFader(faderValue, execIndex) {
+  sendWebsocket({
+    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, faderValue, type: 1, session: config.maweb.activeSession, maxRequests: 0,
+  });  
+}
 
 //
 //
@@ -150,10 +155,10 @@ gpio4.on("change", val => {
   console.log(val)
   switch (val) {
     case 1:
-      button(true, 106, 0)
+      setButton(true, 106, 0)
       break;
     case 0:
-      button(false, 106, 0)
+      setButton(false, 106, 0)
       break;
     default:
       break;
