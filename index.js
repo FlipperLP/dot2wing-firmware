@@ -13,9 +13,14 @@ const gpio4 = gpio.export(4, {
   ready: function () { }
 });
 
-// 
-// FUNCTIOS
-// 
+//
+//
+//
+// MAINFUNCTIONS
+//
+//
+//
+
 // send websocket
 function sendWebsocket(msg) { WSconnection.send(JSON.stringify(msg)); }
 
@@ -63,6 +68,22 @@ function loginSession(requestType, argument) {
 //
 //
 //
+// DOT2 functions
+//
+//
+//
+
+// button press and release 
+function button(pressed, execIndex, buttonId) {
+  sendWebsocket({
+    requestType: 'playbacks_userInput', execIndex, pageIndex: 0, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession, maxRequests: 0,
+  });  
+}
+
+
+//
+//
+//
 // MAINPART
 //
 //
@@ -75,14 +96,10 @@ gpio4.on("change", val => {
   console.log(val)
   switch (val) {
     case 1:
-      sendWebsocket({
-        requestType: 'playbacks_userInput', execIndex: 101, pageIndex: 0, buttonId: 0, pressed: true, released: false, type: 0, session: config.maweb.activeSession, maxRequests: 0,
-      });
+      button(true, 100, 0)
       break;
     case 0:
-      sendWebsocket({
-        requestType: 'playbacks_userInput', execIndex: 101, pageIndex: 0, buttonId: 0, pressed: false, released: true, type: 0, session: config.maweb.activeSession, maxRequests: 0,
-      });
+      button(false, 100, 0)
       break;
     default:
       break;
@@ -100,7 +117,6 @@ WSconnection.onmessage = (msg) => {
   if (response.responseType === 'playbacks') return callbackData(response);
   // FIXME: to awoid having too many sessions, check how to reuse old one in maweb
   // return loginSession();
-  // console.log('END');
 };
 
 // post error
