@@ -75,12 +75,12 @@ gpio4.on("change", val => {
   switch (val) {
     case 1:
       sendWebsocket({
-        requestType: 'playbacks_userInput', execIndex: data.name, pageIndex: 0, buttonId: 0, pressed: true, released: false, type: 0, session: config.maweb.activeSession, maxRequests: 0,
+        requestType: 'playbacks_userInput', execIndex: 101, pageIndex: 0, buttonId: 0, pressed: true, released: false, type: 0, session: config.maweb.activeSession, maxRequests: 0,
       });
       break;
     case 0:
       sendWebsocket({
-        requestType: 'playbacks_userInput', execIndex: data.name, pageIndex: 0, buttonId: 0, pressed: false, released: true, type: 0, session: config.maweb.activeSession, maxRequests: 0,
+        requestType: 'playbacks_userInput', execIndex: 101, pageIndex: 0, buttonId: 0, pressed: false, released: true, type: 0, session: config.maweb.activeSession, maxRequests: 0,
       });
       break;
     default:
