@@ -129,7 +129,6 @@ function loginSession(requestType, argument) {
 
 // button press and release 
 function setButton(pressed, execIndex, buttonId) {
-  DEBUG;
   sendWebsocket({
     requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
   });  
