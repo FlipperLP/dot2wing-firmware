@@ -24,18 +24,70 @@ const gpio4 = gpio.export(4, {
 // send websocket
 function sendWebsocket(msg) { WSconnection.send(JSON.stringify(msg)); }
 
+// prettyfy data
+function prettify(rawData) {
+  // row
+  const rows = [];
+  for (let row = 0; row <= 8; row++) {
+    // buttonrow
+    const button1 = {
+      name: rawData.itemGroups[1].items[row][0].tt.t,
+      id: rawData.itemGroups[1].items[row][0].i.t,
+      isRun: rawData.itemGroups[1].items[row][0].isRun,
+    };
+    const button2 = {
+      name: rawData.itemGroups[2].items[row][0].tt.t,
+      id: rawData.itemGroups[2].items[row][0].i.t,
+      isRun: rawData.itemGroups[2].items[row][0].isRun,
+    };
+    // faderExecutor
+    const name = rawData.itemGroups[0].items[5][0].tt.t;
+    const isRun = rawData.itemGroups[0].items[5][0].isRun;
+    const go = {
+      name: rawData.itemGroups[0].items[row][0].executorBlocks[0].button1.t,
+    };
+    const flash = {
+      name: rawData.itemGroups[0].items[row][0].executorBlocks[0].button2.t,
+    };
+    const faderExecutor = {
+      name, isRun, go, flash,
+    };
+    rows.push({
+      row, button1, button2, faderExecutor,
+    });
+  }
+  return rows;
+}
+
 function getsetSession(value) {
   sendWebsocket({ session: value | 0 });
+}
+
+// keep session alive
+function keepAlive() {
+  setInterval(() => {
+    // call data to get playback info
+    getsetSession(config.maweb.activeSession)
+    console.log('Keepalive', config.maweb.activeSession);
+  }, config.maweb.keepAlive);
 }
 
 // call data and post data from input
 function mainLoop() {
   setInterval(() => {
     // call data to get playback info
-    getsetSession(config.maweb.activeSession)
-    console.log('Keepalive', config.maweb.activeSession);
-  }, 10000);
+    sendWebsocket({
+      requestType: 'playbacks', startIndex: [0, 100, 200], itemsCount: [14, 14, 14], pageIndex: 0, itemsType: [2, 3, 3], view: 2, execButtonViewMode: 1, buttonsViewMode: 0, session: config.maweb.activeSession, maxRequests: 1,
+    });
+  }, 30);
 }
+
+// get Data from playback
+function callbackData(rawData) {
+  const cleanData = prettify(rawData);
+  console.log(cleanData[5].button1.isRun, cleanData[5].button2.isRun, cleanData[5].faderExecutor.isRun);
+}
+
 
 // login provided session
 function loginSession(requestType, argument) {
@@ -57,6 +109,7 @@ function loginSession(requestType, argument) {
       if (!config.maweb.mainLoopRunning) config.maweb.mainLoopRunning = true;
       else return;
       // call mainloop
+      keepAlive();
       mainLoop();
       break;
     default:
