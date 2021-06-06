@@ -1,0 +1,9 @@
+{
+    "maweb": {
+      "endpoint": "1.1.1.1",
+      "creds": {
+        "username": "user",
+        "password": "password"
+      }a
+    }
+  }
