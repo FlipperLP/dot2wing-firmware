@@ -28,6 +28,7 @@ function mainLoop() {
   setInterval(() => {
     // call data to get playback info
     getsetSession(config.maweb.activeSession)
+    console.log('Keepalive', config.maweb.activeSession);
   }, 10000);
 }
 
@@ -99,7 +100,7 @@ WSconnection.onmessage = (msg) => {
   if (response.responseType === 'playbacks') return callbackData(response);
   // FIXME: to awoid having too many sessions, check how to reuse old one in maweb
   // return loginSession();
-  console.log('END');
+  // console.log('END');
 };
 
 // post error
