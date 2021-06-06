@@ -69,7 +69,8 @@ function keepAlive() {
     // call data to get playback info
     getsetSession(config.maweb.activeSession)
     console.log('Keepalive', config.maweb.activeSession);
-  }, config.maweb.keepAlive);
+  }, 10000);
+  // }, config.maweb.keepAlive);
 }
 
 // call data and post data from input
