@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/FlipperLP/dot2wing-firmware#readme",
   "dependencies": {
-    "auto-git-update": "^1.0.6"
+    "auto-git-update": "^1.0.6",
+    "gpio": "^0.2.10",
+    "ws": "^7.4.6"
   }
 }
