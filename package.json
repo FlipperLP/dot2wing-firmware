@@ -22,7 +22,8 @@
     "auto-git-update": "^1.0.6",
     "gpio": "^0.2.10",
     "md5": "^2.3.0",
-    "ws": "^7.4.6"
+    "ws": "^7.4.6",
+    "rpi-ws281x-native": "1.0.3"
   },
   "devDependencies": {
     "eslint": "^7.28.0",
