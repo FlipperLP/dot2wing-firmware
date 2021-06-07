@@ -1,3 +1,3 @@
 # Notes
 
-- https://www.npmjs.com/package/rpi-ws281x-native
+- fix brightness with seperate input; doku: https://www.npmjs.com/package/rpi-ws281x-native
