@@ -1,15 +1,20 @@
-const WebSocket = require('ws');
+import WebSocket from 'ws';
 
-const md5 = require('md5');
+import md5 from 'md5';
 
-const gpio = require('gpio');
+import gpio from 'gpio';
 
-const config = require('./config.json');
+import config from './config.json';
 
+import { prettify } from './modules/prettify';
+
+// get endpoint
 const endpoint = process.env.ENDPOINT || config.maweb.endpoint;
 
+// open new websocket session
 const WSconnection = new WebSocket(`ws://${endpoint}/?ma=1`);
 
+// define gpio pin
 const gpio4 = gpio.export(4, { direction: gpio.DIRECTION.IN });
 
 //
