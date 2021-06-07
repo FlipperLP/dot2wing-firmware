@@ -1,5 +1,3 @@
-import WebSocket from 'ws';
-
 import md5 from 'md5';
 
 import gpio from 'gpio';
@@ -8,35 +6,18 @@ import config from './config.json';
 
 import { prettify } from './modules/prettify';
 
-// get endpoint
-const endpoint = process.env.ENDPOINT || config.maweb.endpoint;
-
-// open new websocket session
-const WSconnection = new WebSocket(`ws://${endpoint}/?ma=1`);
+import {
+  sendWebsocket, setButton, setFader, getSetSession,
+} from './modules/webSocketHandler';
 
 // define gpio pin
 const gpio4 = gpio.export(4, { direction: gpio.DIRECTION.IN });
-
-//
-//
-//
-// MAINFUNCTIONS
-//
-//
-//
-
-// send websocket
-function sendWebsocket(msg) { WSconnection.send(JSON.stringify(msg)); }
-
-function getsetSession(value) {
-  sendWebsocket({ session: value || 0 });
-}
 
 // keep session alive
 function keepAlive() {
   setInterval(() => {
     // call data to get playback info
-    getsetSession(config.maweb.activeSession);
+    getSetSession(config.maweb.activeSession);
     console.log('Keepalive', config.maweb.activeSession);
   }, 10000);
   // }, config.maweb.keepAlive);
@@ -86,35 +67,6 @@ function loginSession(requestType, argument) {
       break;
   }
 }
-
-//
-//
-//
-// DOT2 functions
-//
-//
-//
-
-// button press and release
-function setButton(pressed, execIndex, buttonId) {
-  sendWebsocket({
-    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId || 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
-  });
-}
-
-function setFader(faderValue, execIndex) {
-  sendWebsocket({
-    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, faderValue, type: 1, session: config.maweb.activeSession,
-  });
-}
-
-//
-//
-//
-// MAINPART
-//
-//
-//
 
 // login websocket
 WSconnection.onopen = () => loginSession();
