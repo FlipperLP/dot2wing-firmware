@@ -2,16 +2,15 @@ const WebSocket = require('ws');
 
 const md5 = require('md5');
 
-const gpio = require("gpio");
+const gpio = require('gpio');
 
 const config = require('./config.json');
 
-const WSconnection = new WebSocket(`ws://${process.env.ENDPOINT || config.maweb.endpoint}/?ma=1`);
+const endpoint = process.env.ENDPOINT || config.maweb.endpoint;
 
-const gpio4 = gpio.export(4, {
-  direction: gpio.DIRECTION.IN,
-  ready: function () { }
-});
+const WSconnection = new WebSocket(`ws://${endpoint}/?ma=1`);
+
+const gpio4 = gpio.export(4, { direction: gpio.DIRECTION.IN });
 
 //
 //
@@ -60,14 +59,14 @@ function prettify(rawData) {
 }
 
 function getsetSession(value) {
-  sendWebsocket({ session: value | 0 });
+  sendWebsocket({ session: value || 0 });
 }
 
 // keep session alive
 function keepAlive() {
   setInterval(() => {
     // call data to get playback info
-    getsetSession(config.maweb.activeSession)
+    getsetSession(config.maweb.activeSession);
     console.log('Keepalive', config.maweb.activeSession);
   }, 10000);
   // }, config.maweb.keepAlive);
@@ -88,7 +87,6 @@ function callbackData(rawData) {
   const cleanData = prettify(rawData);
   console.log(cleanData[5].button1.isRun, cleanData[5].button2.isRun, cleanData[5].faderExecutor.isRun);
 }
-
 
 // login provided session
 function loginSession(requestType, argument) {
@@ -127,17 +125,17 @@ function loginSession(requestType, argument) {
 //
 //
 
-// button press and release 
+// button press and release
 function setButton(pressed, execIndex, buttonId) {
   sendWebsocket({
-    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId | 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
-  });  
+    requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, buttonId: buttonId || 0, pressed, released: !pressed, type: 0, session: config.maweb.activeSession,
+  });
 }
 
 function setFader(faderValue, execIndex) {
   sendWebsocket({
     requestType: 'playbacks_userInput', execIndex: execIndex - 1, pageIndex: 0, faderValue, type: 1, session: config.maweb.activeSession,
-  });  
+  });
 }
 
 //
@@ -151,20 +149,19 @@ function setFader(faderValue, execIndex) {
 // login websocket
 WSconnection.onopen = () => loginSession();
 
-gpio4.on("change", val => {
-  console.log(val)
+gpio4.on('change', (val) => {
+  console.debug(val);
   switch (val) {
     case 1:
-      setButton(true, 106, 0)
-      break;
+      setButton(true, 106, 0);
+      return;
     case 0:
-      setButton(false, 106, 0)
-      break;
+      setButton(false, 106, 0);
+      return;
     default:
-      break;
+      return;
   }
 });
-
 
 // websocket awnser splitter
 WSconnection.onmessage = (msg) => {
