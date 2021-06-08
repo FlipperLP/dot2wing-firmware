@@ -1,3 +1,5 @@
+// DEPRECATED: still only here for reference
+
 import md5 from 'md5';
 
 import { prettify } from './modules/prettify';
@@ -15,7 +17,6 @@ function keepAlive() {
     getSetSession(config.maweb.activeSession);
     console.log('Keepalive', config.maweb.activeSession);
   }, 10000);
-  // }, config.maweb.keepAlive);
 }
 
 function debugLoop() {
@@ -23,7 +24,7 @@ function debugLoop() {
   setInterval(() => {
     // call data to get playback info
     setButton(val, 106, 0);
-    console.log('set button to', val);
+    console.debug('set button to', val);
     val = !val;
   }, 1000);
   // }, config.maweb.keepAlive);
