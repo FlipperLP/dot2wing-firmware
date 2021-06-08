@@ -10,7 +10,7 @@ ledHandler.configure({
 // Create my pixels
 const pixels = new Uint32Array(3);
 
-pixels[i] = (255 << 16) | (0 << 8) | 0;
+pixels[0] = (255 << 16) | (0 << 8) | 0;
 pixels[1] = (0 << 16) | (255 << 8) | 0;
 pixels[2] = (0 << 16) | (0 << 8) | 255;
 
