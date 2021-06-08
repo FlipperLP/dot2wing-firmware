@@ -22,7 +22,7 @@ pixels.forEach((plx, i) => {
     pixels[i - 1] = colorBlack;
     pixels[i] = color;
     ledHandler.render(pixels);
-  }, 500);
+  }, 500 * i);
 });
 
 // Render pixels to the Neopixel strip
