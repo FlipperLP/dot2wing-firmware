@@ -3,14 +3,17 @@ export function prettify(rawData) {
   const rows = [];
   for (let row = 0; row <= 8; row++) {
     // buttonrow
+    // TODO:
+    // color: rawData.itemGroups[0].items[0][0].bdC
+    // empty: rawData.itemGroups[0].items[0][0].i.c = '#C0C0C0'
     const button1 = {
       name: rawData.itemGroups[1].items[row][0].tt.t,
-      id: rawData.itemGroups[1].items[row][0].i.t,
+      id: rawData.itemGroups[1].items[0][0].iExec,
       isRun: rawData.itemGroups[1].items[row][0].isRun,
     };
     const button2 = {
       name: rawData.itemGroups[2].items[row][0].tt.t,
-      id: rawData.itemGroups[2].items[row][0].i.t,
+      id: rawData.itemGroups[2].items[0][0].iExec,
       isRun: rawData.itemGroups[2].items[row][0].isRun,
     };
     // faderExecutor
