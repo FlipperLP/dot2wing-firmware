@@ -18,8 +18,8 @@ const color = (red << 16) | (green << 8) | blue;
 const colorBlack = (green << 16) | (green << 8) | blue;
 
 pixels.forEach((plx, i) => {
+  pixels.map((x) => colorBlack);
   setInterval(() => {
-    pixels[i - 1] = colorBlack;
     pixels[i] = color;
     ledHandler.render(pixels);
   }, 500 * i);
