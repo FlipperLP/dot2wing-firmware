@@ -1,11 +1,11 @@
-var ws281x = require('rpi-ws281x');
+// eslint-disable-next-line import/no-unresolved
+import ledHandler from 'rpi-ws281x';
 
 // One time initialization
-ws281x.configure({leds:16});
-
+ledHandler.configure({ leds: 3 });
 
 // Create my pixels
-var pixels = new Uint32Array(16);
+const pixels = new Uint32Array(3);
 
 // Render pixels to the Neopixel strip
 ws281x.render(pixels);
