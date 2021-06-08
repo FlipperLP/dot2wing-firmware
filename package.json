@@ -24,7 +24,8 @@
     "gpio": "^0.2.10",
     "md5": "^2.3.0",
     "ws": "^7.4.6",
-    "rpi-ws281x-native": "1.0.3"
+    "wspromisify": "^2.4.1",
+    "rpi-ws281x": "^1.0.36"
   },
   "devDependencies": {
     "eslint": "^7.28.0",
