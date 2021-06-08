@@ -11,7 +11,7 @@
     "neopixel": {
       "ammount": 1,
       "options": {
-        "stripType": "ws2812",
+        "stripType": "ws2812b",
         "dma": 10,
         "freq": 800000,
         "gpio": 18,
