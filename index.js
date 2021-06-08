@@ -7,7 +7,7 @@ ledHandler.configure({
 });
 
 // Create my pixels
-const pixels = new Uint32Array(3);
+const pixels = new Uint32Array(15);
 
 const red = 255;
 const green = 0;
