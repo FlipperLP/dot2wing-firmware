@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --experimental-json-modules --experimental-specifier-resolution=node index.js",
-    "debug": "node --experimental-json-modules --experimental-specifier-resolution=node debug.js"
+    "start": "node --experimental-json-modules --experimental-specifier-resolution=node index.js"
   },
   "type": "module",
   "repository": {
