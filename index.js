@@ -106,6 +106,7 @@ WSconnection.onmessage = (msg) => {
   if (response.result) return loginSession('afterLogin', response.result);
   if (response.responseType === 'playbacks') return callbackData(response);
   // FIXME: to awoid having too many sessions, check how to reuse old one in maweb
+  // TODO: check if dot2 died
 };
 
 // post error
