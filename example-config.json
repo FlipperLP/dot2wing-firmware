@@ -1,9 +1,22 @@
 {
-    "maweb": {
-      "endpoint": "1.1.1.1",
-      "creds": {
-        "username": "remote",
-        "password": "password"
+  "maweb": {
+    "endpoint": "localhost",
+    "creds": {
+      "username": "remote",
+      "password": "password"
+    },
+    "keepAlive": 10000
+  },
+  "controller": {
+    "neopixel": {
+      "ammount": 1,
+      "options": {
+        "stripType": "ws2812",
+        "dma": 10,
+        "freq": 800000,
+        "gpio": 18,
+        "brightness": 255
       }
     }
   }
+}
