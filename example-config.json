@@ -2,7 +2,7 @@
     "maweb": {
       "endpoint": "1.1.1.1",
       "creds": {
-        "username": "user",
+        "username": "remote",
         "password": "password"
       }
     }
