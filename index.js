@@ -3,7 +3,7 @@ import ledHandler from 'rpi-ws281x';
 
 // One time initialization
 ledHandler.configure({
-  leds: 3, gpio: 17, brightness: 100, dma: 10, stripType: 'grb',
+  leds: 3, gpio: 18, brightness: 100, dma: 10, stripType: 'grb',
 });
 
 // Create my pixels
