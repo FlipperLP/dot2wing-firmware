@@ -37,5 +37,3 @@ export function setFader(session, faderValue, execIndex) {
 export function getSetSession(value) {
   sendWebsocket({ session: value || 0 });
 }
-
-// export { setButton,  };
