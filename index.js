@@ -21,7 +21,3 @@ pixels.forEach((plx, i) => {
 
 // Render pixels to the Neopixel strip
 ledHandler.render(pixels);
-
-const myEmitter = new EventEmitter();
-
-myEmitter.on('eventOne');
