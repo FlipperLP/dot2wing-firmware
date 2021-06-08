@@ -17,14 +17,12 @@ const color = (red << 16) | (green << 8) | blue;
 // eslint-disable-next-line no-bitwise
 const colorBlack = (green << 16) | (green << 8) | blue;
 
-while (true) {
-  pixels.forEach((plx, i) => {
-    setInterval(() => {
-      pixels[i - 1] = colorBlack;
-      pixels[i] = color;
-      ledHandler.render(pixels);
-    }, 500);
-  });
-}
+pixels.forEach((plx, i) => {
+  setInterval(() => {
+    pixels[i - 1] = colorBlack;
+    pixels[i] = color;
+    ledHandler.render(pixels);
+  }, 500);
+});
 
 // Render pixels to the Neopixel strip
