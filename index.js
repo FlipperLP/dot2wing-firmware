@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 // eslint-disable-next-line import/no-unresolved
 import ledHandler from 'rpi-ws281x';
 
@@ -9,15 +10,9 @@ ledHandler.configure({
 // Create my pixels
 const pixels = new Uint32Array(3);
 
-const red = 255;
-const green = 0;
-const blue = 0;
-// eslint-disable-next-line no-bitwise
-const color = (red << 16) | (green << 8) | blue;
-
-pixels.forEach((plx, i) => {
-  pixels[i] = color;
-});
+pixels[i] = (255 << 16) | (0 << 8) | 0;
+pixels[1] = (0 << 16) | (255 << 8) | 0;
+pixels[2] = (0 << 16) | (0 << 8) | 255;
 
 // Render pixels to the Neopixel strip
 ledHandler.render(pixels);
