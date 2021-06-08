@@ -20,4 +20,4 @@ pixels.forEach((plx, i) => {
 });
 
 // Render pixels to the Neopixel strip
-ws281x.render(pixels);
+ledHandler.render(pixels);
