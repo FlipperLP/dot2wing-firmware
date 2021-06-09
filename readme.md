@@ -22,3 +22,4 @@
 
 - display: <https://www.npmjs.com/package/sh1106-js>
 - parse correct values
+- clean up index.js stuff
