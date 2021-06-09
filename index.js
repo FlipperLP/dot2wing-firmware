@@ -42,11 +42,13 @@ function callbackData(rawData) {
 function debugLoop() {
   let val = false;
   setInterval(() => {
+    // get a random button
+    const randomChoice = `${Math.floor(Math.random() * 2) + 1}0${Math.floor(Math.random() * 6) + 1}`;
     // call data to get playback info
-    setButton(val, 101, 0);
-    console.debug('set button to', val);
+    setButton(config.maweb.activeSession, val, randomChoice, 0);
+    console.debug('set button', randomChoice, 'to', val);
     val = !val;
-  }, 1000);
+  }, 100);
 }
 
 // login provided session
