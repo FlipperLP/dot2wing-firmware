@@ -20,11 +20,11 @@
   "homepage": "https://github.com/FlipperLP/dot2wing-firmware#readme",
   "dependencies": {
     "auto-git-update": "^1.0.6",
-    "gpio": "^0.2.10",
     "md5": "^2.3.0",
+    "rpi-ws281x": "^1.0.36",
+    "rpio": "^2.4.2",
     "ws": "^7.4.6",
-    "wspromisify": "^2.4.1",
-    "rpi-ws281x": "^1.0.36"
+    "wspromisify": "^2.4.1"
   },
   "devDependencies": {
     "eslint": "^7.28.0",
