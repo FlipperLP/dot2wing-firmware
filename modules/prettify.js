@@ -1,7 +1,7 @@
 function parseButton(rawButton) {
   const button = {};
   button.name = rawButton.tt.t;
-  button.isRun = rawButton.isRun === 1;
+  button.isRun = !!rawButton.isRun;
   button.empty = rawButton.i.c === '#000000';
   button.color = rawButton.bdC;
   return button;
@@ -24,7 +24,7 @@ function parseFader(rawFader) {
   output.fader = {};
   const execBlocks = rawFader.executorBlocks[0];
   output.fader.name = rawFader.tt.t;
-  output.fader.isRun = rawFader.isRun === 1;
+  output.fader.isRun = !!rawFader.isRun;
   output.fader.empty = rawFader.i.c === '#000000';
   output.fader.color = rawFader.bdC;
   output.fader.value = execBlocks.fader.v;
