@@ -10,7 +10,6 @@
 - download repo
 - (try without first: `install npm install -g node-gyp`)
 - install node version 14: `curl -sSL https://deb.nodesource.com/setup_14.x | sudo bash - && sudo apt install -y nodejs`
-- 
 
 ## Troubbleshooting
 
@@ -23,3 +22,6 @@
 - display: <https://www.npmjs.com/package/sh1106-js>
 - parse correct values
 - clean up index.js stuff
+- implement ADC
+- row switcher
+- put stuff from hardcode into config
