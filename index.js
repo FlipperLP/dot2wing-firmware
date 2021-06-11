@@ -8,7 +8,8 @@ function test() {
     rpio.write(16, 1);
     rpio.msleep(10);
     /* Off for half a second (500ms) */
-    rpio.write(16, 0);
+    const test = rpio.write(16, 0);
+    console.log(test);
     rpio.msleep(10);
   }
 }
