@@ -73,7 +73,7 @@ function heartbeatLoop() {
 function mainLoop() {
   setInterval(() => {
     getPlayback();
-  }, 100);
+  }, 30);
 }
 
 function debugLoop() {
