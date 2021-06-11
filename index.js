@@ -1,10 +1,14 @@
 import rpio from 'rpio';
 
-import config from './config.json';
+config.controller.gpio.buttons.input.forEach((row) => {
+  rpio.open(row, rpio.INPUT, rpio.PULL_UP);
+});
 
 config.controller.gpio.buttons.output.forEach((row) => {
   rpio.open(row, rpio.OUTPUT, rpio.LOW);
 });
+
+// rpio.open(16, rpio.OUTPUT, rpio.LOW);
 
 function test() {
   for (let i = 0; i < 6000; i++) {
