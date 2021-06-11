@@ -25,6 +25,7 @@ function readPin(pin) {
   }
 }
 
+// check for new input
 function test() {
   const vals = new Array(8);
   vals.fill(true, 0, 8);
@@ -53,17 +54,14 @@ function test() {
       });
     }
   }, 100);
-  // for (let i = 0; i < 6000; i++) {
-
-  // }
 }
 
 function init() {
-  config.controller.gpio.buttons.input.forEach((row) => {
+  input.forEach((row) => {
     rpio.open(row, rpio.INPUT, rpio.PULL_UP);
   });
 
-  config.controller.gpio.buttons.output.forEach((row) => {
+  output.forEach((row) => {
     rpio.open(row, rpio.OUTPUT, rpio.LOW);
   });
 
