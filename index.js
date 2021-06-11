@@ -1,14 +1,13 @@
-import { WSconnection } from './modules/webSocket';
+import rpio from 'rpio';
 
-import { loginSession, websocketAnswer } from './modules/maRemote';
+rpio.open(16, rpio.OUTPUT, rpio.LOW);
 
-// open websocket
-WSconnection.onopen = () => loginSession();
+for (let i = 0; i < 6000; i++) {
+  /* On for 1 second */
+  rpio.write(16, 1);
+  rpio.msleep(10);
 
-// websocket emitter
-WSconnection.onmessage = (msg) => websocketAnswer(msg);
-WSconnection.onerror = (error) => console.log(`WebSocket error: ${error}`);
-WSconnection.onclose = () => {
-  console.error('Disconnected! Exiting...');
-  process.exit(1);
-};
+  /* Off for half a second (500ms) */
+  rpio.write(16, 0);
+  rpio.msleep(10);
+}
