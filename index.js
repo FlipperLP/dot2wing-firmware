@@ -11,6 +11,7 @@ function test() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       rpio.write(16, Number(binary[0]));
+      rpio.msleep(10);
     }
   }, 100);
   // for (let i = 0; i < 6000; i++) {
