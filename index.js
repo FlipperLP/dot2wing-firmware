@@ -1,6 +1,6 @@
 import rpio from 'rpio';
 
-// rpio.open(16, rpio.OUTPUT, rpio.LOW);
+rpio.open(16, rpio.OUTPUT, rpio.LOW);
 
 for (let i = 0; i < 6000; i++) {
   /* On for 1 second */
