@@ -7,7 +7,7 @@ import { parseValues } from './prettify';
 // eslint-disable-next-line import/no-cycle
 import { initGPIO } from './gpio';
 
-import { initPixel } from './neopixel';
+import { setPixel } from './neopixel';
 
 import config from '../config.json';
 
