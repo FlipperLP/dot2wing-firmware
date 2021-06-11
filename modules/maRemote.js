@@ -4,6 +4,9 @@ import { sendWebsocket } from './webSocket';
 
 import { parseValues } from './prettify';
 
+// eslint-disable-next-line import/no-cycle
+import { initGPIO } from './gpio';
+
 import config from '../config.json';
 
 let session;
@@ -118,6 +121,8 @@ export function loginSession(requestType, argument) {
       heartbeatLoop();
       mainLoop();
       if (process.env.debug) debugLoop();
+      // initialize gpio
+      if (!process.env.debug) initGPIO();
       break;
     default:
       setSession();
