@@ -7,6 +7,15 @@ function dec2bin(dec) {
 }
 
 function test() {
+  const vals = new Array(8);
+  vals.fill(true, 0, 8);
+  const vals2 = new Array(8);
+  vals2.fill(true, 0, 8);
+  // const prevAvlues = new Array(input.length);
+  const prevAvlues = [];
+  // prevAvlues.fill(vals, 0, input.length);
+  prevAvlues.push(vals);
+  prevAvlues.push(vals2);
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
