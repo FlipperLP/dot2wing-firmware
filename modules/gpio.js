@@ -4,44 +4,76 @@ import config from '../config.json';
 
 import { setButton, setFader } from './maRemote';
 
-const checkRows = config.controller.gpio.buttons.rows;
+const input = config.controller.gpio.buttons.input;
+
+const output = config.controller.gpio.buttons.output;
+
+function dec2bin(dec) {
+  // eslint-disable-next-line no-bitwise
+  return (dec >>> 0).toString(2).split('');
+}
 
 function sendButton(value, buttonIndex, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
-  const key = toString(`${buttonRow}0${9 - buttonIndex}`);
+  const key = `${buttonRow}0${9 - buttonIndex}`;
   setButton(value, key, 0);
+}
+
+function setBin(bin) {
+  switch (bin) {
+    case 0: return rpio.LOW;
+    case 1: return rpio.HIGH;
+    default: return null;
+  }
+}
+
+function readPin(pin) {
+  const newVal = rpio.read(pin);
+  console.log(newVal);
+  switch (newVal) {
+    case 'high': return true;
+    case 'low': return false;
+    default: return null;
+  }
 }
 
 // check for new input
 function checkNewButton() {
-  // TODO: remove +1 if offset
-  const previusValues = [];
-  previusValues.fill(true, 0, 7);
+  const vals = new Array(8);
+  vals.fill(false, 0, 8);
+  const vals2 = new Array(8);
+  vals2.fill(false, 0, 8);
+  // const prevAvlues = new Array(input.length);
+  const prevAvlues = [];
+  // prevAvlues.fill(vals, 0, input.length);
+  prevAvlues.push(vals);
+  prevAvlues.push(vals2);
   setInterval(() => {
-    config.controller.gpio.buttons.rows.forEach((pin, row) => {
-      for (let i = 0; i <= 7; i++) {
-        // TODO: Ask waht need to send
-        rpio.write(pin, rpio.HIGH);
-        rpio.msleep(1);
-        // read value
-        const newVal = rpio.read(pin);
-        console.log(newVal);
-        const valBool = !!newVal;
+    for (let collum = 0; collum <= 7; collum++) {
+      const binary = dec2bin(collum);
+      output.forEach((pin, i) => rpio.write(pin, setBin(binary[i])));
+      rpio.msleep(1);
+      // read value
+      input.forEach((pin, row) => {
+        const newVal = readPin(pin);
         // check difference
-        if (previusValues[i] === valBool) {
-          previusValues[i] = valBool;
-          sendButton(valBool, i + 1, row + 1);
+        if (prevAvlues[row][collum] !== newVal) {
+          prevAvlues[row][collum] = newVal;
+          sendButton(newVal, collum + 1, row + 1);
         }
-      }
-    });
+      });
+    }
   }, 10);
 }
 
 export function initGPIO() {
   rpio.init({ mock: config.controller.gpio.mock });
   // define gpio pins
-  checkRows.forEach((row) => {
-    rpio.open(row, rpio.OUTPUT, rpio.PULL_UP);
+  input.forEach((row) => {
+    rpio.open(row, rpio.INPUT, rpio.PULL_UP);
+  });
+  output.forEach((row) => {
+    rpio.open(row, rpio.OUTPUT);
   });
   // start loop
   checkNewButton();
