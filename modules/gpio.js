@@ -22,10 +22,9 @@ function sendButton(value, buttonIndex, buttonRow) {
 
 function readPin(pin) {
   const newVal = rpio.read(pin);
-  console.log(newVal);
   switch (newVal) {
-    case 'high': return true;
-    case 'low': return false;
+    case 1: return true;
+    case 0: return false;
     default: return null;
   }
 }
