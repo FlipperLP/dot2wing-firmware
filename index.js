@@ -4,12 +4,10 @@ import config from './config.json';
 
 function test() {
   setInterval(() => {
-    /* On for 1 second */
-    rpio.write(16, 1);
-    rpio.msleep(10);
-    /* Off for half a second (500ms) */
-    rpio.write(16, 0);
-    rpio.msleep(10);
+    for (let collum = 0; collum < 7; collum++) {
+      rpio.write(16, 1);
+      rpio.msleep(10);
+    }
   }, 100);
   // for (let i = 0; i < 6000; i++) {
 
