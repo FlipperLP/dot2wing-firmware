@@ -10,11 +10,7 @@ function test() {
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
-      console.log(binary);
-      rpio.write(16, 1);
-      rpio.msleep(10);
-      rpio.write(16, 0);
-      rpio.msleep(10);
+      rpio.write(16, Number(binary[0]));
     }
   }, 100);
   // for (let i = 0; i < 6000; i++) {
