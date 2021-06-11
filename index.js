@@ -1,27 +1,19 @@
-import ledHandler from 'rpi-ws281x';
+import { WSconnection } from './modules/webSocket';
 
-import config from './config.json';
+import { loginSession, websocketAnswer } from './modules/maRemote';
 
-// One time initialization
-ledHandler.configure(config.controller.neopixel.options);
+import { initPixel } from './modules/neopixel';
 
-// Create my pixels
-const pixels = new Uint32Array(config.controller.neopixel.options.leds);
+// open websocket
+WSconnection.onopen = () => loginSession();
 
-const red = 255;
-const green = 0;
-const blue = 0;
-// eslint-disable-next-line no-bitwise
-const color = (red << 16) | (green << 8) | blue;
-// eslint-disable-next-line no-bitwise
-const colorBlack = (green << 16) | (green << 8) | blue;
+// init pixel
+initPixel();
 
-pixels.forEach((plx, i) => {
-  setTimeout(() => {
-    // pixels.map((x) => colorBlack);
-    pixels.forEach((something, i) => pixels[i] = colorBlack);
-    // Render pixels to the Neopixel strip
-    pixels[i] = color;
-    ledHandler.render(pixels);
-  }, 500 * i);
-});
+// websocket emitter
+WSconnection.onmessage = (msg) => websocketAnswer(msg);
+WSconnection.onerror = (error) => console.log(`WebSocket error: ${error}`);
+WSconnection.onclose = () => {
+  console.error('Disconnected! Exiting...');
+  process.exit(1);
+};

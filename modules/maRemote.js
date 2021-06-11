@@ -7,6 +7,8 @@ import { parseValues } from './prettify';
 // eslint-disable-next-line import/no-cycle
 import { initGPIO } from './gpio';
 
+import { initPixel } from './neopixel';
+
 import config from '../config.json';
 
 let session;
@@ -91,6 +93,8 @@ function debugLoop() {
 // get Data from playback
 function playbackData(rawData) {
   const cleanData = parseValues(rawData);
+  // console.log(cleanData);
+  setPixel(cleanData);
   // console.log(cleanData[0][0].name, cleanData[0][0].isRun);
   // console.log(cleanData[1][0].name, cleanData[1][0].isRun);
   // console.log(cleanData.fader[0].fader.name, cleanData.fader[0].fader.value);
@@ -122,7 +126,9 @@ export function loginSession(requestType, argument) {
       mainLoop();
       if (process.env.debug) debugLoop();
       // initialize gpio
-      initGPIO();
+      if (!process.env.debug) {
+        initGPIO();
+      }
       break;
     default:
       setSession();
