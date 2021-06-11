@@ -52,7 +52,7 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       output.forEach((pin, i) => rpio.write(pin, setBin(binary[i])));
-      rpio.msleep(1);
+      rpio.msleep(10);
       // read value
       input.forEach((pin, row) => {
         const newVal = readPin(pin);
@@ -63,7 +63,7 @@ function checkNewButton() {
         }
       });
     }
-  }, 10);
+  }, 100);
 }
 
 export function initGPIO() {
