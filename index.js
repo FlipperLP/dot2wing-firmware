@@ -11,8 +11,8 @@ function test() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       rpio.write(16, Number(binary[0]));
-      rpio.write(18, Number(binary[1]));
-      rpio.write(22, Number(binary[2]));
+      rpio.write(18, Number(binary[1]) || 0);
+      rpio.write(22, Number(binary[2]) || 0);
       rpio.msleep(10);
     }
   }, 100);
