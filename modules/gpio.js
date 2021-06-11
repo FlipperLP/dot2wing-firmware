@@ -71,6 +71,8 @@ export function initGPIO() {
   output.forEach((row) => {
     rpio.open(row, rpio.OUTPUT, rpio.LOW);
   });
+  rpio.write(16, 0);
+
   // start loop
   checkNewButton();
 }
