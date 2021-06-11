@@ -21,7 +21,6 @@ function sendButton(value, buttonIndex, buttonRow) {
 
 function readPin(pin) {
   const newVal = rpio.read(pin);
-  // console.log(newVal);
   switch (newVal) {
     case 'high': return true;
     case 'low': return false;
@@ -71,7 +70,6 @@ export function initGPIO() {
   output.forEach((row) => {
     rpio.open(row, rpio.OUTPUT, rpio.LOW);
   });
-  rpio.open(16, rpio.OUTPUT, rpio.LOW);
   // start loop
   checkNewButton();
 }
