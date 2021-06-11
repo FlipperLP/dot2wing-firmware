@@ -44,7 +44,7 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum).reverse();
       // output.forEach((pin, i) => );
-      console.log(binary[1]);
+      console.log(binary[1] || 0);
       rpio.write(16, binary[0] || 0);
       rpio.write(18, binary[1] || 0);
       rpio.write(22, binary[2] || 0);
