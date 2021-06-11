@@ -32,9 +32,9 @@ function readPin(pin) {
 // check for new input
 function checkNewButton() {
   const vals = new Array(8);
-  vals.fill(true, 0, 8);
+  vals.fill(false, 0, 8);
   const vals2 = new Array(8);
-  vals2.fill(true, 0, 8);
+  vals2.fill(false, 0, 8);
   // const prevAvlues = new Array(input.length);
   const prevAvlues = [];
   // prevAvlues.fill(vals, 0, input.length);
