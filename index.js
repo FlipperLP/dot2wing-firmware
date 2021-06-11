@@ -6,6 +6,21 @@ function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
 }
 
+function sendButton(value, buttonIndex, buttonRow) {
+  // TODO: Fix overflow with to 0 in the middle
+  const key = `${buttonRow}0${9 - buttonIndex}`;
+  console.log(value, key, 0);
+}
+
+function readPin(pin) {
+  const newVal = rpio.read(pin);
+  switch (newVal) {
+    case 'high': return true;
+    case 'low': return false;
+    default: return null;
+  }
+}
+
 function test() {
   const vals = new Array(8);
   vals.fill(true, 0, 8);
@@ -23,6 +38,15 @@ function test() {
       rpio.write(18, Number(binary[1]) || 0);
       rpio.write(22, Number(binary[2]) || 0);
       rpio.msleep(10);
+      // read value
+      input.forEach((pin, row) => {
+        const newVal = readPin(pin);
+        // check difference
+        if (prevAvlues[row][collum] !== newVal) {
+          prevAvlues[row][collum] = newVal;
+          sendButton(newVal, collum + 1, row + 1);
+        }
+      });
     }
   }, 100);
   // for (let i = 0; i < 6000; i++) {
