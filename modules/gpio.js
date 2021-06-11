@@ -67,7 +67,7 @@ function checkNewButton() {
 }
 
 export function initGPIO() {
-  rpio.init({ mock: config.controller.gpio.mock });
+  if (!process.env.debug) rpio.init({ mock: config.controller.gpio.mock });
   // define gpio pins
   input.forEach((row) => {
     rpio.open(row, rpio.INPUT, rpio.PULL_UP);
