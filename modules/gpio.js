@@ -44,7 +44,7 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       // output.forEach((pin, i) => );
-      console.log(Number(binary[2]) || 0);
+      // console.log(Number(binary[2]) || 0);
       rpio.write(16, 0);
       rpio.write(18, 0);
       rpio.write(22, 0);
@@ -63,19 +63,15 @@ function checkNewButton() {
 }
 
 export function initGPIO() {
-  if (!process.env.debug) rpio.init({ mock: config.controller.gpio.mock });
+  rpio.init({ mock: config.controller.gpio.mock });
   // define gpio pins
-  // input.forEach((row) => {
-  //   rpio.open(row, rpio.INPUT, rpio.PULL_UP);
-  // });
-  // output.forEach((row) => {
-  //   rpio.open(row, rpio.OUTPUT, rpio.LOW);
-  // });
+  input.forEach((row) => {
+    rpio.open(row, rpio.INPUT, rpio.PULL_UP);
+  });
+  output.forEach((row) => {
+    rpio.open(row, rpio.OUTPUT, rpio.LOW);
+  });
   rpio.open(16, rpio.OUTPUT, rpio.LOW);
-  // console.log('asdfasfsadf');
-  const output = rpio.write(16, rpio.LOW);
-  console.log(output);
-
   // start loop
   checkNewButton();
 }

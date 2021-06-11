@@ -122,7 +122,7 @@ export function loginSession(requestType, argument) {
       mainLoop();
       if (process.env.debug) debugLoop();
       // initialize gpio
-      if (!process.env.debug) initGPIO();
+      initGPIO();
       break;
     default:
       setSession();
