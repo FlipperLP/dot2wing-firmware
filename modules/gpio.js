@@ -71,8 +71,10 @@ export function initGPIO() {
   // output.forEach((row) => {
   //   rpio.open(row, rpio.OUTPUT, rpio.LOW);
   // });
-  // const output = rpio.write(16, 0);
-  // console.log(output);
+  rpio.open(16, rpio.OUTPUT, rpio.LOW);
+  console.log('asdfasfsadf');
+  const output = rpio.write(16, 0);
+  console.log(output);
 
   // start loop
   checkNewButton();
