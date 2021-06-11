@@ -24,7 +24,7 @@ function setBin(bin) {
   switch (bin) {
     case 0: return rpio.LOW;
     case 1: return rpio.HIGH;
-    default: return null;
+    default: return rpio.LOW;
   }
 }
 
@@ -68,14 +68,14 @@ function checkNewButton() {
 }
 
 export function initGPIO() {
-  if (!process.env.debug) rpio.init({ mock: config.controller.gpio.mock });
-  // define gpio pins
-  input.forEach((row) => {
-    rpio.open(row, rpio.INPUT, rpio.PULL_UP);
-  });
-  output.forEach((row) => {
-    rpio.open(row, rpio.OUTPUT);
-  });
+  // if (!process.env.debug) rpio.init({ mock: config.controller.gpio.mock });
+  // // define gpio pins
+  // input.forEach((row) => {
+  //   rpio.open(row, rpio.INPUT, rpio.PULL_UP);
+  // });
+  // output.forEach((row) => {
+  //   rpio.open(row, rpio.OUTPUT);
+  // });
   // start loop
   checkNewButton();
 }
