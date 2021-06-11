@@ -7,7 +7,7 @@ import { parseValues } from './prettify';
 // eslint-disable-next-line import/no-cycle
 import { initGPIO } from './gpio';
 
-import { setPixel } from './neopixel';
+import { setPixels } from './neopixel';
 
 import config from '../config.json';
 
@@ -94,7 +94,7 @@ function debugLoop() {
 function playbackData(rawData) {
   const cleanData = parseValues(rawData);
   // console.log(cleanData);
-  setPixel(cleanData);
+  setPixels(cleanData);
   // console.log(cleanData[0][0].name, cleanData[0][0].isRun);
   // console.log(cleanData[1][0].name, cleanData[1][0].isRun);
   // console.log(cleanData.fader[0].fader.name, cleanData.fader[0].fader.value);

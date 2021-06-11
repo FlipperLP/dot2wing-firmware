@@ -24,8 +24,26 @@ const pixels = new Uint32Array(config.controller.neopixel.options.leds);
 //   }, 500 * i);
 // });
 
-export function setPixel(data) {
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16),
+  } : null;
+}
 
+export function setPixels(data) {
+  data[0].forEach((button, i) => {
+    const color = hexToRgb(button.color);
+    // eslint-disable-next-line no-bitwise
+    let setColor = (color.r << 16) | (color.g << 8) | color.b;
+    // eslint-disable-next-line no-bitwise
+    if (!button.isRun) setColor = (color.r * 0.2 << 16) | (color.g * 0.2 << 8) | color.b * 0.2;
+    if (button.empty) setColor = 0;
+    pixels[i] = setColor;
+  });
+  ledHandler.render(pixels);
 }
 
 export function initPixel() {
