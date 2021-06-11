@@ -2,6 +2,10 @@ import rpio from 'rpio';
 
 import config from './config.json';
 
+const input = config.controller.gpio.buttons.input;
+
+const output = config.controller.gpio.buttons.output;
+
 function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
 }
