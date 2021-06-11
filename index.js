@@ -28,9 +28,9 @@ function readPin(pin) {
 // check for new input
 function checkNewButton() {
   const vals = new Array(8);
-  vals.fill(false, 0, 8);
+  vals.fill(true, 0, 8);
   const vals2 = new Array(8);
-  vals2.fill(false, 0, 8);
+  vals2.fill(true, 0, 8);
   // const prevAvlues = new Array(input.length);
   const prevAvlues = [];
   // prevAvlues.fill(vals, 0, input.length);
@@ -40,7 +40,7 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       // output.forEach((pin, i) => );
-      // console.log(Number(binary[2]) || 0);
+      console.log(Number(binary[2]) || 0);
       rpio.write(16, Number(binary[0]));
       rpio.write(18, Number(binary[1]));
       rpio.write(22, Number(binary[1]));
