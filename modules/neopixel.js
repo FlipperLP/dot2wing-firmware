@@ -2,6 +2,8 @@ import ledHandler from 'rpi-ws281x';
 
 import config from '../config.json';
 
+const pixels = new Uint32Array(config.controller.neopixel.options.leds);
+
 // Create pixels
 
 // const red = 255;
@@ -23,7 +25,6 @@ import config from '../config.json';
 // });
 
 export function setPixel(data) {
-  const pixels = new Uint32Array(config.controller.neopixel.options.leds);
 
 }
 
