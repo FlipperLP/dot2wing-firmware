@@ -1,4 +1,4 @@
-import ledHandler from 'rpi-ws281x';
+// import ledHandler from 'rpi-ws281x';
 
 // One time initialization
 ledHandler.configure({

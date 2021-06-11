@@ -1,4 +1,4 @@
-import ledHandler from 'rpi-ws281x';
+// import ledHandler from 'rpi-ws281x';
 
 import rawConfig from '../../config.json';
 
