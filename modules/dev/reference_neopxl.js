@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import ledHandler from 'rpi-ws281x';
 
 // One time initialization
@@ -21,9 +20,8 @@ pixels.forEach((plx, i) => {
   setTimeout(() => {
     // pixels.map((x) => colorBlack);
     pixels.forEach((something, i) => pixels[i] = colorBlack);
+    // Render pixels to the Neopixel strip
     pixels[i] = color;
     ledHandler.render(pixels);
   }, 500 * i);
 });
-
-// Render pixels to the Neopixel strip
