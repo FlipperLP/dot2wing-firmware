@@ -42,9 +42,9 @@ function checkNewButton() {
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
-      rpio.write(16, Number(binary[0]));
-      rpio.write(18, Number(binary[1]) || 0);
-      rpio.write(22, Number(binary[2]) || 0);
+      // rpio.write(16, Number(binary[0]));
+      // rpio.write(18, Number(binary[1]) || 0);
+      output.forEach((pin, i) => rpio.write(pin, Number(binary[i]) || 0));
       rpio.msleep(10);
       // read value
       input.forEach((pin, row) => {
