@@ -69,7 +69,7 @@ export function initGPIO() {
     rpio.open(row, rpio.INPUT, rpio.PULL_UP);
   });
   output.forEach((row) => {
-    rpio.open(row, rpio.OUTPUT);
+    rpio.open(row, rpio.OUTPUT, rpio.LOW);
   });
   // start loop
   checkNewButton();
