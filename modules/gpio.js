@@ -47,7 +47,7 @@ function checkNewButton() {
       rpio.msleep(10);
       // read value
       input.forEach((pin, row) => {
-        const newVal = readPin(pin);
+        const newVal = !readPin(pin);
         // check difference
         if (prevAvlues[row][collum] !== newVal) {
           prevAvlues[row][collum] = newVal;
