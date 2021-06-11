@@ -16,6 +16,7 @@ function dec2bin(dec) {
 function sendButton(value, buttonIndex, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
   const key = `${buttonRow}0${9 - buttonIndex}`;
+  console.log(value, key, 0);
   setButton(value, key, 0);
 }
 
@@ -42,8 +43,6 @@ function checkNewButton() {
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
-      // rpio.write(16, Number(binary[0]));
-      // rpio.write(18, Number(binary[1]) || 0);
       output.forEach((pin, i) => rpio.write(pin, Number(binary[i]) || 0));
       rpio.msleep(10);
       // read value
