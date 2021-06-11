@@ -53,9 +53,9 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       // output.forEach((pin, i) => );
-      rpio.write(16, 1 ? rpio.HIGH : rpio.LOW);
-      rpio.write(18, 0 ? rpio.HIGH : rpio.LOW);
-      rpio.write(22, 1 ? rpio.HIGH : rpio.LOW);
+      rpio.write(16, rpio.HIGH);
+      rpio.write(18, rpio.LOW);
+      rpio.write(22, rpio.HIGH);
       rpio.msleep(10);
       // read value
       input.forEach((pin, row) => {
