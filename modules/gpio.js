@@ -72,8 +72,8 @@ export function initGPIO() {
   //   rpio.open(row, rpio.OUTPUT, rpio.LOW);
   // });
   rpio.open(16, rpio.OUTPUT, rpio.LOW);
-  console.log('asdfasfsadf');
-  const output = rpio.write(16, 0);
+  // console.log('asdfasfsadf');
+  const output = rpio.write(16, rpio.LOW);
   console.log(output);
 
   // start loop
