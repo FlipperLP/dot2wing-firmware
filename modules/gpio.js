@@ -20,17 +20,9 @@ function sendButton(value, buttonIndex, buttonRow) {
   setButton(value, key, 0);
 }
 
-function setBin(bin) {
-  switch (bin) {
-    case 0: return rpio.LOW;
-    case 1: return rpio.HIGH;
-    default: return rpio.LOW;
-  }
-}
-
 function readPin(pin) {
   const newVal = rpio.read(pin);
-  console.log(newVal);
+  // console.log(newVal);
   switch (newVal) {
     case 'high': return true;
     case 'low': return false;
@@ -53,9 +45,10 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       // output.forEach((pin, i) => );
-      rpio.write(16);
-      rpio.write(18, rpio.LOW);
-      rpio.write(22, rpio.HIGH);
+      console.log(binary);
+      rpio.write(16, binary[0]);
+      rpio.write(18, binary[1]);
+      rpio.write(22, binary[2]);
       rpio.msleep(10);
       // read value
       input.forEach((pin, row) => {
