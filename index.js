@@ -26,7 +26,7 @@ function readPin(pin) {
 }
 
 // check for new input
-function test() {
+function checkNewButton() {
   const vals = new Array(8);
   vals.fill(true, 0, 8);
   const vals2 = new Array(8);
@@ -65,7 +65,7 @@ function init() {
     rpio.open(row, rpio.OUTPUT, rpio.LOW);
   });
 
-  test();
+  checkNewButton();
 }
 
 init();
