@@ -2,6 +2,7 @@ import rpio from 'rpio';
 
 import config from '../config.json';
 
+// eslint-disable-next-line import/no-cycle
 import { setButton, setFader } from './maRemote';
 
 const input = config.controller.gpio.buttons.input;
