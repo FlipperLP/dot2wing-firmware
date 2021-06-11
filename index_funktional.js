@@ -56,16 +56,17 @@ function checkNewButton() {
   }, 100);
 }
 
-function init() {
+function initGPIO() {
+  // rpio.init({ mock: config.controller.gpio.mock });
+  // define gpio pins
   input.forEach((row) => {
     rpio.open(row, rpio.INPUT, rpio.PULL_UP);
   });
-
   output.forEach((row) => {
     rpio.open(row, rpio.OUTPUT, rpio.LOW);
   });
-
+  // start loop
   checkNewButton();
 }
 
-init();
+initGPIO();
