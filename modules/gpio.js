@@ -10,7 +10,7 @@ const input = config.controller.gpio.buttons.input;
 const output = config.controller.gpio.buttons.output;
 
 function dec2bin(dec) {
-  return Number(Number(dec).toString(2)).split('');
+  return Number(dec).toString(2).split('');
 }
 
 function sendButton(value, buttonIndex, buttonRow) {
@@ -44,7 +44,7 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum).reverse();
       // output.forEach((pin, i) => );
-      console.log(binary[2] || 0);
+      console.log(Number(binary[2]) || 0);
       rpio.write(16, binary[0] || 0);
       rpio.write(18, binary[1] || 0);
       rpio.write(22, binary[2] || 0);
