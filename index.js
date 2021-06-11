@@ -3,15 +3,17 @@ import rpio from 'rpio';
 import config from './config.json';
 
 function test() {
-  for (let i = 0; i < 6000; i++) {
+  setInterval(() => {
     /* On for 1 second */
     rpio.write(16, 1);
     rpio.msleep(10);
     /* Off for half a second (500ms) */
-    const test = rpio.write(16, 0);
-    console.log(test);
+    rpio.write(16, 0);
     rpio.msleep(10);
-  }
+  }, 100);
+  // for (let i = 0; i < 6000; i++) {
+
+  // }
 }
 
 function init() {
