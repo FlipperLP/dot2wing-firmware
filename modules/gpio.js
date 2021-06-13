@@ -22,11 +22,7 @@ function sendButton(value, buttonIndex, buttonRow) {
 
 function readPin(pin) {
   const newVal = rpio.read(pin);
-  switch (newVal) {
-    case 1: return true;
-    case 0: return false;
-    default: return null;
-  }
+  return !!newVal;
 }
 
 // check for new input
@@ -44,9 +40,10 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       output.forEach((pin, i) => rpio.write(pin, Number(binary[i]) || 0));
-      rpio.msleep(1);
+      rpio.msleep(config.controller.gpio.waitTilRead);
       // read value
       input.forEach((pin, row) => {
+        // reverse input dues to button mapping
         const newVal = !readPin(pin);
         // check difference
         if (prevAvlues[row][collum] !== newVal) {
@@ -55,17 +52,13 @@ function checkNewButton() {
         }
       });
     }
-  }, 30);
+  }, config.controller.gpio.interval);
 }
 
 export function initGPIO() {
   // define gpio pins
-  input.forEach((row) => {
-    rpio.open(row, rpio.INPUT, rpio.PULL_UP);
-  });
-  output.forEach((row) => {
-    rpio.open(row, rpio.OUTPUT, rpio.LOW);
-  });
+  input.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
+  output.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
   // start loop
   checkNewButton();
 }

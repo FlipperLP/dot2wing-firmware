@@ -73,7 +73,7 @@ function heartbeatLoop() {
 function mainLoop() {
   setInterval(() => {
     getPlayback();
-  }, 30);
+  }, config.maweb.refreshRate);
 }
 
 function debugLoop() {
@@ -91,14 +91,8 @@ function debugLoop() {
 }
 
 // get Data from playback
-function playbackData(rawData) {
-  const cleanData = parseValues(rawData);
-  // console.log(cleanData);
-  setPixels(cleanData);
-  // console.log(cleanData[0][0].name, cleanData[0][0].isRun);
-  // console.log(cleanData[1][0].name, cleanData[1][0].isRun);
-  // console.log(cleanData.fader[0].fader.name, cleanData.fader[0].fader.value);
-}
+// TODO: only send on change
+function playbackData(rawData) { setPixels(parseValues(rawData)); }
 
 // login provided session
 export function loginSession(requestType, argument) {
@@ -107,8 +101,9 @@ export function loginSession(requestType, argument) {
       config.maweb.activeSession = argument;
       const creds = config.maweb.creds;
       const username = creds.username;
-      const password = md5(process.env.PASSWORD || creds.password);
+      const password = md5(creds.password);
       sendWebsocket({
+        // TODO: check if maxRequests is needed
         requestType, username, password, session: argument, maxRequests: 10,
       });
       break;
@@ -126,9 +121,7 @@ export function loginSession(requestType, argument) {
       mainLoop();
       if (process.env.debug) debugLoop();
       // initialize gpio
-      if (!process.env.debug) {
-        initGPIO();
-      }
+      if (!process.env.debug) initGPIO();
       break;
     default:
       setSession();
