@@ -85,6 +85,6 @@ export function initOLED() {
 }
 
 export function setOLED(data) {
-  oled.drawRect(0, 0, 128, 60, 'WHITE');
-  oled.writeString(64, 32, font, `${Math.ceil(data.fader[0].fader.value * 100)}%  `, 'WHITE', false);
+  oled.drawRect(0, 0, 128, 64, 'WHITE');
+  oled.writeString(64, 30, font, `${Math.ceil(data.fader[0].fader.value * 100)}%  `, 'WHITE', false);
 }
