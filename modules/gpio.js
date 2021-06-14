@@ -1,5 +1,9 @@
 import rpio from 'rpio';
 
+import Oled from 'sh1106-js';
+
+import font from 'oled-font-5x7';
+
 import config from '../config.json';
 
 // eslint-disable-next-line import/no-cycle
@@ -8,6 +12,8 @@ import { setButton, setFader } from './maRemote';
 const input = config.controller.gpio.buttons.input;
 
 const output = config.controller.gpio.buttons.output;
+
+let oled;
 
 function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
@@ -63,8 +69,17 @@ export function initGPIO() {
   checkNewButton();
 }
 
-// export function setOLED(string) {
-//   rpio
-// }
+function initOLED() {
+  oled = new Oled({ rpio, address: 0x3c });
+  // invert display
+  [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
+  // invert color
+  oled.invertDisplay(false);
+  // clear
+  oled.clearDisplay();
+  oled.dimDisplay(0xff);
+}
 
-export { initGPIO as default };
+export function setOLED(data) {
+  oled.writeString(1, 1, font, `${data.fader[0].fader.value * 100}%`, 'WHITE');
+}
