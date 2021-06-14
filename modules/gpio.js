@@ -82,6 +82,6 @@ export function initOLED() {
 }
 
 export function setOLED(data) {
-  oled.writeString(1, 1, font, `      ${data.fader[0].fader.value * 100}%`, 'WHITE');
   oled.clearDisplay();
+  oled.writeString(1, 1, font, `      ${data.fader[0].fader.value * 100}%`, 'WHITE');
 }
