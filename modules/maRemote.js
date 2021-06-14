@@ -116,12 +116,14 @@ export function loginSession(requestType, argument) {
       else return;
       // inform functions
       setSession(config.maweb.activeSession);
-      // call loops
+      // keep session alive
       heartbeatLoop();
       mainLoop();
-      if (process.env.debug) debugLoop();
-      // initialize gpio
-      if (!process.env.debug) initGPIO();
+      if (!process.env.debug) {
+        // get playback
+        // initialize gpio
+        initGPIO();
+      } else debugLoop();
       break;
     default:
       setSession();
@@ -133,7 +135,7 @@ export function loginSession(requestType, argument) {
 export function websocketAnswer(msg) {
   const response = JSON.parse(msg.data);
   // if (process.env.debug) console.debug(response);
-  if (response.status === 'server ready') return;
+  if (response.status === 'server ready') return config.maweb.appType = response.appType;
   if (response.forceLogin) return loginSession('login', response.session);
   if (response.result) return loginSession('afterLogin', response.result);
   if (response.responseType === 'playbacks') return playbackData(response);

@@ -1,9 +1,9 @@
 {
   "maweb": {
-    "endpoint": "localhost",
+    "endpoint": "192.168.178.31",
     "creds": {
       "username": "remote",
-      "password": "password"
+      "password": "abcd1234"
     },
     "keepAlive": 10000,
     "refreshRate": 30
@@ -16,6 +16,11 @@
         "dma": 10,
         "gpio": 18,
         "brightness": 255
+      },
+      "dot2Color": {
+        "red": 245,
+        "green": 189,
+        "blue": 7
       },
       "isRunMultipier": 0.2
     },
