@@ -5,17 +5,26 @@
       "username": "remote",
       "password": "password"
     },
-    "keepAlive": 10000
+    "keepAlive": 10000,
+    "refreshRate": 30
   },
   "controller": {
     "neopixel": {
-      "ammount": 1,
       "options": {
-        "stripType": "ws2812b",
+        "leds": 8,
+        "stripType": "grb",
         "dma": 10,
-        "freq": 800000,
         "gpio": 18,
         "brightness": 255
+      },
+      "isRunMultipier": 0.2
+    },
+    "gpio": {
+      "interval": 30,
+      "waitTilRead": 1,
+      "buttons": {
+        "input": [29,31],
+        "output": [16,18,22]
       }
     }
   }
