@@ -10,6 +10,6 @@ oled.clearDisplay();
 
 oled.dimDisplay(0xff);
 
-oled.writeString(1, 1, font, 'WHITE', 'Cats and dogs');
+oled.writeString(1, 1, font, 'Cats and dogs', 'WHITE');
 
 oled.turnOnDisplay();
