@@ -5,7 +5,7 @@ import { sendWebsocket } from './webSocket';
 import { parseValues } from './prettify';
 
 // eslint-disable-next-line import/no-cycle
-import { initGPIO, setOLED } from './gpio';
+import { initGPIO, setOLED, initOLED } from './gpio';
 
 import { setPixels } from './neopixel';
 
