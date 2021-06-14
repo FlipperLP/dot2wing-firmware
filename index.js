@@ -4,7 +4,7 @@ import Oled from 'sh1106-js';
 
 import font from 'oled-font-5x7';
 
-const oled = new Oled({ rpio });
+const oled = new Oled({ rpio, address: 0x3d });
 
 oled.clearDisplay();
 
