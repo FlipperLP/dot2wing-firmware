@@ -6,7 +6,7 @@ import font from 'oled-font-5x7';
 
 const oled = new Oled({ rpio, address: 0x3c });
 
-[0xA0, 0xC8].forEach((cmd) => {
+[0xC8].forEach((cmd) => {
   rpio.i2cWrite(Buffer.from([0x00, cmd]));
 });
 
