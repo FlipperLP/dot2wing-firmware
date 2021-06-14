@@ -71,7 +71,7 @@ export function initGPIO() {
 }
 
 export function initOLED() {
-  oled = new Oled({ rpio, address: 0x3c });
+  oled = new Oled({ rpio, address: 0x3c, sync: false });
   // invert display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
   // invert color
@@ -79,6 +79,9 @@ export function initOLED() {
   // clear
   oled.clearDisplay();
   oled.dimDisplay(0xff);
+  oled.update();
+  // setInterval(() => {
+  // }, interval);
 }
 
 export function setOLED(data) {
