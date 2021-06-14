@@ -122,11 +122,12 @@ export function loginSession(requestType, argument) {
       setSession(config.maweb.activeSession);
       // keep session alive
       heartbeatLoop();
-      mainLoop();
       if (!process.env.debug) {
         // get playback
+        mainLoop();
         // initialize gpio
         initGPIO();
+        initOLED();
       } else debugLoop();
       break;
     default:
