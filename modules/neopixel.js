@@ -32,7 +32,6 @@ export function setPixels(data) {
     if (button.empty) setColor = 0;
     pixels[i] = setColor;
   });
-  ledHandler.render(pixels);
 }
 
 export function initPixel() {
@@ -40,5 +39,6 @@ export function initPixel() {
   ledHandler.configure(config.options);
   // reset pixels
   pixels.forEach((plx, i) => pixels[i] = 0);
-  ledHandler.render(pixels);
+  // set interval
+  setInterval(() => ledHandler.render(pixels), 20);
 }

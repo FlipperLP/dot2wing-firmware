@@ -79,9 +79,8 @@ export function initOLED() {
   // clear
   oled.clearDisplay();
   oled.dimDisplay(0xff);
-  setInterval(() => {
-    oled.update();
-  }, 100);
+  // set interval
+  setInterval(() => oled.update(), 100);
 }
 
 export function setOLED(data) {
