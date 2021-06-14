@@ -8,6 +8,8 @@ const oled = new Oled({ rpio, address: 0x78 });
 
 oled.clearDisplay();
 
-// oled.dimDisplay(0xff);
+oled.dimDisplay(0xff);
 
 oled.writeString(1, 1, font, 'WHITE', 'Cats and dogs');
+
+oled.turnOnDisplay();
