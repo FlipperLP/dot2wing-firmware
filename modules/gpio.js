@@ -63,4 +63,8 @@ export function initGPIO() {
   checkNewButton();
 }
 
+// export function setOLED(string) {
+//   rpio
+// }
+
 export { initGPIO as default };

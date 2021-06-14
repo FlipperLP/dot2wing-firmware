@@ -1,19 +1,13 @@
-import { WSconnection } from './modules/webSocket';
+import rpio from 'rpio';
 
-import { loginSession, websocketAnswer } from './modules/maRemote';
+import Oled from 'sh1106-js';
 
-import { initPixel } from './modules/neopixel';
+import font from 'oled-font-5x7';
 
-// open websocket
-WSconnection.onopen = () => loginSession();
+const oled = new Oled({ rpio, address: '0x78' });
 
-// init pixel
-initPixel();
+oled.clearDisplay();
 
-// websocket emitter
-WSconnection.onmessage = (msg) => websocketAnswer(msg);
-WSconnection.onerror = (error) => console.log(`WebSocket error: ${error}`);
-WSconnection.onclose = () => {
-  console.error('Disconnected! Exiting...');
-  process.exit(1);
-};
+oled.dimDisplay(0xff);
+
+oled.writeString(1, 1, font, 'WHITE', 'Cats and dogs');

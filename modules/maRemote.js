@@ -92,7 +92,10 @@ function debugLoop() {
 
 // get Data from playback
 // TODO: only send on change
-function playbackData(rawData) { setPixels(parseValues(rawData)); }
+function playbackData(rawData) {
+  setPixels(parseValues(rawData));
+  
+}
 
 // login provided session
 export function loginSession(requestType, argument) {
