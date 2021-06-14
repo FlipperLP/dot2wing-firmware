@@ -5,7 +5,7 @@ import { sendWebsocket } from './webSocket';
 import { parseValues } from './prettify';
 
 // eslint-disable-next-line import/no-cycle
-import { initGPIO } from './gpio';
+import { initGPIO, setOLED } from './gpio';
 
 import { setPixels } from './neopixel';
 
@@ -93,8 +93,9 @@ function debugLoop() {
 // get Data from playback
 // TODO: only send on change
 function playbackData(rawData) {
-  setPixels(parseValues(rawData));
-  
+  const fancyVals = parseValues(rawData);
+  setPixels(fancyVals);
+  setOLED(fancyVals);
 }
 
 // login provided session
