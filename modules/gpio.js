@@ -62,6 +62,7 @@ function checkNewButton() {
 }
 
 export function initGPIO() {
+  rpio.init({ gpiomem: false });
   // define gpio pins
   input.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
   output.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
