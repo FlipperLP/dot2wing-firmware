@@ -69,7 +69,7 @@ export function initGPIO() {
   checkNewButton();
 }
 
-function initOLED() {
+export function initOLED() {
   oled = new Oled({ rpio, address: 0x3c });
   // invert display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
