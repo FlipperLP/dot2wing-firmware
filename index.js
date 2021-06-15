@@ -9,10 +9,10 @@ rpio.init({ gpiomem: false });
 const oled = new Oled({ rpio, address: 0x3c });
 
 // invert display
-[0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
+// [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
 
 // set lower baudrate
-rpio.i2cSetBaudRate(400000);
+// rpio.i2cSetBaudRate(400000);
 
 // invert color
 oled.invertDisplay(true);
