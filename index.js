@@ -15,7 +15,7 @@ const oled = new Oled({ rpio, address: 0x3c });
 rpio.i2cSetBaudRate(400000);
 
 // invert color
-oled.invertDisplay(false);
+oled.invertDisplay(true);
 
 // clear
 oled.clearDisplay();
