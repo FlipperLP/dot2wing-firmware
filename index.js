@@ -1,19 +1,24 @@
-import { WSconnection } from './modules/webSocket';
+import rpio from 'rpio';
 
-import { loginSession, websocketAnswer } from './modules/maRemote';
+import Oled from 'sh1106-js';
 
-import { initPixel } from './modules/neopixel';
+import font from 'oled-font-5x7';
 
-// open websocket
-WSconnection.onopen = () => loginSession();
+oled = new Oled({ rpio, address: 0x3c });
 
-// init pixel
-initPixel();
+// invert display
+[0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
 
-// websocket emitter
-WSconnection.onmessage = (msg) => websocketAnswer(msg);
-WSconnection.onerror = (error) => console.log(`WebSocket error: ${error}`);
-WSconnection.onclose = () => {
-  console.error('Disconnected! Exiting...');
-  process.exit(1);
-};
+// set lower baudrate
+rpio.i2cSetBaudRate(400000);
+
+// invert color
+oled.invertDisplay(false);
+
+// clear
+oled.clearDisplay();
+oled.dimDisplay(0xff);
+
+oled.drawRect(0, 0, 128, 64, 'WHITE');
+
+oled.writeString(64, 30, font, `${Math.ceil(data.fader[0].fader.value * 100)}%  `, 'WHITE');
