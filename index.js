@@ -4,6 +4,8 @@ import Oled from 'sh1106-js';
 
 import font from 'oled-font-5x7';
 
+rpio.init({ gpiomem: false });
+
 const oled = new Oled({ rpio, address: 0x3c });
 
 // invert display
