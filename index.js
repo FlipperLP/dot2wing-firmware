@@ -21,4 +21,4 @@ oled.dimDisplay(0xff);
 
 oled.drawRect(0, 0, 128, 64, 'WHITE');
 
-oled.writeString(64, 30, font, `${Math.ceil(data.fader[0].fader.value * 100)}%  `, 'WHITE');
+oled.writeString(64, 30, font, 'METHS', 'WHITE');
