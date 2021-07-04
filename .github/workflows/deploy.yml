@@ -15,5 +15,5 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Done
-        run: echo Done
+        run: ls -la
 
