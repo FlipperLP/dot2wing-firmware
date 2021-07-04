@@ -23,7 +23,5 @@ oled.turnOnDisplay();
 
 oled.dimDisplay(0x7F);
 
-setInterval(() => {
-  oled.drawRect(0, 0, 128, 64, 'WHITE');
-  oled.writeString(64, 30, font, 'METHS', 'WHITE');
-}, 1000);
+oled.drawRect(0, 0, 128, 64, 'WHITE');
+oled.writeString(64, 30, font, 'METHS', 'WHITE');
