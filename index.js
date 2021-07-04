@@ -7,6 +7,8 @@ function dec2bin(dec) {
 }
 
 rpioFader.init({ gpiomem: false });
+input.forEach((row) => rpioFader.open(row, rpioFader.INPUT, rpioFader.PULL_UP));
+output.forEach((row) => rpioFader.open(row, rpioFader.OUTPUT, rpioFader.LOW));
 // set i2c adress
 rpioFader.i2cBegin();
 rpioFader.i2cSetSlaveAddress(0x68);
