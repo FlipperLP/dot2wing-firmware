@@ -10,6 +10,10 @@ function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
 }
 
+function hex2bin(hex) {
+  return (`00000000${(parseInt(hex, 16)).toString(2)}`).substr(-8);
+}
+
 rpioFader.init({ gpiomem: false });
 input.forEach((row) => rpioFader.open(row, rpioFader.INPUT, rpioFader.PULL_UP));
 output.forEach((row) => rpioFader.open(row, rpioFader.OUTPUT, rpioFader.LOW));
@@ -40,6 +44,6 @@ setInterval(() => {
     rpioFader.msleep(config.controller.gpio.fader.waitTilRead);
     rpioFader.i2cRead(ADCRead, 4);
     // console.log(parseInt('ffff', 16));
-    console.log(ADCRead.join());
+    console.log(hex2bin('ffff'));
   }
 }, config.controller.gpio.interval);
