@@ -67,7 +67,7 @@ function checkNewButton() {
       // FADER EINLESEN HIER
       rpioFader.i2cWrite(ADCWrite);
       rpioFader.msleep(config.controller.gpio.fader.waitTilRead);
-      rpio.i2cRead(ADCRead, 4);
+      rpioFader.i2cRead(ADCRead, 4);
       console.log(ADCRead);
     }
   }, config.controller.gpio.interval);
