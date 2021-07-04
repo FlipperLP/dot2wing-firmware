@@ -39,7 +39,7 @@ function readPin(pin) {
 function checkNewButton() {
   // set ADC config
   const ADCWrite = new Buffer([0x80]);
-  const ADCRead = new Buffer(4);
+  const ADCRead = new Buffer(8);
   const vals = new Array(8);
   vals.fill(false, 0, 8);
   const vals2 = new Array(8);
@@ -68,7 +68,8 @@ function checkNewButton() {
       rpioFader.i2cWrite(ADCWrite);
       rpioFader.msleep(config.controller.gpio.fader.waitTilRead);
       rpioFader.i2cRead(ADCRead, 4);
-      console.log(ADCRead);
+      console.log(rpioFader.i2cRead(ADCRead, 4));
+      // console.log(ADCRead);
     }
   }, config.controller.gpio.interval);
 }
