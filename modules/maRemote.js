@@ -95,7 +95,7 @@ function debugLoop() {
 function playbackData(rawData) {
   const fancyVals = parseValues(rawData);
   setPixels(fancyVals);
-  setOLED(fancyVals);
+  // setOLED(fancyVals);
 }
 
 // login provided session
