@@ -79,7 +79,7 @@ export function initOLED() {
   // enable display
   oled.turnOnDisplay();
   // invert color
-  oled.invertDisplay(true);
+  oled.invertDisplay(false);
   // clear
   oled.clearDisplay();
   oled.dimDisplay(0xff);
