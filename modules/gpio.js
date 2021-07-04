@@ -68,7 +68,7 @@ function checkNewButton() {
       rpio.msleep(config.controller.gpio.fader.waitTilRead);
       // read out
       rpio.i2cRead(ADCRead, 2);
-      setFader(ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1), collum + 1);
+      setFader(ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1), 8 - collum);
     }
   }, config.controller.gpio.interval);
 }
