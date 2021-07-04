@@ -31,7 +31,7 @@ const prevAvlues = [];
 prevAvlues.push(vals);
 prevAvlues.push(vals2);
 setInterval(() => {
-  for (let collum = 0; collum <= 7; collum++) {
+  for (let collum = 0; collum <= 0; collum++) {
     const binary = dec2bin(collum);
     output.forEach((pin, i) => rpioFader.write(pin, Number(binary[i]) || 0));
     rpioFader.msleep(config.controller.gpio.buttons.waitTilRead);
