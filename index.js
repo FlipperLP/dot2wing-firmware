@@ -2,6 +2,8 @@ import rpio from 'rpio';
 
 import Oled from 'sh1106-js';
 
+import font from 'oled-font-5x7';
+
 // Rpio
 rpio.init({
   gpiomem: false,
