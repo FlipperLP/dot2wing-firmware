@@ -1,19 +1,34 @@
-import { WSconnection } from './modules/webSocket';
+import rpioFader from 'rpio';
 
-import { loginSession, websocketAnswer } from './modules/maRemote';
+import config from './config.json';
 
-import { initPixel } from './modules/neopixel';
+rpioFader.init({ gpiomem: false });
+// set i2c adress
+rpioFader.i2cBegin();
+rpioFader.i2cSetSlaveAddress(0x68);
+rpioFader.i2cSetBaudRate(100000);
 
-// open websocket
-WSconnection.onopen = () => loginSession();
-
-// init neopixel
-initPixel();
-
-// websocket emitter
-WSconnection.onmessage = (msg) => websocketAnswer(msg);
-WSconnection.onerror = (error) => console.log(`WebSocket error: ${error}`);
-WSconnection.onclose = () => {
-  console.error('Disconnected! Exiting...');
-  process.exit(1);
-};
+// set ADC config
+const ADCWrite = new Buffer([0x80]);
+const ADCRead = new Buffer(8);
+const vals = new Array(8);
+vals.fill(false, 0, 8);
+const vals2 = new Array(8);
+vals2.fill(false, 0, 8);
+// const prevAvlues = new Array(input.length);
+const prevAvlues = [];
+// prevAvlues.fill(vals, 0, input.length);
+prevAvlues.push(vals);
+prevAvlues.push(vals2);
+setInterval(() => {
+  for (let collum = 0; collum <= 7; collum++) {
+    const binary = dec2bin(collum);
+    output.forEach((pin, i) => rpioButton.write(pin, Number(binary[i]) || 0));
+    rpioButton.msleep(config.controller.gpio.buttons.waitTilRead);
+    // FADER EINLESEN HIER
+    rpioFader.i2cWrite(ADCWrite);
+    rpioFader.msleep(config.controller.gpio.fader.waitTilRead);
+    rpioFader.i2cRead(ADCRead, 4);
+    console.log(ADCRead);
+  }
+}, config.controller.gpio.interval);
