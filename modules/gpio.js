@@ -72,7 +72,7 @@ export function initGPIO() {
 
 export function initOLED() {
   oled = new Oled({ rpio, address: 0x3c });
-  // invert display
+  // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
   // set lower baudrate
   // rpio.i2cSetBaudRate(100000);
@@ -90,4 +90,5 @@ export function initOLED() {
 export function setOLED(data) {
   oled.drawRect(0, 0, 128, 64, 'WHITE');
   oled.writeString(64, 30, font, `${Math.ceil(data.fader[0].fader.value * 100)}%  `, 'WHITE', false);
+  console.log(data.fader[0].fader.value * 100);
 }
