@@ -5,7 +5,7 @@ name: Deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -14,6 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Done
-        run: echo Done
+      # - name: Done
+      #   run: echo Done
 
