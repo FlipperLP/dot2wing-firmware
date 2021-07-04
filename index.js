@@ -15,9 +15,11 @@ rpio.init({
 const oled = new Oled({rpio});
 
 oled.clearDisplay();
+oled.turnOnDisplay();
 oled.drawRect(0, 0, 128, 64, 'WHITE');
 oled.writeString(64, 30, font, 'METHS', 'WHITE');
 
 while (true) {
 console.log("loop");
+oled.update();
 }
