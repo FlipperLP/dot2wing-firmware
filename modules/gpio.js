@@ -77,14 +77,12 @@ export function initGPIO() {
   // define gpio pins
   input.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
   output.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
-  // init ADC for fader
-  initADC(rpio);
   // start loop
   checkNewButton();
 }
 
 export function initOLED() {
-  oled = new Oled({ rpio: rpio, address: 0x3c || 0x3C });
+  oled = new Oled({ rpio, address: 0x3c || 0x3C });
   // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
   // set lower baudrate
