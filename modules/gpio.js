@@ -76,8 +76,10 @@ export function initOLED() {
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
   // set lower baudrate
   rpio.i2cSetBaudRate(100000);
+  // enable display
+  oled.turnOnDisplay();
   // invert color
-  oled.invertDisplay(false);
+  oled.invertDisplay(true);
   // clear
   oled.clearDisplay();
   oled.dimDisplay(0xff);
