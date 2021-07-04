@@ -43,7 +43,6 @@ setInterval(() => {
     rpioFader.i2cWrite(ADCWrite);
     rpioFader.msleep(config.controller.gpio.fader.waitTilRead);
     rpioFader.i2cRead(ADCRead, 4);
-    // console.log(hex2bin('ffff'));
-    console.log(hex2bin(ADCRead.join('')));
+    console.log(ADCRead);
   }
 }, config.controller.gpio.interval);
