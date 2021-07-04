@@ -25,3 +25,6 @@
 - implement ADC
 - row switcher
 - put stuff from hardcode into config
+
+command:
+sudo nodemon -x npm start
