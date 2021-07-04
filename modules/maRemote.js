@@ -29,7 +29,7 @@ export function setButton(pressed, execIndex, buttonId) {
 
 // set fader value
 export function setFader(rawFaderValue, execIndex) {
-  const faderValue = rawFaderValue / 255;
+  const faderValue = rawFaderValue / 2047;
   sendWebsocket({
     requestType: 'playbacks_userInput',
     session,
