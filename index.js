@@ -7,7 +7,7 @@ import { initPixel } from './modules/neopixel';
 // open websocket
 WSconnection.onopen = () => loginSession();
 
-// init pixel
+// init neopixel
 initPixel();
 
 // websocket emitter
