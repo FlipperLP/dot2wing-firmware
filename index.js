@@ -19,7 +19,7 @@ rpio.i2cSetBaudRate(400000);
 
 // clear
 oled.clearDisplay();
-oled.dimDisplay(0xff);
+oled.dimDisplay(0x7F);
 
 setInterval(() => {
   oled.drawRect(0, 0, 128, 64, 'WHITE');
