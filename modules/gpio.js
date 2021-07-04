@@ -1,4 +1,8 @@
-import rpio from 'rpio';
+// eslint-disable-next-line import/no-duplicates
+import rpioButton from 'rpio';
+
+// eslint-disable-next-line import/no-duplicates
+import rpioFader from 'rpio';
 
 import Oled from 'sh1106-js';
 
@@ -27,12 +31,15 @@ function sendButton(value, buttonIndex, buttonRow) {
 }
 
 function readPin(pin) {
-  const newVal = rpio.read(pin);
+  const newVal = rpioButton.read(pin);
   return !!newVal;
 }
 
 // check for new input
 function checkNewButton() {
+  // set ADC config
+  const ADCWrite = new Buffer([0x80]);
+  const ADCRead = new Buffer(4);
   const vals = new Array(8);
   vals.fill(false, 0, 8);
   const vals2 = new Array(8);
@@ -45,8 +52,8 @@ function checkNewButton() {
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
-      output.forEach((pin, i) => rpio.write(pin, Number(binary[i]) || 0));
-      rpio.msleep(config.controller.gpio.waitTilRead);
+      output.forEach((pin, i) => rpioButton.write(pin, Number(binary[i]) || 0));
+      rpioButton.msleep(config.controller.gpio.buttons.waitTilRead);
       // read value
       input.forEach((pin, row) => {
         // reverse input dues to button mapping
@@ -57,25 +64,40 @@ function checkNewButton() {
           sendButton(newVal, collum + 1, row + 1);
         }
       });
+      // FADER EINLESEN HIER
+      rpioFader.i2cWrite(ADCWrite);
+      rpioFader.msleep(config.controller.gpio.fader.waitTilRead);
+      rpio.i2cRead(ADCRead, 4);
+      console.log(ADCRead);
     }
   }, config.controller.gpio.interval);
 }
 
+function initADC() {
+  rpioFader.init({ gpiomem: false });
+  // set i2c adress
+  rpioFader.i2cBegin();
+  rpioFader.i2cSetSlaveAddress(0x68);
+  rpioFader.i2cSetBaudRate(100000);
+}
+
 export function initGPIO() {
-  rpio.init({ gpiomem: true });
+  rpioButton.init({ gpiomem: false });
   // define gpio pins
-  input.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
-  output.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
+  input.forEach((row) => rpioButton.open(row, rpioButton.INPUT, rpioButton.PULL_UP));
+  output.forEach((row) => rpioButton.open(row, rpioButton.OUTPUT, rpioButton.LOW));
+  // init ADC for fader
+  initADC(rpioButton);
   // start loop
   checkNewButton();
 }
 
 export function initOLED() {
-  oled = new Oled({ rpio, address: 0x3c });
+  oled = new Oled({ rpio: rpioButton, address: 0x3c || 0x3C });
   // rotate display
-  [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
+  [0xA1, 0xC8].forEach((cmd) => rpioButton.i2cWrite(Buffer.from([0x00, cmd])));
   // set lower baudrate
-  rpio.i2cSetBaudRate(100000);
+  rpioButton.i2cSetBaudRate(100000);
   // enable display
   oled.turnOnDisplay();
   // invert color
