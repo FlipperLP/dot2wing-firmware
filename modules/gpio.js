@@ -50,7 +50,11 @@ function checkNewButton() {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       output.forEach((pin, i) => rpio.write(pin, Number(binary[i]) || 0));
+      // set address
+      rpio.i2cSetSlaveAddress(0x68);
+      // write
       rpio.msleep(config.controller.gpio.buttons.waitTilRead);
+      rpio.i2cWrite(ADCWrite);
       // read value
       input.forEach((pin, row) => {
         // reverse input dues to button mapping
@@ -61,10 +65,6 @@ function checkNewButton() {
           sendButton(newVal, collum + 1, row + 1);
         }
       });
-      // set address
-      rpio.i2cSetSlaveAddress(0x68);
-      // write
-      rpio.i2cWrite(ADCWrite);
       rpio.msleep(config.controller.gpio.fader.waitTilRead);
       // read out
       rpio.i2cRead(ADCRead, 2);
