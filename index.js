@@ -2,6 +2,10 @@ import rpioFader from 'rpio';
 
 import config from './config.json';
 
+function dec2bin(dec) {
+  return Number(dec).toString(2).split('').reverse();
+}
+
 rpioFader.init({ gpiomem: false });
 // set i2c adress
 rpioFader.i2cBegin();
