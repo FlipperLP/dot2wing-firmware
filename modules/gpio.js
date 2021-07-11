@@ -36,7 +36,14 @@ function checkNewButton() {
   // set ADC config
   const ADCWrite = new Buffer([0x80]);
   const ADCRead = new Buffer(2);
-  // create array
+
+  // create array for fader values
+  const faderVals = new Array(8);
+  faderVals.fill(0 , 0, 8);
+  const prevFaderValues = [];
+  prevFaderValues.push(faderVals);
+
+  // create arrays for button values
   const vals = new Array(8);
   vals.fill(false, 0, 8);
   const vals2 = new Array(8);
@@ -46,11 +53,13 @@ function checkNewButton() {
   // prevAvlues.fill(vals, 0, input.length);
   prevAvlues.push(vals);
   prevAvlues.push(vals2);
+
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       const binary = dec2bin(collum);
       output.forEach((pin, i) => rpio.write(pin, Number(binary[i]) || 0));
       rpio.msleep(config.controller.gpio.buttons.waitTilRead);
+
       // read value
       input.forEach((pin, row) => {
         // reverse input dues to button mapping
@@ -61,16 +70,23 @@ function checkNewButton() {
           sendButton(newVal, collum + 1, row + 1);
         }
       });
-      // set address
+
+      // start ADC smapling
       rpio.i2cSetSlaveAddress(0x68);
-      // write
       rpio.i2cWrite(ADCWrite);
       // wait
       rpio.msleep(config.controller.gpio.fader.waitTilRead);
-      // read out
+      // read out ADC
       rpio.i2cRead(ADCRead, 2);
-      console.log(ADCRead);
-      setFader(ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1), 8 - collum);
+      // console.log(ADCRead);
+      const newFaderVal = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
+      console.log('Fader ' + collum + ': ' + newFaderVal);
+
+      if (prevFaderValues[collum] !== newFaderVal) {
+        prevFaderValues[collum] = newFaderVal;
+        setFader(newFaderVal, 8 - collum);
+      }
+
     }
   }, config.controller.gpio.interval);
 }
