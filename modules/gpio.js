@@ -61,6 +61,7 @@ function checkNewButton() {
     // read out ADC
     rpio.i2cRead(adcReturnBuffer, 2);
     return adcReturnBuffer.readInt8(0) * 256 + adcReturnBuffer.readInt8(1);
+    console.log(adcReturnBuffer.readInt8(0) + ' ' + adcReturnBuffer.readInt8(1));
   }
 
   setInterval(() => {
@@ -87,7 +88,7 @@ function checkNewButton() {
       //   faderVal = 0.70 * faderVal + 0.30 * readADC();
       // }
       faderVal = readADC();
-      console.log(faderVal);
+      // console.log(faderVal);
 
       const newFaderVal = faderVal.toFixed(1);
 
