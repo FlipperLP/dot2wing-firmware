@@ -16,7 +16,7 @@ function hexToRgb(hex) {
 }
 
 export function setPixels(data) {
-  data.forEach((row) => {
+  data.forEach((row, rowMultipier) => {
     row.forEach((button, i) => {
       let color = {};
       if (allConfig.maweb.appType === 'dot2') {
@@ -31,7 +31,7 @@ export function setPixels(data) {
       if (button.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
       // TODO: Better bitwise handler
       if (button.empty) setColor = 0;
-      pixels[i] = setColor;
+      pixels[i + (rowMultipier * 8)] = setColor;
     });
   });
 }
