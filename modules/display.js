@@ -7,7 +7,9 @@ import font from 'oled-font-5x7';
 import config from '../config.json';
 
 // eslint-disable-next-line no-buffer-constructor
-const setChannel = new Buffer([0x01]);
+const setChannel1 = new Buffer([0b00000001]);
+// eslint-disable-next-line no-buffer-constructor
+const setChannel2 = new Buffer([0b00000010]);
 
 const outputData = config.controller.gpio.displays.outputData;
 
@@ -16,10 +18,16 @@ const outputMultiplexer = config.controller.gpio.displays.outputMultiplexer;
 let oled;
 
 function setMultiplexer(params) {
-  
+
 }
 
 export function initOLED() {
+  rpio.i2cSetSlaveAddress(0x70);
+  rpio.i2cWrite(setChannel1 | setChannel2);
+
+  rpio.i2cSetSlaveAddress(0x70);
+  rpio.i2cWrite(thechannel);
+
   oled = new Oled({ rpio, address: 0x3c });
   // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
@@ -39,9 +47,14 @@ export function initOLED() {
 
 export function setOLED(data) {
   rpio.i2cSetSlaveAddress(0x70);
-  rpio.i2cWrite(setChannel);
+  rpio.i2cWrite(setChannel1);
 
   rpio.i2cSetSlaveAddress(0x3c);
-  // oled.drawRect(0, 0, 128, 64, 'WHITE');
   oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE', false);
+
+  rpio.i2cSetSlaveAddress(0x70);
+  rpio.i2cWrite(setChannel2);
+
+  rpio.i2cSetSlaveAddress(0x3c);
+  oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE', false);
 }
