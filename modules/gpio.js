@@ -85,14 +85,14 @@ function checkNewButton() {
 
       let newFaderVal = prevFaderValues[collum];
 
-      for (let index = 0; index < 2; index++) {
+      for (let index = 0; index < 1; index++) {
         rpio.i2cSetSlaveAddress(0x68);
         rpio.i2cWrite(ADCWrite);
         // wait
         rpio.msleep(config.controller.gpio.fader.waitTilRead);
         // read out ADC
         rpio.i2cRead(ADCRead, 2);
-        newFaderVal = 0.5 * newFaderVal + 0.5 * (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
+        newFaderVal = 0 * newFaderVal + 1 * (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
       }
 
       if (prevFaderValues[collum] !== newFaderVal) {
