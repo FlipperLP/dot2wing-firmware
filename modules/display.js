@@ -1,13 +1,8 @@
+/* eslint-disable no-bitwise */
 import rpio from 'rpio';
 import Oled from 'sh1106-js';
 import font from 'oled-font-5x7';
 
-// eslint-disable-next-line no-buffer-constructor
-const CHANNEL_1 = new Buffer([0b00000001]);
-// eslint-disable-next-line no-buffer-constructor
-const CHANNEL_2 = new Buffer([0b00000010]);
-// eslint-disable-next-line no-buffer-constructor
-const CHANNEL_ALL = new Buffer([0b11111111]);
 const ADDRESS_I2C_MUX = 0x70;
 const ADDRESS_DISPLAY = 0x3C;
 
@@ -16,9 +11,18 @@ let oled;
 let displayValue1 = 0;
 let displayValue2 = 0;
 
-export function initOLED() {
+function setI2cMultiplexer(channel) {
   rpio.i2cSetSlaveAddress(ADDRESS_I2C_MUX);
-  rpio.i2cWrite(CHANNEL_ALL);
+
+  if (channel >= 1 & channel <= 8) {
+    rpio.i2cWrite(1 << channel - 1);
+  } else if (channel === 0) {
+    rpio.i2cWrite(0xFF);
+  }
+}
+
+export function initOLED() {
+  setI2cMultiplexer(0);
 
   rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
   oled = new Oled({ rpio, address: ADDRESS_DISPLAY });
@@ -36,8 +40,7 @@ export function initOLED() {
   oled.dimDisplay(0xff);
   // set update interval
   setInterval(() => {
-    rpio.i2cSetSlaveAddress(ADDRESS_I2C_MUX);
-    rpio.i2cWrite(CHANNEL_1);
+    setI2cMultiplexer(1);
 
     rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
     oled.writeString(64, 30, font, `${displayValue1}%  `, 'WHITE', false);
@@ -45,8 +48,7 @@ export function initOLED() {
 
     rpio.msleep(50);
 
-    rpio.i2cSetSlaveAddress(ADDRESS_I2C_MUX);
-    rpio.i2cWrite(CHANNEL_2);
+    setI2cMultiplexer(2);
 
     rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
     oled.writeString(64, 30, font, `${displayValue2}%  `, 'WHITE', false);
