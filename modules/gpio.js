@@ -80,8 +80,6 @@ function checkNewButton() {
       rpio.i2cRead(ADCRead, 2);
       // console.log(ADCRead);
       const newFaderVal = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
-      console.log(`Fader ${collum}: ${newFaderVal}`);
-
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
         setFader(newFaderVal, 8 - collum);
