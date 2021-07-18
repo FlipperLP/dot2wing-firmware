@@ -26,12 +26,10 @@ function setMultiplexer(params) {
 }
 
 export function initOLED() {
-  
-  rpio.msleep(10);
-  rpio.i2cSetSlaveAddress(0x70);
-  rpio.i2cWrite(setChannel1);
+  rpio.i2cSetBaudRate(400000);
 
-  rpio.msleep(10);
+  rpio.i2cSetSlaveAddress(0x70);
+  rpio.i2cWrite(setChannelAll);
 
   rpio.i2cSetSlaveAddress(0x3c);
   oled = new Oled({ rpio, address: 0x3c});
