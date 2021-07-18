@@ -42,14 +42,14 @@ export function initOLED() {
     oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
     oled.update();
 
-    rpio.msleep(50);
+    // rpio.msleep(50);
 
-    rpio.i2cSetSlaveAddress(0x70);
-    rpio.i2cWrite(setChannel2);
+    // rpio.i2cSetSlaveAddress(0x70);
+    // rpio.i2cWrite(setChannel2);
 
-    rpio.i2cSetSlaveAddress(0x3c);
-    oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
-    oled.update();
+    // rpio.i2cSetSlaveAddress(0x3c);
+    // oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
+    // oled.update();
   }, 100);
 }
 
