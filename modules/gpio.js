@@ -35,7 +35,7 @@ function checkNewButton() {
 
   // create array for fader values
   const faderVals = new Array(8);
-  faderVals.fill(0, 0, 7);
+  faderVals.fill(0);
   const prevFaderValues = [];
   prevFaderValues.push(faderVals);
 
