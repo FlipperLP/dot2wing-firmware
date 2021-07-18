@@ -120,13 +120,12 @@ export function loginSession(requestType, argument) {
       // keep session alive
       heartbeatLoop();
       if (!process.env.debug) {
-        // get playback
-        mainLoop();
         // initialize gpio
         initGPIO();
         initOLED();
       } else debugLoop();
-      getPlayback();
+      // get playback
+      mainLoop();
       break;
     default:
       setSession();
