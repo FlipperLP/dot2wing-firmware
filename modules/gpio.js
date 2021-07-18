@@ -34,10 +34,6 @@ function checkNewButton() {
   const adcReturnBuffer = new Buffer(2);
 
   // create array for fader values
-  // const faderVals = new Array(8);
-  // faderVals.fill(0);
-  // const prevFaderValues = [];
-  // prevFaderValues.push(faderVals);
   const prevFaderValues = new Array(8);
   prevFaderValues.fill(0);
 
@@ -92,8 +88,7 @@ function checkNewButton() {
       }
 
       const newFaderVal = faderVal.toFixed(1);
-      // console.log('ch' + collum + ' ' + newFaderVal);
-      console.log(prevFaderValues);
+      console.log(`ch${collum} ${newFaderVal}`);
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
