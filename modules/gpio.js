@@ -83,8 +83,8 @@ function checkNewButton() {
 
       // read in fader value and do some smoothing:
       let faderVal = prevFaderValues[collum] || 0;
-      for (let smoothingIteration = 0; smoothingIteration < 10; smoothingIteration++) {
-        faderVal = 0.85 * faderVal + 0.15 * readADC();
+      for (let smoothingIteration = 0; smoothingIteration < 20; smoothingIteration++) {
+        faderVal = 0.70 * faderVal + 0.30 * readADC();
       }
 
       const newFaderVal = faderVal.toFixed(1);
