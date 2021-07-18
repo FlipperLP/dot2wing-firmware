@@ -13,6 +13,8 @@ function hexToRgb(hex) {
   } : null;
 }
 
+function isBoolean(val) { return typeof val === 'boolean'; }
+
 export function setPixels(data) {
   console.log(data);
   data.forEach((row, rowMultipier) => {
