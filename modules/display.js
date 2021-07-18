@@ -56,14 +56,19 @@ export function initOLED() {
     // rpio.i2cWrite(setChannel2);
     // rpio.i2cSetSlaveAddress(0x3c);
     // oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
-    // oled.update();
+    oled.update();
   }, 50);
 }
 
-let displayValue1 = 0;
-let displayValue2 = 0;
+// let displayValue1 = 0;
+// let displayValue2 = 0;
 
 export function setOLED(data) {
-  displayValue1 = Math.ceil(data[0][0].fader.value * 100);
-  displayValue2 = Math.ceil(data[0][1].fader.value * 100);
+  // displayValue1 = Math.ceil(data[0][0].fader.value * 100);
+  // displayValue2 = Math.ceil(data[0][1].fader.value * 100);
+
+  rpio.i2cSetSlaveAddress(0x70);
+  rpio.i2cWrite(setChannel1);
+  rpio.i2cSetSlaveAddress(0x3c);
+  oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE', false);
 }
