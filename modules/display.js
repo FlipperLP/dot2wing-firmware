@@ -7,9 +7,9 @@ import font from 'oled-font-5x7';
 import config from '../config.json';
 
 // eslint-disable-next-line no-buffer-constructor
-const setChannel1 = new Buffer([0b00000001]);
+const setChannel1 = new Buffer([0x01]);
 // eslint-disable-next-line no-buffer-constructor
-const setChannel2 = new Buffer([0b00000010]);
+const setChannel2 = new Buffer([0x02]);
 // eslint-disable-next-line no-buffer-constructor
 const setChannelAll = new Buffer([0xFF]);
 
@@ -57,8 +57,6 @@ export function setOLED(data) {
 
   rpio.i2cSetSlaveAddress(0x3c);
   oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE', false);
-
-  rpio.msleep(2);
 
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannel2);
