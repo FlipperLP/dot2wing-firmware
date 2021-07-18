@@ -39,7 +39,7 @@ function checkNewButton() {
 
   // create array for fader values
   const faderVals = new Array(8);
-  faderVals.fill(0 , 0, 8);
+  faderVals.fill(0, 0, 8);
   const prevFaderValues = [];
   prevFaderValues.push(faderVals);
 
@@ -71,7 +71,7 @@ function checkNewButton() {
         }
       });
 
-      // start ADC smapling
+      // start ADC sampling
       rpio.i2cSetSlaveAddress(0x68);
       rpio.i2cWrite(ADCWrite);
       // wait
@@ -80,13 +80,12 @@ function checkNewButton() {
       rpio.i2cRead(ADCRead, 2);
       // console.log(ADCRead);
       const newFaderVal = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
-      console.log('Fader ' + collum + ': ' + newFaderVal);
+      console.log(`Fader ${collum}: ${newFaderVal}`);
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
         setFader(newFaderVal, 8 - collum);
       }
-
     }
   }, config.controller.gpio.interval);
 }
@@ -105,7 +104,7 @@ export function initOLED() {
   // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
   // set lower baudrate
-  //rpio.i2cSetBaudRate(100000);
+  // rpio.i2cSetBaudRate(100000);
   rpio.i2cSetBaudRate(400000);
   // enable display
   oled.turnOnDisplay();
@@ -115,11 +114,11 @@ export function initOLED() {
   oled.clearDisplay();
   oled.dimDisplay(0xff);
   // set interval
-  setInterval(() => oled.update(), 100);
+  setInterval(() => oled.update(), 50);
 }
 
 export function setOLED(data) {
   rpio.i2cSetSlaveAddress(0x3C);
-  //oled.drawRect(0, 0, 128, 64, 'WHITE');
+  // oled.drawRect(0, 0, 128, 64, 'WHITE');
   oled.writeString(64, 30, font, `${Math.ceil(data.fader[0].fader.value * 100)}%  `, 'WHITE', false);
 }
