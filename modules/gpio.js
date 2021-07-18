@@ -81,7 +81,7 @@ function checkNewButton() {
         }
       });
 
-      let newFaderVal = prevFaderValues[collum];
+      let newFaderVal = prevFaderValues[collum] || 0;
       for (let index = 0; index < 1; index++) {
         // start ADC sampling
         rpio.i2cSetSlaveAddress(0x68);
