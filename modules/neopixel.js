@@ -1,9 +1,7 @@
 import ledHandler from 'rpi-ws281x';
-
 import allConfig from '../config.json';
 
 const config = allConfig.controller.neopixel;
-
 const pixels = new Uint32Array(config.options.leds);
 
 function hexToRgb(hex) {

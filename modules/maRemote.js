@@ -1,16 +1,10 @@
 import md5 from 'md5';
-
 import { sendWebsocket } from './webSocket';
-
 import { parseValues } from './prettify';
-
 // eslint-disable-next-line import/no-cycle
 import { initGPIO } from './gpio';
-
 import { setOLED, initOLED } from './display';
-
 import { setPixels } from './neopixel';
-
 import config from '../config.json';
 
 let session;
@@ -29,7 +23,7 @@ export function setButton(pressed, execIndex, buttonId) {
   });
 }
 
-// set fader value
+// set fader value - value between 0 and 4095
 export function setFader(rawFaderValue, execIndex) {
   const faderValue = rawFaderValue / 4095;
   sendWebsocket({
@@ -75,7 +69,7 @@ function heartbeatLoop() {
 function mainLoop() {
   setInterval(() => {
     getPlayback();
-  }, config.maweb.refreshRate);
+  }, config.maweb.playbackRefreshRate);
 }
 
 function debugLoop() {
@@ -95,9 +89,9 @@ function debugLoop() {
 // get Data from playback
 // TODO: only send on change
 function playbackData(rawData) {
-  const fancyVals = parseValues(rawData);
-  setPixels(fancyVals);
-  setOLED(fancyVals);
+  const parsedData = parseValues(rawData);
+  setPixels(parsedData);
+  setOLED(parsedData);
 }
 
 // login provided session

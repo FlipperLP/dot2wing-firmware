@@ -1,13 +1,11 @@
 import rpio from 'rpio';
-
 import config from '../config.json';
-
 // eslint-disable-next-line import/no-cycle
 import { setButton, setFader } from './maRemote';
 
-const input = config.controller.gpio.buttons.input;
-
-const output = config.controller.gpio.buttons.output;
+const inputPins = config.controller.gpio.buttons.inputPins;
+const outputPins = config.controller.gpio.buttons.outputPins;
+const ADDRESS_ADC = 0x68;
 
 function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
@@ -31,9 +29,9 @@ function readPin(pin) {
 function checkNewButton() {
   // set ADC config
   // eslint-disable-next-line no-buffer-constructor
-  const ADCWrite = new Buffer([0x80]);
+  const ADC_START_SAMPLING = new Buffer([0b10000000]);
   // eslint-disable-next-line no-buffer-constructor
-  const ADCRead = new Buffer(2);
+  const adcReturnBuffer = new Buffer(2);
 
   // create array for fader values
   const faderVals = new Array(8);
@@ -42,49 +40,49 @@ function checkNewButton() {
   prevFaderValues.push(faderVals);
 
   // create arrays for button values
-  const vals = new Array(8);
-  vals.fill(false, 0, 8);
-  const vals2 = new Array(8);
-  vals2.fill(false, 0, 8);
-  const vals3 = new Array(8);
-  vals3.fill(false, 0, 8);
-  const vals4 = new Array(8);
-  vals4.fill(false, 0, 8);
-  // const prevAvlues = new Array(input.length);
-  const prevValues = [];
-  // prevAvlues.fill(vals, 0, input.length);
-  prevValues.push(vals);
-  prevValues.push(vals2);
-  prevValues.push(vals3);
-  prevValues.push(vals4);
+  const buttonVals1 = new Array(8);
+  buttonVals1.fill(false, 0, 8);
+  const buttonVals2 = new Array(8);
+  buttonVals2.fill(false, 0, 8);
+  const buttonVals3 = new Array(8);
+  buttonVals3.fill(false, 0, 8);
+  const buttonVals4 = new Array(8);
+  buttonVals4.fill(false, 0, 8);
+  const prevButtonValues = [];
+  prevButtonValues.push(buttonVals1);
+  prevButtonValues.push(buttonVals2);
+  prevButtonValues.push(buttonVals3);
+  prevButtonValues.push(buttonVals4);
 
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
+      // set column-multiplexer:
       const binary = dec2bin(collum);
-      output.forEach((pin, i) => rpio.write(pin, Number(binary[i]) || 0));
+      outputPins.forEach((outputPin, i) => rpio.write(outputPin, Number(binary[i]) || 0));
       rpio.msleep(config.controller.gpio.buttons.waitTilRead);
 
-      // read value
-      input.forEach((pin, row) => {
+      // read in button values:
+      inputPins.forEach((pin, row) => {
         // reverse input dues to button mapping
         const newVal = !readPin(pin);
         // check difference
-        if (prevValues[row][collum] !== newVal) {
-          prevValues[row][collum] = newVal;
+        if (prevButtonValues[row][collum] !== newVal) {
+          prevButtonValues[row][collum] = newVal;
           sendButton(newVal, collum + 1, row + 1);
         }
       });
 
+      // read in fader value:
       let newFaderVal = prevFaderValues[collum] || 0;
-      for (let index = 0; index < 10; index++) {
+      for (let smoothingIteration = 0; smoothingIteration < 10; smoothingIteration++) {
         // start ADC sampling
-        rpio.i2cSetSlaveAddress(0x68);
-        rpio.i2cWrite(ADCWrite);
-        // wait
-        // rpio.msleep(config.controller.gpio.fader.waitTilRead);
+        rpio.i2cSetSlaveAddress(ADDRESS_ADC);
+        rpio.i2cWrite(ADC_START_SAMPLING);
+        // wait a moment
+        // ...or not
         // read out ADC
-        rpio.i2cRead(ADCRead, 2);
-        const analogValue = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
+        rpio.i2cRead(adcReturnBuffer, 2);
+        const analogValue = adcReturnBuffer.readInt8(0) * 256 + adcReturnBuffer.readInt8(1);
         newFaderVal = 0.85 * newFaderVal + 0.15 * analogValue;
       }
 
@@ -99,8 +97,8 @@ function checkNewButton() {
 export function initGPIO() {
   rpio.init({ gpiomem: false });
   // define gpio pins
-  input.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
-  output.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
+  inputPins.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
+  outputPins.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
   // start loop
   checkNewButton();
 }
