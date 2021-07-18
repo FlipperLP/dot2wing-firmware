@@ -9,7 +9,7 @@ import font from 'oled-font-5x7';
 // eslint-disable-next-line no-buffer-constructor
 const setChannel1 = new Buffer([0x01]);
 // eslint-disable-next-line no-buffer-constructor
-const setChannel2 = new Buffer([0x00]);
+const setChannel2 = new Buffer([0x02]);
 // eslint-disable-next-line no-buffer-constructor
 const setChannelAll = new Buffer([0xFF]);
 
@@ -19,6 +19,8 @@ let oled;
 export function initOLED() {
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannelAll);
+
+  rpio.msleep(100);
 
   rpio.i2cSetSlaveAddress(0x3c);
   oled = new Oled({ rpio, address: 0x3c});
