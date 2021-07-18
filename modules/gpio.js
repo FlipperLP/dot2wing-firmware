@@ -81,8 +81,6 @@ function checkNewButton() {
         }
       });
 
-   
-
       // let newFaderVal = prevFaderValues[collum];
       // for (let index = 0; index < 1; index++) {
       //   // start ADC sampling
@@ -98,10 +96,10 @@ function checkNewButton() {
       // start ADC sampling
       rpio.i2cSetSlaveAddress(0x68);
       rpio.i2cWrite(ADCWrite);
-       // read out ADC
+      rpio.msleep(config.controller.gpio.fader.waitTilRead);
+      // read out ADC
       rpio.i2cRead(ADCRead, 2);
       const newFaderVal = (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
-
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
