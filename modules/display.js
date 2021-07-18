@@ -45,19 +45,19 @@ export function initOLED() {
   oled.dimDisplay(0xff);
   // set interval
   setInterval(() => {
-    rpio.i2cSetSlaveAddress(0x70);
-    rpio.i2cWrite(setChannel1);
+    // rpio.i2cSetSlaveAddress(0x70);
+    // rpio.i2cWrite(setChannel1);
 
-    rpio.i2cSetSlaveAddress(0x3c);
-    oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
-    oled.update();
+    // rpio.i2cSetSlaveAddress(0x3c);
+    // oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
+    // oled.update();
 
-    rpio.i2cSetSlaveAddress(0x70);
-    rpio.i2cWrite(setChannel2);
+    // rpio.i2cSetSlaveAddress(0x70);
+    // rpio.i2cWrite(setChannel2);
     
-    rpio.i2cSetSlaveAddress(0x3c);
-    oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
-    oled.update();
+    // rpio.i2cSetSlaveAddress(0x3c);
+    // oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
+    // oled.update();
   }, 50);
 }
 
