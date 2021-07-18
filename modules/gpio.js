@@ -91,9 +91,10 @@ function checkNewButton() {
         // read out ADC
         rpio.i2cRead(ADCRead, 2);
         const analogValue = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
-        console.log(analogValue);
+        // console.log(analogValue);
         newFaderVal = (0.5 * newFaderVal) + (0.5 * analogValue);
         // newFaderVal = (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
+        console.log(newFaderVal);
       }
 
       // // start ADC sampling
