@@ -70,6 +70,7 @@ let displayValue2 = 0;
 export function setOLED(data) {
   displayValue1 = Math.ceil(data[0][0].fader.value * 100);
   displayValue2 = Math.ceil(data[0][1].fader.value * 100);
+  console.log(displayValue1, ' ', displayValue2);
 
   // rpio.i2cSetSlaveAddress(0x70);
   // rpio.i2cWrite(setChannel1);
