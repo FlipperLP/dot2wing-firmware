@@ -60,12 +60,11 @@ function checkNewButton() {
     // ...or not
     // read out ADC
     rpio.i2cRead(adcReturnBuffer, 2);
-    console.log(adcReturnBuffer.readUInt8(0) + ' ' + adcReturnBuffer.readUInt8(1));
     return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
   }
 
   setInterval(() => {
-    for (let collum = 0; collum <= 0; collum++) {
+    for (let collum = 0; collum <= 7; collum++) {
       // set column-multiplexer:
       const binary = dec2bin(collum);
       outputPins.forEach((outputPin, i) => rpio.write(outputPin, Number(binary[i]) || 0));
@@ -84,10 +83,9 @@ function checkNewButton() {
 
       // read in fader value and do some smoothing:
       let faderVal = prevFaderValues[collum] || 0;
-      // for (let smoothingIteration = 0; smoothingIteration < 20; smoothingIteration++) {
-      //   faderVal = 0.70 * faderVal + 0.30 * readADC();
-      // }
-      faderVal = readADC();
+      for (let smoothingIteration = 0; smoothingIteration < 20; smoothingIteration++) {
+        faderVal = 0.70 * faderVal + 0.30 * readADC();
+      }
       // console.log(faderVal);
 
       const newFaderVal = faderVal.toFixed(1);
