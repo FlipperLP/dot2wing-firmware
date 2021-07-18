@@ -15,8 +15,9 @@ function setI2cMultiplexer(channel) {
   rpio.i2cSetSlaveAddress(ADDRESS_I2C_MUX);
 
   if (channel >= 1 & channel <= 8) {
-    const value = 1 << (channel - 1);
-    rpio.i2cWrite(value);
+    const buffer = new Buffer([1 << (channel - 1)]);
+
+    rpio.i2cWrite(buffer);
   } else if (channel === 0) {
     // rpio.i2cWrite(0xFF);
   }
