@@ -60,8 +60,8 @@ function checkNewButton() {
     // ...or not
     // read out ADC
     rpio.i2cRead(adcReturnBuffer, 2);
-    return adcReturnBuffer.readInt8(0) * 256 + adcReturnBuffer.readInt8(1);
     console.log(adcReturnBuffer.readInt8(0) + ' ' + adcReturnBuffer.readInt8(1));
+    return adcReturnBuffer.readInt8(0) * 256 + adcReturnBuffer.readInt8(1);
   }
 
   setInterval(() => {
