@@ -28,8 +28,8 @@ function setMultiplexer(params) {
 export function initOLED() {
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannelAll);
-  // rpio.i2cWrite(setChannel1 | setChannel2);
 
+  rpio.i2cSetSlaveAddress(0x3c);
   oled = new Oled({ rpio, address: 0x3c });
   // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
@@ -45,33 +45,34 @@ export function initOLED() {
   oled.dimDisplay(0xff);
   // set interval
   setInterval(() => {
-    // rpio.i2cSetSlaveAddress(0x70);
-    // rpio.i2cWrite(setChannel1);
-
-    // rpio.i2cSetSlaveAddress(0x3c);
-    // oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
-    // oled.update();
-
-    // rpio.i2cSetSlaveAddress(0x70);
-    // rpio.i2cWrite(setChannel2);
-    // rpio.i2cSetSlaveAddress(0x3c);
-    // oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
     rpio.i2cSetSlaveAddress(0x70);
-    rpio.i2cWrite(setChannelAll);
+    rpio.i2cWrite(setChannel1);
+
     rpio.i2cSetSlaveAddress(0x3c);
+    oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
     oled.update();
+
+    rpio.i2cSetSlaveAddress(0x70);
+    rpio.i2cWrite(setChannel2);
+    rpio.i2cSetSlaveAddress(0x3c);
+    oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
+
+    // rpio.i2cSetSlaveAddress(0x70);
+    // rpio.i2cWrite(setChannelAll);
+    // rpio.i2cSetSlaveAddress(0x3c);
+    // oled.update();
   }, 50);
 }
 
-// let displayValue1 = 0;
-// let displayValue2 = 0;
+let displayValue1 = 0;
+let displayValue2 = 0;
 
 export function setOLED(data) {
-  // displayValue1 = Math.ceil(data[0][0].fader.value * 100);
-  // displayValue2 = Math.ceil(data[0][1].fader.value * 100);
+  displayValue1 = Math.ceil(data[0][0].fader.value * 100);
+  displayValue2 = Math.ceil(data[0][1].fader.value * 100);
 
-  rpio.i2cSetSlaveAddress(0x70);
-  rpio.i2cWrite(setChannel1);
-  rpio.i2cSetSlaveAddress(0x3c);
-  oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE', false);
+  // rpio.i2cSetSlaveAddress(0x70);
+  // rpio.i2cWrite(setChannel1);
+  // rpio.i2cSetSlaveAddress(0x3c);
+  // oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE', false);
 }
