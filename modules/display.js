@@ -26,6 +26,8 @@ function setMultiplexer(params) {
 }
 
 export function initOLED() {
+  
+  rpio.msleep(10);
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannel1);
 
