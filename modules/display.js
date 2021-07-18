@@ -7,7 +7,7 @@ import font from 'oled-font-5x7';
 // eslint-disable-next-line no-buffer-constructor
 // const setChannel1 = new Buffer([0x01]);
 // eslint-disable-next-line no-buffer-constructor
-const setChannel1 = new Buffer([0xFF]);
+const setChannel1 = new Buffer([0x01]);
 // eslint-disable-next-line no-buffer-constructor
 const setChannel2 = new Buffer([0x00]);
 // eslint-disable-next-line no-buffer-constructor
