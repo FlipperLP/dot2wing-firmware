@@ -94,7 +94,7 @@ function debugLoop() {
 // TODO: only send on change
 function playbackData(rawData) {
   const fancyVals = parseValues(rawData);
-  // setPixels(fancyVals);
+  setPixels(fancyVals);
   setOLED(fancyVals);
 }
 

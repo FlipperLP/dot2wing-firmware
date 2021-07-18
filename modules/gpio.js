@@ -49,10 +49,10 @@ function checkNewButton() {
   const vals2 = new Array(8);
   vals2.fill(false, 0, 8);
   // const prevAvlues = new Array(input.length);
-  const prevAvlues = [];
+  const prevValues = [];
   // prevAvlues.fill(vals, 0, input.length);
-  prevAvlues.push(vals);
-  prevAvlues.push(vals2);
+  prevValues.push(vals);
+  prevValues.push(vals2);
 
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
@@ -65,8 +65,8 @@ function checkNewButton() {
         // reverse input dues to button mapping
         const newVal = !readPin(pin);
         // check difference
-        if (prevAvlues[row][collum] !== newVal) {
-          prevAvlues[row][collum] = newVal;
+        if (prevValues[row][collum] !== newVal) {
+          prevValues[row][collum] = newVal;
           sendButton(newVal, collum + 1, row + 1);
         }
       });
