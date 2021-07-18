@@ -15,8 +15,6 @@ function hexToRgb(hex) {
   } : null;
 }
 
-function isBoolean(val) { return typeof val === 'boolean'; }
-
 export function setPixels(data) {
   data.forEach((row, rowMultipier) => {
     row.forEach((button, i) => {
@@ -29,10 +27,17 @@ export function setPixels(data) {
       const multipier = config.isRunMultipier;
       // eslint-disable-next-line no-bitwise
       let setColor = (color.r * multipier << 16) | (color.g * multipier << 8) | color.b * multipier;
-      // eslint-disable-next-line no-bitwise
-      if (isBoolean(button.isRun) || button.fader.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
-      // TODO: Better bitwise handler
-      if (isBoolean(button.empty) || button.fader.empty) setColor = 0;
+      if (!button.fader) {
+        // eslint-disable-next-line no-bitwise
+        if (button.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
+        // TODO: Better bitwise handler
+        if (button.empty) setColor = 0;
+      } else {
+        // eslint-disable-next-line no-bitwise
+        if (button.fader.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
+        // TODO: Better bitwise handler
+        if (button.fader.empty) setColor = 0;
+      }
       pixels[i + (rowMultipier * 8)] = setColor;
     });
   });
