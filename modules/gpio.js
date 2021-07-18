@@ -92,7 +92,7 @@ function checkNewButton() {
         rpio.i2cRead(ADCRead, 2);
         const analogValue = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
         console.log(analogValue);
-        newFaderVal = 0.5 * newFaderVal + 0.5 * analogValue;
+        newFaderVal = (0.5 * newFaderVal) + (0.5 * analogValue);
         // newFaderVal = (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
       }
 
