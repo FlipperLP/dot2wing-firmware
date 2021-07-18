@@ -21,9 +21,11 @@ function dec2bin(dec) {
 
 function sendButton(value, buttonIndex, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
+  let buttonId = 0;
   let key = `${buttonRow}0${9 - buttonIndex}`;
   if (buttonRow > 2) key = 9 - buttonIndex;
-  setButton(value, key, 0);
+  if (buttonRow === 4) buttonId = 1;
+  setButton(value, key, buttonId);
 }
 
 function readPin(pin) {
