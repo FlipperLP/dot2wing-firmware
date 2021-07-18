@@ -10,6 +10,8 @@ import config from '../config.json';
 const setChannel1 = new Buffer([0b00000001]);
 // eslint-disable-next-line no-buffer-constructor
 const setChannel2 = new Buffer([0b00000010]);
+// eslint-disable-next-line no-buffer-constructor
+const setChannelAll = new Buffer([0xFF]);
 
 const outputData = config.controller.gpio.displays.outputData;
 
@@ -23,7 +25,7 @@ function setMultiplexer(params) {
 
 export function initOLED() {
   rpio.i2cSetSlaveAddress(0x70);
-  rpio.i2cWrite(0xFF);
+  rpio.i2cWrite(setChannelAll);
   // rpio.i2cWrite(setChannel1 | setChannel2);
 
   oled = new Oled({ rpio, address: 0x3c });
