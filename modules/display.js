@@ -29,6 +29,8 @@ export function initOLED() {
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannelAll);
 
+  rpio.msleep(10);
+
   rpio.i2cSetSlaveAddress(0x3c);
   oled = new Oled({ rpio, address: 0x3c});
   // rotate display
