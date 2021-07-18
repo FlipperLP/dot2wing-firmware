@@ -92,7 +92,7 @@ function checkNewButton() {
         rpio.msleep(config.controller.gpio.fader.waitTilRead);
         // read out ADC
         rpio.i2cRead(ADCRead, 2);
-        newFaderVal = 0.95 * newFaderVal + 0.05 * ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
+        newFaderVal = 0.95 * newFaderVal + 0.05 * (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
       }
 
       if (prevFaderValues[collum] !== newFaderVal) {
