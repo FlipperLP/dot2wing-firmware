@@ -54,7 +54,7 @@ function checkNewButton() {
   prevButtonValues.push(buttonVals3);
   prevButtonValues.push(buttonVals4);
 
-  function readADC () {
+  function readADC() {
     // start ADC sampling
     rpio.i2cSetSlaveAddress(ADDRESS_ADC);
     rpio.i2cWrite(ADC_START_SAMPLING);
@@ -82,7 +82,6 @@ function checkNewButton() {
           sendButton(newVal, collum + 1, row + 1);
         }
       });
-
 
       // read in fader value:
       let faderVal = prevFaderValues[collum] || 0;

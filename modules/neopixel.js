@@ -25,12 +25,12 @@ export function setPixels(data) {
       const multipier = config.isRunMultipier;
       // eslint-disable-next-line no-bitwise
       let setColor = (color.r * multipier << 16) | (color.g * multipier << 8) | color.b * multipier;
-      if (!button.fader) { //button LEDs
+      if (!button.fader) { // button LEDs
         // eslint-disable-next-line no-bitwise
         if (button.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
         // TODO: Better bitwise handler
         if (button.empty) setColor = 0;
-      } else { //fader LEDs
+      } else { // fader LEDs
         // eslint-disable-next-line no-bitwise
         if (button.fader.isRun & button.fader.value > 0.01) setColor = (color.r << 16) | (color.g << 8) | color.b;
         // if (button.fader.isRun) setColor = (color.r * button.fader.value << 16) | (color.g * button.fader.value << 8) | color.b * button.fader.value;

@@ -27,19 +27,19 @@ export function initOLED() {
 
   rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
   oled = new Oled({ rpio, address: ADDRESS_DISPLAY });
-  // rotate display
+  // rotate display:
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
-  // set lower baudrate
-  rpio.i2cSetBaudRate(400000); // 400kHz
-  // enable display
+  // set baudrate:
+  rpio.i2cSetBaudRate(400000); //400kHz
+  // enable display:
   oled.turnOnDisplay();
-  // invert color
+  // do not invert color:
   oled.invertDisplay(false);
-  // clear display
+  // clear display:
   oled.clearDisplay();
-  // set display intensity
+  // set display intensity:
   oled.dimDisplay(0xff);
-  // set update interval
+  // set update interval:
   setInterval(() => {
     setI2cMultiplexer(1);
 
@@ -58,6 +58,7 @@ export function initOLED() {
 }
 
 export function setOLED(data) {
+  // write values to variables to facilitate asynchronous display updates:
   displayValue1 = Math.ceil(data[0][0].fader.value * 100);
   displayValue2 = Math.ceil(data[0][1].fader.value * 100);
 }
