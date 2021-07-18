@@ -52,7 +52,7 @@ export function initOLED() {
     oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
     oled.update();
 
-    msleep(1);
+    rpio.msleep(1);
 
     rpio.i2cSetSlaveAddress(0x70);
     rpio.i2cWrite(setChannel2);
