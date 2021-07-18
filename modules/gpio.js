@@ -21,7 +21,8 @@ function dec2bin(dec) {
 
 function sendButton(value, buttonIndex, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
-  const key = `${buttonRow}0${9 - buttonIndex}`;
+  let key = `${buttonRow}0${9 - buttonIndex}`;
+  if (buttonRow > 2) key = 9 - buttonIndex;
   setButton(value, key, 0);
 }
 
