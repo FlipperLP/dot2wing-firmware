@@ -31,7 +31,7 @@ export function initOLED() {
 }
 
 export function setOLED(data) {
-  rpio.i2cSetSlaveAddress(0x3C);
+  rpio.i2cSetSlaveAddress(0x78);
   // oled.drawRect(0, 0, 128, 64, 'WHITE');
   oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE', false);
 }
