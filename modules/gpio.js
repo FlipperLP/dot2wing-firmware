@@ -9,8 +9,6 @@ const input = config.controller.gpio.buttons.input;
 
 const output = config.controller.gpio.buttons.output;
 
-let oled;
-
 function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
 }
