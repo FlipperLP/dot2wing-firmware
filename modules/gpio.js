@@ -64,7 +64,7 @@ function checkNewButton() {
   }
 
   setInterval(() => {
-    for (let collum = 0; collum <= 7; collum++) {
+    for (let collum = 0; collum <= 0; collum++) {
       // set column-multiplexer:
       const binary = dec2bin(collum);
       outputPins.forEach((outputPin, i) => rpio.write(outputPin, Number(binary[i]) || 0));
@@ -83,9 +83,11 @@ function checkNewButton() {
 
       // read in fader value and do some smoothing:
       let faderVal = prevFaderValues[collum] || 0;
-      for (let smoothingIteration = 0; smoothingIteration < 20; smoothingIteration++) {
-        faderVal = 0.70 * faderVal + 0.30 * readADC();
-      }
+      // for (let smoothingIteration = 0; smoothingIteration < 20; smoothingIteration++) {
+      //   faderVal = 0.70 * faderVal + 0.30 * readADC();
+      // }
+      faderVal = readADC();
+      console.log(faderVal);
 
       const newFaderVal = faderVal.toFixed(1);
 
