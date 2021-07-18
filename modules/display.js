@@ -30,7 +30,7 @@ export function initOLED() {
   rpio.i2cWrite(setChannelAll);
 
   rpio.i2cSetSlaveAddress(0x3c);
-  oled = new Oled({ rpio, address: 0x3c });
+  oled = new Oled({ rpio, address: 0x3c});
   // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
   // set lower baudrate
@@ -48,12 +48,18 @@ export function initOLED() {
     rpio.i2cSetSlaveAddress(0x70);
     rpio.i2cWrite(setChannel1);
 
+    rpio.msleep(1);
+
     rpio.i2cSetSlaveAddress(0x3c);
     oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
     oled.update();
 
+    rpio.msleep(1);
+
     rpio.i2cSetSlaveAddress(0x70);
     rpio.i2cWrite(setChannel2);
+
+    rpio.msleep(1);
 
     rpio.i2cSetSlaveAddress(0x3c);
     oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
@@ -63,7 +69,7 @@ export function initOLED() {
     // rpio.i2cWrite(setChannelAll);
     // rpio.i2cSetSlaveAddress(0x3c);
     // oled.update();
-  }, 50);
+  }, 100);
 }
 
 let displayValue1 = 0;
