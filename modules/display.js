@@ -1,4 +1,4 @@
-import rpio, { msleep } from 'rpio';
+import rpio from 'rpio';
 
 import Oled from 'sh1106-js';
 
