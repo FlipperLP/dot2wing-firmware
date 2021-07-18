@@ -26,9 +26,6 @@ export function initOLED() {
   rpio.i2cWrite(setChannel1);
   // rpio.i2cWrite(setChannel1 | setChannel2);
 
-  rpio.i2cSetSlaveAddress(0x70);
-  rpio.i2cWrite(thechannel);
-
   oled = new Oled({ rpio, address: 0x3c });
   // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
