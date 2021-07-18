@@ -50,11 +50,15 @@ export function setOLED(data) {
   rpio.i2cWrite(setChannel1);
 
   rpio.i2cSetSlaveAddress(0x3c);
-  oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE');
+  oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE', false);
+
+  oled.update();
 
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannel2);
 
   rpio.i2cSetSlaveAddress(0x3c);
-  oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE');
+  oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE', false);
+
+  oled.update();
 }
