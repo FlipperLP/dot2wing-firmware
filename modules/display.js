@@ -11,7 +11,7 @@ const setChannel1 = new Buffer([0x01]);
 // eslint-disable-next-line no-buffer-constructor
 const setChannel2 = new Buffer([0x02]);
 // eslint-disable-next-line no-buffer-constructor
-const setChannelAll = new Buffer([0x01]);
+const setChannelAll = new Buffer([0x00]);
 
 let oled;
 
