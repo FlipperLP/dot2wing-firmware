@@ -42,7 +42,7 @@ export function initOLED() {
   oled.clearDisplay();
   oled.dimDisplay(0xff);
   // set interval
-  setInterval(() => oled.update(), 50);
+  // setInterval(() => oled.update(), 50);
 }
 
 export function setOLED(data) {
@@ -50,11 +50,11 @@ export function setOLED(data) {
   rpio.i2cWrite(setChannel1);
 
   rpio.i2cSetSlaveAddress(0x3c);
-  oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE', false);
+  oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE');
 
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannel2);
 
   rpio.i2cSetSlaveAddress(0x3c);
-  oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE', false);
+  oled.writeString(64, 30, font, `${Math.ceil(data[0][1].fader.value * 100)}%  `, 'WHITE');
 }
