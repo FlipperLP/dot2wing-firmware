@@ -23,6 +23,7 @@ export function initOLED() {
   rpio.msleep(100);
 
   rpio.i2cSetSlaveAddress(0x3c);
+  rpio.msleep(1);
   oled = new Oled({ rpio, address: 0x3c});
   // rotate display
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
