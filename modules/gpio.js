@@ -1,9 +1,5 @@
 import rpio from 'rpio';
 
-import Oled from 'sh1106-js';
-
-import font from 'oled-font-5x7';
-
 import config from '../config.json';
 
 // eslint-disable-next-line import/no-cycle
