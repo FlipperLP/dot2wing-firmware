@@ -82,12 +82,12 @@ function checkNewButton() {
       });
 
       let newFaderVal = prevFaderValues[collum] || 0;
-      for (let index = 0; index < 5; index++) {
+      for (let index = 0; index < 10; index++) {
         // start ADC sampling
         rpio.i2cSetSlaveAddress(0x68);
         rpio.i2cWrite(ADCWrite);
         // wait
-        rpio.msleep(config.controller.gpio.fader.waitTilRead);
+        // rpio.msleep(config.controller.gpio.fader.waitTilRead);
         // read out ADC
         rpio.i2cRead(ADCRead, 2);
         const analogValue = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
