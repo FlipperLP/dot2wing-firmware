@@ -56,6 +56,9 @@ export function initOLED() {
     // rpio.i2cWrite(setChannel2);
     // rpio.i2cSetSlaveAddress(0x3c);
     // oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
+    rpio.i2cSetSlaveAddress(0x70);
+    rpio.i2cWrite(setChannelAll);
+    rpio.i2cSetSlaveAddress(0x3c);
     oled.update();
   }, 50);
 }
