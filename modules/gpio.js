@@ -83,14 +83,14 @@ function checkNewButton() {
         }
       });
 
-      // read in fader value:
+      // read in fader value and do some smoothing:
       let faderVal = prevFaderValues[collum] || 0;
       for (let smoothingIteration = 0; smoothingIteration < 10; smoothingIteration++) {
-        const analogValue = readADC();
-        faderVal = 0.85 * faderVal + 0.15 * analogValue;
+        faderVal = 0.85 * faderVal + 0.15 * readADC();
       }
 
       const newFaderVal = faderVal.toFixed(3);
+      console.log('ch' + collum + ' ' + newFaderVal);
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
