@@ -55,7 +55,7 @@ export function parseValues(rawData) {
         break;
       default: break;
     }
-    if (parsedFaders) output.fader = parsedFaders;
+    if (parsedFaders) output.push(parsedFaders);
     if (parsedButtons) output.push(parsedButtons);
   });
   return output;
