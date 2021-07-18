@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --experimental-json-modules --experimental-specifier-resolution=node --no-warnings index.js"
+    "start": "node --experimental-json-modules --experimental-specifier-resolution=node --no-warnings index.js",
+    "debug": "node --experimental-json-modules --experimental-specifier-resolution=node --no-warnings --inspect=[192.168.178.32:9229] index.js"
   },
   "type": "module",
   "repository": {
