@@ -62,6 +62,8 @@ export function setOLED(data) {
 
   oled.update();
 
+  rpio.msleep(2);
+
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannel2);
 
