@@ -2,9 +2,9 @@ import rpio from 'rpio';
 
 import config from '../config.json';
 
-const input = config.controller.gpio.displays.input;
+const outputData = config.controller.gpio.displays.outputData;
 
-const output = config.controller.gpio.displays.output;
+const outputMultiplexer = config.controller.gpio.displays.outputMultiplexer;
 
 let oled;
 
