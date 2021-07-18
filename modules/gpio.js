@@ -118,6 +118,5 @@ export function initOLED() {
 export function setOLED(data) {
   rpio.i2cSetSlaveAddress(0x3C);
   // oled.drawRect(0, 0, 128, 64, 'WHITE');
-  console.log(data[0][0]);
   oled.writeString(64, 30, font, `${Math.ceil(data[0][0].fader.value * 100)}%  `, 'WHITE', false);
 }
