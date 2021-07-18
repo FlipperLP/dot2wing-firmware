@@ -1,5 +1,3 @@
-import ledHandler from 'rpi-ws281x';
-
 import allConfig from '../config.json';
 
 const config = allConfig.controller.neopixel;
@@ -16,6 +14,7 @@ function hexToRgb(hex) {
 }
 
 export function setPixels(data) {
+  console.log(data);
   data.forEach((row, rowMultipier) => {
     row.forEach((button, i) => {
       let color = {};
@@ -23,24 +22,17 @@ export function setPixels(data) {
         color.r = config.dot2Color.red;
         color.g = config.dot2Color.green;
         color.b = config.dot2Color.blue;
-      } else color = hexToRgb(button.color);
+      } else color = hexToRgb(button.color || button.fader.color);
       const multipier = config.isRunMultipier;
       // eslint-disable-next-line no-bitwise
       let setColor = (color.r * multipier << 16) | (color.g * multipier << 8) | color.b * multipier;
       // eslint-disable-next-line no-bitwise
-      if (button.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
+      if (button.isRun || button.fader.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
       // TODO: Better bitwise handler
-      if (button.empty) setColor = 0;
+      if (button.empty || button.fader.empty) setColor = 0;
       pixels[i + (rowMultipier * 8)] = setColor;
     });
   });
 }
 
-export function initPixel() {
-  // initalize config
-  ledHandler.configure(config.options);
-  // reset pixels
-  pixels.forEach((plx, i) => pixels[i] = 0);
-  // set interval
-  setInterval(() => ledHandler.render(pixels), 20);
-}
+export { setPixels as default };

@@ -4,9 +4,6 @@ import { sendWebsocket } from './webSocket';
 
 import { parseValues } from './prettify';
 
-// eslint-disable-next-line import/no-cycle
-import { initGPIO, setOLED, initOLED } from './gpio';
-
 import { setPixels } from './neopixel';
 
 import config from '../config.json';
@@ -95,7 +92,7 @@ function debugLoop() {
 function playbackData(rawData) {
   const fancyVals = parseValues(rawData);
   setPixels(fancyVals);
-  setOLED(fancyVals);
+  // setOLED(fancyVals);
 }
 
 // login provided session
@@ -129,6 +126,7 @@ export function loginSession(requestType, argument) {
         initGPIO();
         initOLED();
       } else debugLoop();
+      getPlayback();
       break;
     default:
       setSession();

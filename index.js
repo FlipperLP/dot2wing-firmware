@@ -2,13 +2,8 @@ import { WSconnection } from './modules/webSocket';
 
 import { loginSession, websocketAnswer } from './modules/maRemote';
 
-import { initPixel } from './modules/neopixel';
-
 // open websocket
 WSconnection.onopen = () => loginSession();
-
-// init neopixel
-initPixel();
 
 // websocket emitter
 WSconnection.onmessage = (msg) => websocketAnswer(msg);
