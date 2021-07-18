@@ -88,7 +88,6 @@ function checkNewButton() {
       }
 
       const newFaderVal = faderVal.toFixed(1);
-      console.log(`ch${collum} ${newFaderVal}`);
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;

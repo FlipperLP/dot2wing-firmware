@@ -32,7 +32,7 @@ export function setPixels(data) {
         if (button.empty) setColor = 0;
       } else { // fader LEDs
         // eslint-disable-next-line no-bitwise
-        if (button.fader.isRun & button.fader.value > 0.01) setColor = (color.r << 16) | (color.g << 8) | color.b;
+        if (button.fader.isRun) setColor = (color.r << 16) | (color.g << 8) | color.b;
         // if (button.fader.isRun) setColor = (color.r * button.fader.value << 16) | (color.g * button.fader.value << 8) | color.b * button.fader.value;
         // TODO: Better bitwise handler
         if (button.fader.empty) setColor = 0;
