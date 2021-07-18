@@ -17,6 +17,8 @@ let oled;
 
 
 export function initOLED() {
+  console.log('init');
+
   rpio.i2cSetSlaveAddress(0x70);
   rpio.i2cWrite(setChannelAll);
 
