@@ -81,25 +81,25 @@ function checkNewButton() {
         }
       });
 
-      // let newFaderVal = prevFaderValues[collum];
-      // for (let index = 0; index < 1; index++) {
-      //   // start ADC sampling
-      //   rpio.i2cSetSlaveAddress(0x68);
-      //   rpio.i2cWrite(ADCWrite);
-      //   // wait
-      //   // rpio.msleep(config.controller.gpio.fader.waitTilRead);
-      //   // read out ADC
-      //   rpio.i2cRead(ADCRead, 2);
-      //   newFaderVal = 0 * newFaderVal + 1 * (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
-      // }
+      let newFaderVal = prevFaderValues[collum];
+      for (let index = 0; index < 1; index++) {
+        // start ADC sampling
+        rpio.i2cSetSlaveAddress(0x68);
+        rpio.i2cWrite(ADCWrite);
+        // wait
+        // rpio.msleep(config.controller.gpio.fader.waitTilRead);
+        // read out ADC
+        rpio.i2cRead(ADCRead, 2);
+        newFaderVal = 0 * newFaderVal + 1 * (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
+      }
 
-      // start ADC sampling
-      rpio.i2cSetSlaveAddress(0x68);
-      rpio.i2cWrite(ADCWrite);
-      rpio.msleep(config.controller.gpio.fader.waitTilRead);
-      // read out ADC
-      rpio.i2cRead(ADCRead, 2);
-      const newFaderVal = (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
+      // // start ADC sampling
+      // rpio.i2cSetSlaveAddress(0x68);
+      // rpio.i2cWrite(ADCWrite);
+      // rpio.msleep(config.controller.gpio.fader.waitTilRead);
+      // // read out ADC
+      // rpio.i2cRead(ADCRead, 2);
+      // const newFaderVal = (ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1));
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
