@@ -47,11 +47,17 @@ function checkNewButton() {
   vals.fill(false, 0, 8);
   const vals2 = new Array(8);
   vals2.fill(false, 0, 8);
+  const vals3 = new Array(8);
+  vals3.fill(false, 0, 8);
+  const vals4 = new Array(8);
+  vals4.fill(false, 0, 8);
   // const prevAvlues = new Array(input.length);
   const prevValues = [];
   // prevAvlues.fill(vals, 0, input.length);
   prevValues.push(vals);
   prevValues.push(vals2);
+  prevValues.push(vals3);
+  prevValues.push(vals4);
 
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
