@@ -23,7 +23,7 @@ function setMultiplexer(params) {
 
 export function initOLED() {
   rpio.i2cSetSlaveAddress(0x70);
-  rpio.i2cWrite(setChannel1);
+  rpio.i2cWrite(0xFF);
   // rpio.i2cWrite(setChannel1 | setChannel2);
 
   oled = new Oled({ rpio, address: 0x3c });
