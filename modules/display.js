@@ -17,7 +17,7 @@ function setI2cMultiplexer(channel) {
   if (channel >= 1 & channel <= 8) {
     // rpio.i2cWrite(1 << channel - 1);
   } else if (channel === 0) {
-    rpio.i2cWrite(0xFF);
+    // rpio.i2cWrite(0xFF);
   }
 }
 
