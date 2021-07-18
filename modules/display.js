@@ -1,4 +1,4 @@
-import rpio from 'rpio';
+import rpio, { msleep } from 'rpio';
 
 import Oled from 'sh1106-js';
 
@@ -48,18 +48,14 @@ export function initOLED() {
     rpio.i2cSetSlaveAddress(0x70);
     rpio.i2cWrite(setChannel1);
 
-    rpio.msleep(1);
-
     rpio.i2cSetSlaveAddress(0x3c);
     oled.writeString(64, 30, font, displayValue1 + '%  ', 'WHITE', false);
     oled.update();
 
-    rpio.msleep(1);
+    msleep(50);
 
     rpio.i2cSetSlaveAddress(0x70);
     rpio.i2cWrite(setChannel2);
-
-    rpio.msleep(1);
 
     rpio.i2cSetSlaveAddress(0x3c);
     oled.writeString(64, 30, font, displayValue2 + '%  ', 'WHITE', false);
