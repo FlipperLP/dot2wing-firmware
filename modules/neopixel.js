@@ -1,6 +1,5 @@
 import ledHandler from 'rpi-ws281x';
-// import allConfig from '../config.json';
-import config from '../config.json';
+import allConfig from '../config.json';
 
 const config = allConfig.controller.neopixel;
 const pixels = new Uint32Array(config.options.leds);
@@ -49,5 +48,5 @@ export function initPixel() {
   // reset pixels
   pixels.forEach((plx, i) => pixels[i] = 0);
   // set interval
-  setInterval(() => ledHandler.render(pixels), config.controller.neopixel.options.refreshTime);
+  setInterval(() => ledHandler.render(pixels), config.options.refreshTime);
 }
