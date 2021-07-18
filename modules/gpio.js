@@ -54,6 +54,17 @@ function checkNewButton() {
   prevButtonValues.push(buttonVals3);
   prevButtonValues.push(buttonVals4);
 
+  function readADC () {
+    // start ADC sampling
+    rpio.i2cSetSlaveAddress(ADDRESS_ADC);
+    rpio.i2cWrite(ADC_START_SAMPLING);
+    // wait a moment
+    // ...or not
+    // read out ADC
+    rpio.i2cRead(adcReturnBuffer, 2);
+    return adcReturnBuffer.readInt8(0) * 256 + adcReturnBuffer.readInt8(1);
+  }
+
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       // set column-multiplexer:
@@ -72,17 +83,11 @@ function checkNewButton() {
         }
       });
 
+
       // read in fader value:
       let faderVal = prevFaderValues[collum] || 0;
       for (let smoothingIteration = 0; smoothingIteration < 10; smoothingIteration++) {
-        // start ADC sampling
-        rpio.i2cSetSlaveAddress(ADDRESS_ADC);
-        rpio.i2cWrite(ADC_START_SAMPLING);
-        // wait a moment
-        // ...or not
-        // read out ADC
-        rpio.i2cRead(adcReturnBuffer, 2);
-        const analogValue = adcReturnBuffer.readInt8(0) * 256 + adcReturnBuffer.readInt8(1);
+        const analogValue = readADC();
         faderVal = 0.85 * faderVal + 0.15 * analogValue;
       }
 
