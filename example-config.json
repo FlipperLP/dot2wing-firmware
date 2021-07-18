@@ -26,8 +26,11 @@
     },
     "gpio": {
       "interval": 30,
-      "waitTilRead": 1,
+      "fader": {
+        "waitTilRead": 2
+      },
       "buttons": {
+        "waitTilRead": 1,
         "input": [29,31],
         "output": [16,18,22]
       }
