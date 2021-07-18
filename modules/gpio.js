@@ -36,7 +36,9 @@ function readPin(pin) {
 // check for new input
 function checkNewButton() {
   // set ADC config
+  // eslint-disable-next-line no-buffer-constructor
   const ADCWrite = new Buffer([0x80]);
+  // eslint-disable-next-line no-buffer-constructor
   const ADCRead = new Buffer(2);
 
   // create array for fader values
@@ -80,14 +82,19 @@ function checkNewButton() {
       });
 
       // start ADC sampling
-      rpio.i2cSetSlaveAddress(0x68);
-      rpio.i2cWrite(ADCWrite);
-      // wait
-      rpio.msleep(config.controller.gpio.fader.waitTilRead);
-      // read out ADC
-      rpio.i2cRead(ADCRead, 2);
-      // console.log(ADCRead);
-      const newFaderVal = ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
+
+      let newFaderVal = prevFaderValues[collum];
+
+      for (let index = 0; index < 5; index++) {
+        rpio.i2cSetSlaveAddress(0x68);
+        rpio.i2cWrite(ADCWrite);
+        // wait
+        rpio.msleep(config.controller.gpio.fader.waitTilRead);
+        // read out ADC
+        rpio.i2cRead(ADCRead, 2);
+        newFaderVal = 0.95 * newFaderVal + 0.05 * ADCRead.readInt8(0) * 256 + ADCRead.readInt8(1);
+      }
+
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
         setFader(newFaderVal, 8 - collum);
