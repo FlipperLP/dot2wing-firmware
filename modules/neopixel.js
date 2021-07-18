@@ -48,5 +48,5 @@ export function initPixel() {
   // reset pixels
   pixels.forEach((plx, i) => pixels[i] = 0);
   // set interval
-  setInterval(() => ledHandler.render(pixels), 20);
+  setInterval(() => ledHandler.render(pixels), config.controller.neopixel.options.refreshTime);
 }
