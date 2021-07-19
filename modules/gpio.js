@@ -16,9 +16,9 @@ function dec2bin(dec) {
 function sendButton(value, buttonIndexRaw, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
   let buttonId = 0;
-  let buttonIndex = buttonIndexRaw;
-  if (config.maweb.appType === 'dot2') buttonIndex = 9 - buttonIndexRaw;
-  let buttonIndex = buttonIndexRaw;
+  // let buttonIndex = buttonIndexRaw;
+  // if (config.maweb.appType === 'dot2') buttonIndex = 9 - buttonIndexRaw;
+  const buttonIndex = 9 - buttonIndexRaw;
   let key = `${buttonRow}0${buttonIndex}`;
   if (buttonRow > 2) key = buttonIndex;
   if (buttonRow === 4) buttonId = 1;
