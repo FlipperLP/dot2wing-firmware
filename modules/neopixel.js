@@ -43,23 +43,38 @@ export function setNeopixels(playbackData) {
         if (button.empty) ledColor = rgbColor(0, 0, 0);
       } else { // fader-LEDs
         if (button.fader.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, buttonOn);
-        console.log(rowNumber, columnNumber, button.fader.isRun);
+        console.log('fader', rowNumber, columnNumber, button.fader.isRun);
         if (button.fader.empty) ledColor = rgbColor(0, 0, 0);
       }
       // set pixel:
-      switch (rowNumber) {
-        case 0:
-          pixels[columnNumber + 24] = ledColor;
-          break;
-        case 1:
-          pixels[(7 - columnNumber)] = ledColor;
-          break;
-        case 2:
-          pixels[columnNumber + 8] = ledColor;
-          break;
-        default:
-          break;
+
+      if (allConfig.maweb.appType === 'dot2') {
+        switch (rowNumber) {
+          case 0:
+            pixels[columnNumber + 24] = ledColor;
+            break;
+          case 1:
+            pixels[(7 - columnNumber)] = ledColor;
+            break;
+          case 2:
+            pixels[columnNumber + 8] = ledColor;
+            break;
+          default:
+            break;
+        }
+      } else if (allConfig.maweb.appType === 'gma2') {
+        switch (rowNumber) {
+          case 0:
+            pixels[columnNumber + 0] = ledColor;
+            break;
+          case 1:
+            pixels[columnNumber + 24] = ledColor;
+            break;
+          default:
+            break;
+        }
       }
+
     });
   });
 }
