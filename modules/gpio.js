@@ -102,9 +102,8 @@ function checkNewButton() {
         // check difference
         if (prevButtonValues[row][collum] !== newVal) {
           prevButtonValues[row][collum] = newVal;
-          const vals = [newVal, collum + 1, row + 1];
-          if (config.maweb.appType === 'gma2') return sendButtonGma2([vals]);
-          sendButtonDot2([vals]);
+          if (config.maweb.appType === 'gma2') return sendButtonGma2(newVal, collum + 1, row + 1);
+          sendButtonDot2(newVal, collum + 1, row + 1);
         }
       });
 
