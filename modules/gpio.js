@@ -25,7 +25,7 @@ function sendButtonDot2(value, buttonIndexRaw, buttonRow) {
 
 function sendButtonGma2(value, buttonIndex, buttonRow) {
   let key = buttonIndex;
-  const buttonId = 0;
+  let buttonId = 0;
 
   switch (buttonRow) {
     case 1:
