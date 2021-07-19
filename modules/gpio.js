@@ -29,13 +29,13 @@ function sendButtonGma2(value, buttonIndex, buttonRow) {
 
   switch (buttonRow) {
     case 1:
-      buttonId = 0;
+      buttonId = 2;
       break;
     case 2:
       buttonId = 1;
       break;
     case 3:
-      buttonId = 2;
+      buttonId = 0;
       break;
     case 4:
       key = 100 + buttonIndex;
@@ -118,7 +118,7 @@ function checkNewButton() {
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
-        setFader(newFaderVal, 8 - collum);
+        setFader(newFaderVal, (config.maweb.appType === 'gma2') ? collum : 8 - collum);
       }
     }
   }, config.controller.gpio.interval);
