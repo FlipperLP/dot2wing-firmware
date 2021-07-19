@@ -39,9 +39,11 @@ export function setNeopixels(playbackData) {
       let ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, buttonOff);
       if (!button.fader) { // button-LEDs
         if (button.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, buttonOn);
+        console.log(rowNumber, columnNumber, button.isRun);
         if (button.empty) ledColor = rgbColor(0, 0, 0);
       } else { // fader-LEDs
         if (button.fader.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, buttonOn);
+        console.log(rowNumber, columnNumber, button.fader.isRun);
         if (button.fader.empty) ledColor = rgbColor(0, 0, 0);
       }
       // set pixel:
