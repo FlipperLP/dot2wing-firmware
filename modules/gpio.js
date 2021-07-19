@@ -112,13 +112,11 @@ function checkNewButton() {
       for (let smoothingIteration = 0; smoothingIteration < 20; smoothingIteration++) {
         faderVal = 0.70 * faderVal + 0.30 * readADC();
       }
-      // console.log(faderVal);
-
       const newFaderVal = faderVal.toFixed(1);
 
       if (prevFaderValues[collum] !== newFaderVal) {
         prevFaderValues[collum] = newFaderVal;
-        setFader(newFaderVal, (config.maweb.appType === 'gma2') ? collum + 1 : 8 - collum);
+        setFader(newFaderVal, (config.maweb.appType === 'gma2') ? 1 + collum : 8 - collum);
       }
     }
   }, config.controller.gpio.interval);

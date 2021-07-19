@@ -31,6 +31,7 @@ export function setNeopixels(playbackData) {
   // go through all LEDs:
   playbackData.forEach((row, rowNumber) => {
     row.forEach((button, columnNumber) => {
+      if (columnNumber > 7) return;
       // set button color only for gma2
       if (allConfig.maweb.appType === 'gma2') buttonBaseColor = hexToRgb(button.color || button.fader.color);
       const buttonOff = config.intensity.buttonOff;
@@ -63,9 +64,11 @@ export function setNeopixels(playbackData) {
       } else if (allConfig.maweb.appType === 'gma2') {
         switch (rowNumber) {
           case 0:
+            // faders:
             pixels[columnNumber + 16] = ledColor;
             break;
           case 1:
+            // exec 100 buttons:
             pixels[(7 - columnNumber) + 24] = ledColor;
             break;
           default:
