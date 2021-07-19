@@ -12,7 +12,9 @@ function parseButton(rawButton) {
 function buttonRow(row) {
   const buttons = [];
   row.items.forEach((buttonRaw) => {
-    buttons.push(parseButton(buttonRaw[0]));
+    buttonRaw.forEach((buttonRaw2) => {
+      buttons.push(parseButton(buttonRaw2));
+    });
   });
   return buttons;
 }
@@ -34,7 +36,9 @@ function parseFader(rawFader) {
 function faderRow(row) {
   const faders = [];
   row.items.forEach((faderRaw) => {
-    faders.push(parseFader(faderRaw[0]));
+    faderRaw.forEach((faderRaw2) => {
+      faders.push(parseFader(faderRaw2));
+    });
   });
   return faders;
 }

@@ -61,13 +61,10 @@ export function getPlayback() {
   } else if (config.maweb.appType === 'gma2') {
     sendWebsocket({
       requestType: 'playbacks',
-      startIndex: [0],
-      itemsCount: [15],
+      startIndex: [0, 100],
+      itemsCount: [10, 10], // accepts only blocks of 5
       pageIndex: 0,
-      itemsType: [2],
-      view: 2,
-      execButtonViewMode: 1,
-      buttonsViewMode: 0,
+      itemsType: [2, 3],
       session,
     });
   }
