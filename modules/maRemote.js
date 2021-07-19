@@ -62,7 +62,7 @@ export function getPlayback() {
       startIndex: 0,
       itemsCount: 8,
       pageIndex: 0,
-      itemsType: 2,
+      itemsType: 2
     });
   }
 }
