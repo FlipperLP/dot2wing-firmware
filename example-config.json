@@ -1,35 +1,43 @@
+
 {
   "maweb": {
     "endpoint": "192.168.178.31",
     "creds": {
-      "username": "remote",
-      "password": "abcd1234"
+      "username": "remote",      
+      "password": "PASSWORD"     
     },
     "keepAlive": 10000,
-    "refreshRate": 30
+    "playbackRefreshRate": 30    
   },
   "controller": {
     "neopixel": {
       "options": {
-        "leds": 8,
+        "leds": 32,
         "stripType": "grb",
         "dma": 10,
         "gpio": 18,
-        "brightness": 255
+        "brightness": 255,
+        "refreshTime": 10
       },
       "dot2Color": {
         "red": 245,
         "green": 189,
         "blue": 7
       },
-      "isRunMultipier": 0.2
+      "intensity": {
+        "buttonOff": 0.2,
+        "buttonOn": 1
+      }
     },
     "gpio": {
-      "interval": 30,
-      "waitTilRead": 1,
+      "interval": 100,
       "buttons": {
-        "input": [29,31],
-        "output": [16,18,22]
+        "waitTilRead": 1,
+        "inputPins": [26,24,29,31],
+        "outputPins": [16,18,22]
+      },
+      "displays": {
+        "waitTilRead": 1
       }
     }
   }

@@ -2,9 +2,11 @@ import md5 from 'md5';
 
 import { sendWebsocket } from './webSocket';
 
-import { parseValues } from './prettify';
+import { parseValues_dot2 } from './prettify/dot2';
 
-import { setPixels } from './neopixel';
+import { parseValues_gma2 } from './prettify/gma2';
+
+import { setNeopixels } from './neopixel';
 
 import config from '../config.json';
 
@@ -24,7 +26,7 @@ export function setButton(pressed, execIndex, buttonId) {
   });
 }
 
-// set fader value
+// set fader value - value between 0 and 4095
 export function setFader(rawFaderValue, execIndex) {
   const faderValue = rawFaderValue / 4095;
   sendWebsocket({
@@ -47,14 +49,28 @@ export function setSession(inputSession) {
 
 // call data to get playback info
 export function getPlayback() {
-  sendWebsocket({
-    requestType: 'playbacks',
-    session,
-    startIndex: [0, 100, 200],
-    itemsCount: [8, 8, 8],
-    pageIndex: 0,
-    itemsType: [2, 3, 3],
-  });
+  if (config.maweb.appType === 'dot2') {
+    sendWebsocket({
+      requestType: 'playbacks',
+      session,
+      startIndex: [0, 100, 200],
+      itemsCount: [8, 8, 8],
+      pageIndex: 0,
+      itemsType: [2, 3, 3],
+    });
+  } else if (config.maweb.appType === 'gma2') {
+    sendWebsocket({
+      requestType: 'playbacks',
+      startIndex: [0],
+      itemsCount: [15],
+      pageIndex: 0,
+      itemsType: [2],
+      view: 2,
+      execButtonViewMode: 1,
+      buttonsViewMode: 0,
+      session,
+    });
+  }
 }
 
 // keep session alive
@@ -70,7 +86,7 @@ function heartbeatLoop() {
 function mainLoop() {
   setInterval(() => {
     getPlayback();
-  }, config.maweb.refreshRate);
+  }, config.maweb.playbackRefreshRate);
 }
 
 function debugLoop() {
@@ -90,9 +106,12 @@ function debugLoop() {
 // get Data from playback
 // TODO: only send on change
 function playbackData(rawData) {
-  const fancyVals = parseValues(rawData);
-  setPixels(fancyVals);
-  // setOLED(fancyVals);
+  let parsedData;
+  const appType = config.maweb.appType;
+  if (appType === 'dot2') parsedData = parseValues_dot2(rawData);
+  else if (appType === 'gma2') parsedData = parseValues_gma2(rawData);
+  setNeopixels(parsedData);
+  // setOLED(parsedData);
 }
 
 // login provided session
@@ -101,7 +120,9 @@ export function loginSession(requestType, argument) {
     case 'login':
       config.maweb.activeSession = argument;
       const creds = config.maweb.creds;
-      const username = creds.username;
+      let username = creds.username;
+      // fixed username for dot2
+      if (config.maweb.appType === 'dot2') username = 'remote';
       const password = md5(creds.password);
       sendWebsocket({
         // TODO: check if maxRequests is needed
@@ -119,11 +140,7 @@ export function loginSession(requestType, argument) {
       setSession(config.maweb.activeSession);
       // keep session alive
       heartbeatLoop();
-      if (!process.env.debug) {
-        // initialize gpio
-        initGPIO();
-        initOLED();
-      } else debugLoop();
+      // debugLoop();
       // get playback
       mainLoop();
       break;

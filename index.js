@@ -1,5 +1,4 @@
 import { WSconnection } from './modules/webSocket';
-
 import { loginSession, websocketAnswer } from './modules/maRemote';
 
 // open websocket

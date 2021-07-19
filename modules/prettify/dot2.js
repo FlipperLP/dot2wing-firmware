@@ -1,3 +1,5 @@
+import config from '../../config.json';
+
 function parseButton(rawButton) {
   const button = {};
   button.name = rawButton.tt.t;
@@ -14,10 +16,6 @@ function buttonRow(row) {
   });
   return buttons;
 }
-
-// function parseFaderButton(rawButton) {
-//   console.log(rawButton);
-// }
 
 function parseFader(rawFader) {
   const output = {};
@@ -41,7 +39,7 @@ function faderRow(row) {
   return faders;
 }
 
-export function parseValues(rawData) {
+export function parseValues_dot2(rawData) {
   const output = [];
   rawData.itemGroups.forEach((row) => {
     let parsedFaders;
@@ -61,4 +59,4 @@ export function parseValues(rawData) {
   return output;
 }
 
-export { parseValues as default };
+export { parseValues_dot2 as default };
