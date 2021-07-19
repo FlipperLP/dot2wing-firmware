@@ -40,7 +40,19 @@ export function setNeopixels(playbackData) {
         if (button.fader.empty) ledColor = rgbColor(0, 0, 0);
       }
       // set pixel:
-      pixels[columnNumber + (rowNumber * 8)] = ledColor;
+      switch (rowNumber) {
+        case 0:
+          pixels[columnNumber] = ledColor;
+          break;
+        case 1:
+          pixels[columnNumber + 16] = ledColor;
+          break;
+        case 2:
+          pixels[columnNumber + 24] = ledColor;
+          break;
+        default:
+          break;
+      }
     });
   });
 }
