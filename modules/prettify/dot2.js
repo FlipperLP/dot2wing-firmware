@@ -11,15 +11,9 @@ function parseButton(rawButton) {
 
 function buttonRow(row) {
   const buttons = [];
-  // TODO: does not work properly on gma2
-  if (config.maweb.appType === 'dot2') {
-    row.items.forEach((buttonRaw) => {
-      buttons.push(parseButton(buttonRaw[0]));
-    });
-  } else if (config.maweb.appType === 'gma2') {
-
-  }
-
+  row.items.forEach((buttonRaw) => {
+    buttons.push(parseButton(buttonRaw[0]));
+  });
   return buttons;
 }
 
@@ -39,18 +33,13 @@ function parseFader(rawFader) {
 
 function faderRow(row) {
   const faders = [];
-  // TODO: does not work properly on gma2
-  if (config.maweb.appType === 'dot2') {
-    row.items.forEach((faderRaw) => {
-      faders.push(parseFader(faderRaw[0]));
-    });
-  } else if (config.maweb.appType === 'gma2') {
-
-  }
+  row.items.forEach((faderRaw) => {
+    faders.push(parseFader(faderRaw[0]));
+  });
   return faders;
 }
 
-export function parseValues(rawData) {
+export function parseValues_dot2(rawData) {
   const output = [];
   rawData.itemGroups.forEach((row) => {
     let parsedFaders;
@@ -70,4 +59,4 @@ export function parseValues(rawData) {
   return output;
 }
 
-export { parseValues as default };
+export { parseValues_dot2 as default };

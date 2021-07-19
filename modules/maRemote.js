@@ -2,7 +2,9 @@ import md5 from 'md5';
 
 import { sendWebsocket } from './webSocket';
 
-import { parseValues } from './prettify';
+import { parseValues_dot2 } from './prettify/dot2';
+
+import { parseValues_gma2 } from './prettify/gma2';
 
 // eslint-disable-next-line import/no-cycle
 import { initGPIO } from './gpio';
@@ -109,11 +111,10 @@ function debugLoop() {
 // get Data from playback
 // TODO: only send on change
 function playbackData(rawData) {
-  // console.log('raw Data:');
-  // console.log(rawData);
-  const parsedData = parseValues(rawData);
-  // console.log('parsed Data:');
-  // console.log(parsedData);
+  let parsedData;
+  const appType = config.maweb.appType;
+  if (appType === 'dot2') parsedData = parseValues_dot2(rawData);
+  else if (appType === 'gma2') parsedData = parseValues_gma2(rawData);
   setNeopixels(parsedData);
   setOLED(parsedData);
 }
