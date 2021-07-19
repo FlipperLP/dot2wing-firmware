@@ -13,14 +13,23 @@ function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
 }
 
-function sendButton(value, buttonIndexRaw, buttonRow) {
+function sendButtonDot2(value, buttonIndexRaw, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
   let buttonId = 0;
-  let buttonIndex = buttonIndexRaw;
-  if (config.maweb.appType === 'dot2') buttonIndex = 9 - buttonIndexRaw;
+  const buttonIndex = 9 - buttonIndexRaw;
   let key = `${buttonRow}0${buttonIndex}`;
   if (buttonRow > 2) key = buttonIndex;
   if (buttonRow === 4) buttonId = 1;
+  setButton(value, key, buttonId);
+}
+
+function sendButtonGma2(value, buttonIndex, buttonRow) {
+ if (buttonRow == 3) {
+  let key = `10${buttonIndex}`;
+ }
+  // let buttonId = 0;
+  // if (buttonRow > 2) key = buttonIndex;
+  // if (buttonRow === 4) buttonId = 1;
   setButton(value, key, buttonId);
 }
 
@@ -79,7 +88,8 @@ function checkNewButton() {
         // check difference
         if (prevButtonValues[row][collum] !== newVal) {
           prevButtonValues[row][collum] = newVal;
-          sendButton(newVal, collum + 1, row + 1);
+          if (config.maweb.appType === 'gma2') return sendButtonGma2(newVal, collum + 1, row + 1);
+          sendButtonDot2(newVal, collum + 1, row + 1);
         }
       });
 
