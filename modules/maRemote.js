@@ -59,10 +59,10 @@ export function getPlayback() {
     sendWebsocket({
       requestType: 'playbacks',
       session,
-      startIndex: 0,
-      itemsCount: 8,
+      startIndex: [0],
+      itemsCount: [8],
       pageIndex: 0,
-      itemsType: 2
+      itemsType: [2],
     });
   }
 }
