@@ -24,10 +24,11 @@ function sendButtonDot2(value, buttonIndexRaw, buttonRow) {
 }
 
 function sendButtonGma2(value, buttonIndex, buttonRow) {
+  let key = 0;
  if (buttonRow == 3) {
-  let key = `10${buttonIndex}`;
+  key = `10${buttonIndex}`;
  }
-  // let buttonId = 0;
+  let buttonId = 0;
   // if (buttonRow > 2) key = buttonIndex;
   // if (buttonRow === 4) buttonId = 1;
   setButton(value, key, buttonId);
