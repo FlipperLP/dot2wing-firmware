@@ -14,7 +14,7 @@ function hexToRgb(hex) {
 }
 
 function rgbColor(red, green, blue, intensity) {
-  if (typeof intensity === 'undefined') { intensity = 1; } // default value for intensity
+  if (!intensity) intensity = 1; // default value for intensity
   // eslint-disable-next-line no-bitwise
   return ((red * intensity) << 16) | ((green * intensity) << 8) | (blue * intensity);
 }
@@ -31,12 +31,12 @@ export function setNeopixels(playbackData) {
   playbackData.forEach((row, rowNumber) => {
     row.forEach((button, columnNumber) => {
       // set LED color depending on executor-state:
-      let ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensityButtonOff);
+      let ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensity.buttonOff);
       if (!button.fader) { // button-LEDs
-        if (button.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensityButtonOn);
+        if (button.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensity.buttonOn);
         if (button.empty) ledColor = rgbColor(0, 0, 0);
       } else { // fader-LEDs
-        if (button.fader.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensityButtonOn);
+        if (button.fader.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensity.buttonOn);
         if (button.fader.empty) ledColor = rgbColor(0, 0, 0);
       }
       // set pixel:

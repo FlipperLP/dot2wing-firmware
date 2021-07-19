@@ -24,8 +24,10 @@
         "green": 189,
         "blue": 7
       },
-      "intensityButtonOff": 0.2,
-      "intensityButtonOn": 1
+      "intensity": {
+        "buttonOff": 0.2,
+        "buttonOn": 1
+      }
     },
     "gpio": {
       "interval": 100,

@@ -56,8 +56,6 @@ function checkNewButton() {
     // start ADC sampling
     rpio.i2cSetSlaveAddress(ADDRESS_ADC);
     rpio.i2cWrite(ADC_START_SAMPLING);
-    // wait a moment
-    // ...or not
     // read out ADC
     rpio.i2cRead(adcReturnBuffer, 2);
     return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
