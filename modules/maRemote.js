@@ -103,11 +103,11 @@ function debugLoop() {
 // get Data from playback
 // TODO: only send on change
 function playbackData(rawData) {
-  console.log('raw Data:');
-  console.log(rawData);
+  // console.log('raw Data:');
+  // console.log(rawData);
   const parsedData = parseValues(rawData);
-  console.log('parsed Data:');
-  console.log(parsedData);
+  // console.log('parsed Data:');
+  // console.log(parsedData);
   setNeopixels(parsedData);
   setOLED(parsedData);
 }

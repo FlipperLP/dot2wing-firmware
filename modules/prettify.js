@@ -23,10 +23,6 @@ function buttonRow(row) {
   return buttons;
 }
 
-// function parseFaderButton(rawButton) {
-//   console.log(rawButton);
-// }
-
 function parseFader(rawFader) {
   const output = {};
   output.fader = {};
