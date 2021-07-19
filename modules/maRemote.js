@@ -125,10 +125,9 @@ export function loginSession(requestType, argument) {
     case 'login':
       config.maweb.activeSession = argument;
       const creds = config.maweb.creds;
-      const username = creds.username;
-      if (config.maweb.appType === 'dot2') {
-        const username = 'remote'; // fixed username for dot2
-      }
+      let username = creds.username;
+      // fixed username for dot2
+      if (config.maweb.appType === 'dot2') username = 'remote';
       const password = md5(creds.password);
       sendWebsocket({
         // TODO: check if maxRequests is needed
