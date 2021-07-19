@@ -101,6 +101,7 @@ function debugLoop() {
 // TODO: only send on change
 function playbackData(rawData) {
   const parsedData = parseValues(rawData);
+  console.log(parsedData);
   setNeopixels(parsedData);
   setOLED(parsedData);
 }
@@ -149,7 +150,6 @@ export function loginSession(requestType, argument) {
 // answer from websocket
 export function websocketAnswer(msg) {
   const response = JSON.parse(msg.data);
-  console.debug(response);
   // if (process.env.debug) console.debug(response);
   if (response.status === 'server ready') return config.maweb.appType = response.appType;
   if (response.forceLogin) return loginSession('login', response.session);
