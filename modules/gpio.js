@@ -24,13 +24,26 @@ function sendButtonDot2(value, buttonIndexRaw, buttonRow) {
 }
 
 function sendButtonGma2(value, buttonIndex, buttonRow) {
-  let key = 0;
- if (buttonRow == 3) {
-  key = `10${buttonIndex}`;
- }
-  let buttonId = 0;
-  // if (buttonRow > 2) key = buttonIndex;
-  // if (buttonRow === 4) buttonId = 1;
+  let key = buttonIndex;
+  const buttonId = 0;
+
+  switch (buttonRow) {
+    case 1:
+      buttonId = 0;
+      break;
+    case 2:
+      buttonId = 1;
+      break;
+    case 3:
+      buttonId = 2;
+      break;
+    case 4:
+      key = 100 + buttonIndex;
+      break;
+    default:
+      break;
+  }
+
   setButton(value, key, buttonId);
 }
 
@@ -89,8 +102,9 @@ function checkNewButton() {
         // check difference
         if (prevButtonValues[row][collum] !== newVal) {
           prevButtonValues[row][collum] = newVal;
-          if (config.maweb.appType === 'gma2') return sendButtonGma2(newVal, collum + 1, row + 1);
-          sendButtonDot2(newVal, collum + 1, row + 1);
+          const vals = [newVal, collum + 1, row + 1];
+          if (config.maweb.appType === 'gma2') return sendButtonGma2([vals]);
+          sendButtonDot2([vals]);
         }
       });
 
