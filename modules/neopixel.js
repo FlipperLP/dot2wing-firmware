@@ -48,7 +48,7 @@ export function setPixels(data) {
 export function initNeopixels() {
   // initalize config:
   ledHandler.configure(config.options);
-  // reset pixels:
+  // clear all pixels:
   pixels.forEach((plx, i) => pixels[i] = 0);
   // set update interval:
   setInterval(() => ledHandler.render(pixels), config.options.refreshTime);
