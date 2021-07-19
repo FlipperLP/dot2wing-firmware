@@ -58,6 +58,7 @@ export function getPlayback() {
     sendWebsocket({
       requestType: 'playbacks',
       session,
+      // from right to left
       startIndex: [0, 100, 200],
       itemsCount: [8, 8, 8],
       pageIndex: 0,
@@ -66,13 +67,12 @@ export function getPlayback() {
   } else if (config.maweb.appType === 'gma2') {
     sendWebsocket({
       requestType: 'playbacks',
-      startIndex: [0],
-      itemsCount: [15],
+      // from left to right
+      startIndex: [0, 100],
+      // accepts only blocks of 5
+      itemsCount: [10, 10],
       pageIndex: 0,
-      itemsType: [2],
-      view: 2,
-      execButtonViewMode: 1,
-      buttonsViewMode: 0,
+      itemsType: [2, 3],
       session,
     });
   }
