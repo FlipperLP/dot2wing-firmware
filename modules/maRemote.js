@@ -62,6 +62,9 @@ export function getPlayback() {
       itemsCount: [15],
       pageIndex: 0,
       itemsType: [2],
+      view: 2,
+      execButtonViewMode: 1,
+      buttonsViewMode: 0,
       session,
     });
   }
