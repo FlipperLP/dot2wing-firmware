@@ -46,14 +46,25 @@ export function setSession(inputSession) {
 
 // call data to get playback info
 export function getPlayback() {
-  sendWebsocket({
-    requestType: 'playbacks',
-    session,
-    startIndex: [0, 100, 200],
-    itemsCount: [8, 8, 8],
-    pageIndex: 0,
-    itemsType: [2, 3, 3],
-  });
+  if (allConfig.maweb.appType === 'dot2') {
+    sendWebsocket({
+      requestType: 'playbacks',
+      session,
+      startIndex: [0, 100, 200],
+      itemsCount: [8, 8, 8],
+      pageIndex: 0,
+      itemsType: [2, 3, 3],
+    });
+  } else if (allConfig.maweb.appType === 'gma2') {
+    sendWebsocket({
+      requestType: 'playbacks',
+      session,
+      startIndex: [0, 100, 200],
+      itemsCount: [8, 8, 8],
+      pageIndex: 0,
+      itemsType: [2, 3, 3],
+    });
+  }
 }
 
 // keep session alive
@@ -135,6 +146,7 @@ export function loginSession(requestType, argument) {
 // answer from websocket
 export function websocketAnswer(msg) {
   const response = JSON.parse(msg.data);
+  console.debug(response);
   // if (process.env.debug) console.debug(response);
   if (response.status === 'server ready') return config.maweb.appType = response.appType;
   if (response.forceLogin) return loginSession('login', response.session);
