@@ -58,11 +58,14 @@ export function getPlayback() {
   } else if (config.maweb.appType === 'gma2') {
     sendWebsocket({
       requestType: 'playbacks',
-      session,
       startIndex: [0],
       itemsCount: [8],
       pageIndex: 0,
       itemsType: [2],
+      view: 0,
+      execButtonViewMode: 0,
+      buttonsViewMode: 0,
+      session,
     });
   }
 }
