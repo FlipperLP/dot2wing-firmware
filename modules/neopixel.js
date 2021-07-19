@@ -6,9 +6,9 @@ const pixels = new Uint32Array(config.options.leds);
 function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16),
+    red: parseInt(result[1], 16),
+    green: parseInt(result[2], 16),
+    blue: parseInt(result[3], 16),
   } : null;
 }
 
@@ -20,16 +20,18 @@ function rgbColor(red, green, blue, orgIntensity) {
 }
 
 export function setNeopixels(playbackData) {
-  // set button basecolor depending on appType:
+// go through all LEDs:
   let buttonBaseColor = {};
-  if (allConfig.maweb.appType === 'dot2') { // default color for dot2 from config file
-    buttonBaseColor.red = config.dot2Color.red;
-    buttonBaseColor.green = config.dot2Color.green;
-    buttonBaseColor.blue = config.dot2Color.blue;
-  } else buttonBaseColor = hexToRgb(button.color || button.fader.color);
-  // go through all LEDs:
+  // default color for dot2 from config file
+  buttonBaseColor.red = config.dot2Color.red;
+  buttonBaseColor.green = config.dot2Color.green;
+  buttonBaseColor.blue = config.dot2Color.blue;
   playbackData.forEach((row, rowNumber) => {
     row.forEach((button, columnNumber) => {
+      // set button color only for gma2
+      // if (allConfig.maweb.appType === 'gma2') buttonBaseColor = hexToRgb(button.fader.color);
+      if (allConfig.maweb.appType === 'gma2') buttonBaseColor = hexToRgb(button.color || button.fader.color);
+
       const buttonOff = config.intensity.buttonOff;
       const buttonOn = config.intensity.buttonOn;
       // set LED color depending on executor-state:
