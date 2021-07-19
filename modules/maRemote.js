@@ -1,10 +1,16 @@
 import md5 from 'md5';
+
 import { sendWebsocket } from './webSocket';
+
 import { parseValues } from './prettify';
+
 // eslint-disable-next-line import/no-cycle
 import { initGPIO } from './gpio';
+
 import { setOLED, initOLED } from './display';
+
 import { setNeopixels } from './neopixel';
+
 import config from '../config.json';
 
 let session;

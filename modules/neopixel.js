@@ -1,4 +1,5 @@
 import ledHandler from 'rpi-ws281x';
+
 import allConfig from '../config.json';
 
 const config = allConfig.controller.neopixel;
@@ -13,8 +14,9 @@ function hexToRgb(hex) {
   } : null;
 }
 
-function rgbColor(red, green, blue, intensity) {
-  if (!intensity) intensity = 1; // default value for intensity
+function rgbColor(red, green, blue, orgIntensity) {
+  // default value for intensity
+  const intensity = orgIntensity || 1;
   // eslint-disable-next-line no-bitwise
   return ((red * intensity) << 16) | ((green * intensity) << 8) | (blue * intensity);
 }
@@ -30,13 +32,15 @@ export function setNeopixels(playbackData) {
   // go through all LEDs:
   playbackData.forEach((row, rowNumber) => {
     row.forEach((button, columnNumber) => {
+      const buttonOff = config.intensity.buttonOff;
+      const buttonOn = config.intensity.buttonOn;
       // set LED color depending on executor-state:
-      let ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensity.buttonOff);
+      let ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, buttonOff);
       if (!button.fader) { // button-LEDs
-        if (button.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensity.buttonOn);
+        if (button.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, buttonOn);
         if (button.empty) ledColor = rgbColor(0, 0, 0);
       } else { // fader-LEDs
-        if (button.fader.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, config.intensity.buttonOn);
+        if (button.fader.isRun) ledColor = rgbColor(buttonBaseColor.red, buttonBaseColor.green, buttonBaseColor.blue, buttonOn);
         if (button.fader.empty) ledColor = rgbColor(0, 0, 0);
       }
       // set pixel:
@@ -45,7 +49,7 @@ export function setNeopixels(playbackData) {
           pixels[columnNumber + 24] = ledColor;
           break;
         case 1:
-          pixels[(7 - columnNumber) + 0] = ledColor;
+          pixels[(7 - columnNumber)] = ledColor;
           break;
         case 2:
           pixels[columnNumber + 8] = ledColor;
