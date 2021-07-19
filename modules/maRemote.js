@@ -4,7 +4,7 @@ import { parseValues } from './prettify';
 // eslint-disable-next-line import/no-cycle
 import { initGPIO } from './gpio';
 import { setOLED, initOLED } from './display';
-import { setPixels } from './neopixel';
+import { setNeopixels } from './neopixel';
 import config from '../config.json';
 
 let session;
@@ -90,7 +90,7 @@ function debugLoop() {
 // TODO: only send on change
 function playbackData(rawData) {
   const parsedData = parseValues(rawData);
-  setPixels(parsedData);
+  setNeopixels(parsedData);
   setOLED(parsedData);
 }
 

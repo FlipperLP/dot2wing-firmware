@@ -19,7 +19,7 @@ function rgbColor(red, green, blue, intensity) {
   return ((red * intensity) << 16) | ((green * intensity) << 8) | (blue * intensity);
 }
 
-export function setPixels(playbackData) {
+export function setNeopixels(playbackData) {
   // set button basecolor depending on appType:
   let buttonBaseColor = {};
   if (allConfig.maweb.appType === 'dot2') { // default color for dot2 from config file
