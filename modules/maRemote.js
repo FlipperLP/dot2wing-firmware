@@ -46,7 +46,7 @@ export function setSession(inputSession) {
 
 // call data to get playback info
 export function getPlayback() {
-  if (allConfig.maweb.appType === 'dot2') {
+  if (config.maweb.appType === 'dot2') {
     sendWebsocket({
       requestType: 'playbacks',
       session,
@@ -55,7 +55,7 @@ export function getPlayback() {
       pageIndex: 0,
       itemsType: [2, 3, 3],
     });
-  } else if (allConfig.maweb.appType === 'gma2') {
+  } else if (config.maweb.appType === 'gma2') {
     sendWebsocket({
       requestType: 'playbacks',
       session,
@@ -112,6 +112,9 @@ export function loginSession(requestType, argument) {
       config.maweb.activeSession = argument;
       const creds = config.maweb.creds;
       const username = creds.username;
+      if (config.maweb.appType === 'dot2') {
+        const username = 'remote'; // fixed username for dot2
+      }
       const password = md5(creds.password);
       sendWebsocket({
         // TODO: check if maxRequests is needed
