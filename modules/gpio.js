@@ -17,6 +17,7 @@ function sendButton(value, buttonIndexRaw, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
   let buttonId = 0;
   let buttonIndex = buttonIndexRaw;
+  console.log(buttonIndexRaw);
   if (config.maweb.appType === 'dot2') buttonIndex = 9 - buttonIndexRaw;
   let key = `${buttonRow}0${buttonIndex}`;
   if (buttonRow > 2) key = buttonIndex;
