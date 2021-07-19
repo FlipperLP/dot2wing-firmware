@@ -45,10 +45,10 @@ export function setNeopixels(playbackData) {
           pixels[columnNumber] = ledColor;
           break;
         case 1:
-          pixels[columnNumber + 16] = ledColor;
+          pixels[columnNumber + 24] = ledColor;
           break;
         case 2:
-          pixels[columnNumber + 24] = ledColor;
+          pixels[columnNumber + 16] = ledColor;
           break;
         default:
           break;
