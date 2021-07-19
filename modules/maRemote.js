@@ -59,12 +59,9 @@ export function getPlayback() {
     sendWebsocket({
       requestType: 'playbacks',
       startIndex: [0, 100],
-      itemsCount: [8, 8],
+      itemsCount: [15, 15],
       pageIndex: 0,
       itemsType: [2, 3],
-      view: 0,
-      execButtonViewMode: 0,
-      buttonsViewMode: 0,
       session,
     });
   }
