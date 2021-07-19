@@ -13,11 +13,12 @@ function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
 }
 
-function sendButton(value, buttonIndex, buttonRow) {
+function sendButton(value, buttonIndexRaw, buttonRow) {
   // TODO: Fix overflow with to 0 in the middle
   let buttonId = 0;
-  let key = `${buttonRow}0${9 - buttonIndex}`;
-  if (buttonRow > 2) key = 9 - buttonIndex;
+  const buttonIndex = config.maweb.appType === 'dot2' ? 9 - buttonIndexRaw : buttonIndexRaw;
+  let key = `${buttonRow}0${buttonIndex}`;
+  if (buttonRow > 2) key = buttonIndex;
   if (buttonRow === 4) buttonId = 1;
   setButton(value, key, buttonId);
 }
@@ -72,7 +73,7 @@ function checkNewButton() {
 
       // read in button values:
       inputPins.forEach((pin, row) => {
-        // reverse input dues to button mapping
+        // reverse input due to button mapping
         const newVal = !readPin(pin);
         // check difference
         if (prevButtonValues[row][collum] !== newVal) {
