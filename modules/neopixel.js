@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import ledHandler from 'rpi-ws281x';
 
 import allConfig from '../config.json';
@@ -22,16 +23,16 @@ function rgbColor(red, green, blue, orgIntensity) {
 }
 
 export function setNeopixels(playbackData) {
-  // set button basecolor depending on appType:
   let buttonBaseColor = {};
-  if (allConfig.maweb.appType === 'dot2') { // default color for dot2 from config file
-    buttonBaseColor.red = config.dot2Color.red;
-    buttonBaseColor.green = config.dot2Color.green;
-    buttonBaseColor.blue = config.dot2Color.blue;
-  } else buttonBaseColor = hexToRgb(button.color || button.fader.color);
+  // default color for dot2 from config file
+  buttonBaseColor.red = config.dot2Color.red;
+  buttonBaseColor.green = config.dot2Color.green;
+  buttonBaseColor.blue = config.dot2Color.blue;
   // go through all LEDs:
   playbackData.forEach((row, rowNumber) => {
     row.forEach((button, columnNumber) => {
+      // set button color only for gma2
+      if (allConfig.maweb.appType === 'gma2') buttonBaseColor = hexToRgb(button.color || button.fader.color);
       const buttonOff = config.intensity.buttonOff;
       const buttonOn = config.intensity.buttonOn;
       // set LED color depending on executor-state:
