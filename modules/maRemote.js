@@ -58,10 +58,10 @@ export function getPlayback() {
   } else if (config.maweb.appType === 'gma2') {
     sendWebsocket({
       requestType: 'playbacks',
-      startIndex: [0],
-      itemsCount: [8],
+      startIndex: [0, 100],
+      itemsCount: [8, 8],
       pageIndex: 0,
-      itemsType: [2],
+      itemsType: [2, 3],
       view: 0,
       execButtonViewMode: 0,
       buttonsViewMode: 0,
