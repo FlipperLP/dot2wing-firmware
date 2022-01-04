@@ -5,6 +5,7 @@
 ### Install Firmware
 
 - install raspbian buster lite (32 bit)
+- expand filesystem: <http://www.orangepi.org/orangepibbsen/forum.php?mod=viewthread&tid=844>
 - update
 - install git
 - download repo
