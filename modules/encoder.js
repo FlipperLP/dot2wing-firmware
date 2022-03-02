@@ -7,16 +7,14 @@ const pins = config.controller.gpio.encoder.pins;
 let lastValue = false;
 
 export function readEncoder() {
-  // const nowValue = rpio.read(pins.A);
-  Object.values(pins).forEach((pin) => console.log(rpio.read(pin)));
-  console.log('################################');
-  // if (lastValue !== nowValue) {
-  //   lastValue = nowValue;
-  //   if (!rpio.read(pins.B)) return 1;
-  //   return -1;
-  // }
+  const nowValue = rpio.read(pins.A);
+  if (lastValue !== nowValue) {
+    lastValue = nowValue;
+    if (!rpio.read(pins.B)) return 1;
+    return -1;
+  }
   // lastValue = nowValue;
-  // return 0;
+  return 0;
 }
 
 export function initEncoder() {
