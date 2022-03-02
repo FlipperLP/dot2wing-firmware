@@ -79,8 +79,8 @@ export function setNeopixels(playbackData) {
   });
 }
 
-export function testPixels() {
-  const ledColor = rgbColor(config.startup.red, config.startup.green, config.startup.blue);
+export function setAllPixels(input) {
+  const ledColor = input || rgbColor(config.startup.red, config.startup.green, config.startup.blue);
   pixels.forEach((plx, i) => pixels[i] = ledColor);
 }
 

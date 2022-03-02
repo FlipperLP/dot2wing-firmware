@@ -2,7 +2,7 @@ import { WSconnection } from './modules/webSocket';
 
 import { loginSession, websocketAnswer } from './modules/maRemote';
 
-import { initNeopixels, testPixels } from './modules/neopixel';
+import { initNeopixels, setAllPixels } from './modules/neopixel';
 
 // import { initEncoder, readEncoder, readEncoderSwitch } from './modules/encoder';
 
@@ -17,10 +17,13 @@ import { initNeopixels, testPixels } from './modules/neopixel';
 
 // init neopixel
 initNeopixels();
-testPixels();
+setAllPixels();
 
 // open websocket
-WSconnection.onopen = () => loginSession();
+WSconnection.onopen = () => {
+  setAllPixels(0);
+  loginSession();
+};
 
 // websocket emitter
 WSconnection.onmessage = (msg) => websocketAnswer(msg);
