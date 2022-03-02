@@ -17,11 +17,11 @@ import { initNeopixels, setAllPixels } from './modules/neopixel';
 
 // init neopixel
 initNeopixels();
-setAllPixels();
+// setAllPixels();
 
 // open websocket
 WSconnection.onopen = () => {
-  setAllPixels(0);
+  // setAllPixels(0);
   loginSession();
 };
 
