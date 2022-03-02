@@ -56,8 +56,6 @@ function readPin(pin) {
 function checkNewButton() {
   // set ADC config
   // eslint-disable-next-line no-buffer-constructor
-  const ADC_START_SAMPLING = new Buffer([0b10000000]);
-  // eslint-disable-next-line no-buffer-constructor
   const adcReturnBuffer = new Buffer(2);
 
   // create array for fader values
