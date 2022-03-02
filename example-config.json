@@ -37,6 +37,13 @@
       },
       "displays": {
         "waitTilRead": 1
+      },
+      "encoder": {
+        "pins": {
+          "switch": 26,
+          "A": 12,
+          "B": 16
+        }
       }
     }
   }
