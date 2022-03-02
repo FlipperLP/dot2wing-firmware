@@ -14,6 +14,7 @@ export function readEncoderSwitch() {
     lastValueSwitch = nowValueSwitch;
     return !nowValueSwitch;
   }
+  return null;
 }
 
 export function readEncoder() {
