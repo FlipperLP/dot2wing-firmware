@@ -2,14 +2,22 @@ import rpio from 'rpio';
 
 import config from '../config.json';
 
-// export function readEncoder() {
-  
-// }
+const pins = config.controller.gpio.encoder.pins;
+
+let lastValue = false;
+
+export function readEncoder() {
+  const nowValue = rpio.read(pins.A);
+  if (lastValue !== nowValue) {
+    lastValue = nowValue;
+    if (!rpio.read(pins.B)) return 1;
+    return -1;
+  }
+  return 0;
+}
 
 export function initEncoder() {
   rpio.init({ gpiomem: false });
   // define gpio pins
-  Object.values(config.controller.gpio.encoder.pins).forEach((pin) => rpio.open(pin, rpio.INPUT, rpio.PULL_UP));
+  Object.values(pins).forEach((pin) => rpio.open(pin, rpio.INPUT, rpio.PULL_UP));
 }
-
-export { initEncoder as default };
