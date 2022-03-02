@@ -8,7 +8,7 @@ let lastValue = false;
 
 export function readEncoder() {
   const nowValue = rpio.read(pins.A);
-  if (lastValue !== nowValue) {
+  if (lastValue && !nowValue) {
     lastValue = nowValue;
     if (!rpio.read(pins.B)) return 1;
     return -1;
