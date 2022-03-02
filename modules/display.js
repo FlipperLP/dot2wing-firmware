@@ -40,21 +40,21 @@ export function initOLED() {
   // set display intensity:
   oled.dimDisplay(0xff);
   // set update interval:
-  // setInterval(() => {
-  //   // setI2cMultiplexer(1);
+  setInterval(() => {
+    // setI2cMultiplexer(1);
 
-  //   rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
-  //   oled.writeString(64, 30, font, `${displayValue1}%  `, 'WHITE', false);
-  //   oled.update();
+    rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
+    oled.writeString(64, 30, font, `${displayValue1}%  `, 'WHITE', false);
+    oled.update();
 
-  //   // rpio.msleep(50);
+    // rpio.msleep(50);
 
-  //   // setI2cMultiplexer(2);
+    // setI2cMultiplexer(2);
 
-  //   // rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
-  //   // oled.writeString(64, 30, font, `${displayValue2}%  `, 'WHITE', false);
-  //   // oled.update();
-  // }, 100);
+    // rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
+    // oled.writeString(64, 30, font, `${displayValue2}%  `, 'WHITE', false);
+    // oled.update();
+  }, 100);
 }
 
 export function setOLED(data) {
