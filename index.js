@@ -9,7 +9,8 @@ import { initEncoder, readEncoder } from './modules/encoder';
 initEncoder();
 
 setInterval(() => {
-  console.log(readEncoder());
+  const test = readEncoder();
+  if (test) console.log(test);
 }, 30);
 
 // open websocket
