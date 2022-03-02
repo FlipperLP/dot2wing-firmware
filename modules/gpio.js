@@ -7,7 +7,7 @@ import { setButton, setFader } from './maRemote';
 
 const inputPins = config.controller.gpio.buttons.inputPins;
 const outputPins = config.controller.gpio.buttons.outputPins;
-const ADDRESS_ADC = 0x51;
+// const ADDRESS_ADC = 0x51;
 
 function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
@@ -78,12 +78,13 @@ function checkNewButton() {
   prevButtonValues.push(buttonVals4);
 
   function readADC() {
-    // start ADC sampling
-    rpio.i2cSetSlaveAddress(ADDRESS_ADC);
-    // rpio.i2cWrite(ADC_START_SAMPLING);
-    // read out ADC
-    rpio.i2cRead(adcReturnBuffer, 2);
-    return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
+    // // start ADC sampling
+    // rpio.i2cSetSlaveAddress(ADDRESS_ADC);
+    // // rpio.i2cWrite(ADC_START_SAMPLING);
+    // // read out ADC
+    // rpio.i2cRead(adcReturnBuffer, 2);
+    // return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
+    return 0;
   }
 
   setInterval(() => {
@@ -125,7 +126,7 @@ export function initGPIO() {
   // define gpio pins
   inputPins.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
   outputPins.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
-  rpio.i2cSetBaudRate(800000); // 800kHz
+  // rpio.i2cSetBaudRate(800000); // 800kHz
   // start loop
   checkNewButton();
 }
