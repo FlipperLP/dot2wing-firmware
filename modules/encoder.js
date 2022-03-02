@@ -29,7 +29,7 @@ export function readEncoder() {
     if (!valuePinB) return 1;
     return -1;
   }
-  return 0;
+  return null;
 }
 
 export function initEncoder() {
