@@ -19,13 +19,14 @@ let lastValue = false;
 
 export function readEncoder() {
   const nowValue = rpio.read(pins.A);
+  const valuePinB = rpio.read(pins.B);
   if (lastValue !== nowValue) {
     lastValue = nowValue;
     if (nowValue) {
-      if (!rpio.read(pins.B)) return -1;
+      if (!valuePinB) return -1;
       return 1;
     }
-    if (!rpio.read(pins.B)) return 1;
+    if (!valuePinB) return 1;
     return -1;
   }
   return 0;
