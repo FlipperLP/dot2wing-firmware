@@ -12,6 +12,9 @@
 - (try without first: `install npm install -g node-gyp`)
 - install node version 14: `curl -sSL https://deb.nodesource.com/setup_14.x | sudo bash - && sudo apt install -y nodejs`
 
+- create file `sudo nano /lib/systemd/system/faderwing.service`
+- paste systemd config to file (faderwing.service)
+
 ## Troubbleshooting
 
 ### libnode.so.64: cannot open shared object file: No such file or directory

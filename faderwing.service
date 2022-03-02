@@ -1,0 +1,13 @@
+[Unit]
+Description=Fader Wing Firmware
+Documentation=Fader Wing
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/usr/bin/node /home/pi/dot2wing-firmware/index.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
