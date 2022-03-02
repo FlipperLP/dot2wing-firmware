@@ -88,15 +88,6 @@ function checkNewButton() {
     return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
   }
 
-  // function readADC() {
-  //   // start ADC sampling
-  //   rpio.i2cSetSlaveAddress(ADDRESS_ADC);
-  //   rpio.i2cWrite(ADC_START_SAMPLING);
-  //   // read out ADC
-  //   rpio.i2cRead(adcReturnBuffer, 2);
-  //   return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
-  // }
-
   setInterval(() => {
     for (let collum = 0; collum <= 7; collum++) {
       // set column-multiplexer:
@@ -136,6 +127,7 @@ export function initGPIO() {
   // define gpio pins
   inputPins.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
   outputPins.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
+  rpio.i2cSetBaudRate(800000); // 800kHz
   // start loop
   checkNewButton();
 }
