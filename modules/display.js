@@ -30,7 +30,6 @@ export function initOLED() {
   // rotate display:
   [0xA1, 0xC8].forEach((cmd) => rpio.i2cWrite(Buffer.from([0x00, cmd])));
   // set baudrate:
-  // rpio.i2cSetBaudRate(400000); // 400kHz
   rpio.i2cSetBaudRate(800000); // 800kHz
   // enable display:
   oled.turnOnDisplay();
@@ -41,21 +40,21 @@ export function initOLED() {
   // set display intensity:
   oled.dimDisplay(0xff);
   // set update interval:
-  setInterval(() => {
-    // setI2cMultiplexer(1);
+  // setInterval(() => {
+  //   // setI2cMultiplexer(1);
 
-    rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
-    oled.writeString(64, 30, font, `${displayValue1}%  `, 'WHITE', false);
-    oled.update();
+  //   rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
+  //   oled.writeString(64, 30, font, `${displayValue1}%  `, 'WHITE', false);
+  //   oled.update();
 
-    // rpio.msleep(50);
+  //   // rpio.msleep(50);
 
-    // setI2cMultiplexer(2);
+  //   // setI2cMultiplexer(2);
 
-    // rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
-    // oled.writeString(64, 30, font, `${displayValue2}%  `, 'WHITE', false);
-    // oled.update();
-  }, 10);
+  //   // rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
+  //   // oled.writeString(64, 30, font, `${displayValue2}%  `, 'WHITE', false);
+  //   // oled.update();
+  // }, 10);
 }
 
 export function setOLED(data) {
