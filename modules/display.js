@@ -25,7 +25,7 @@ let displayValue2 = 0;
 // }
 
 export function initOLED() {
-  setI2cMultiplexer(0);
+  // setI2cMultiplexer(0);
 
   rpio.i2cSetSlaveAddress(ADDRESS_DISPLAY);
   oled = new Oled({ rpio, address: ADDRESS_DISPLAY });
