@@ -14,6 +14,9 @@
 
 - create file `sudo nano /lib/systemd/system/faderwing.service`
 - paste systemd config to file (faderwing.service)
+- reload deamon `sudo systemctl daemon-reload`
+- enable on startup `sudo systemctl enable faderwing`
+- restart or start maunally with `sudo systemctl start faderwing`
 
 ## Troubbleshooting
 
