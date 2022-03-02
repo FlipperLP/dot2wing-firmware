@@ -1,9 +1,11 @@
 /* eslint-disable no-bitwise */
 import rpio from 'rpio';
+
 import Oled from 'sh1106-js';
+
 import font from 'oled-font-5x7';
 
-const ADDRESS_I2C_MUX = 0x70;
+// const ADDRESS_I2C_MUX = 0x70;
 const ADDRESS_DISPLAY = 0x3C;
 
 let oled;
@@ -11,16 +13,16 @@ let oled;
 let displayValue1 = 0;
 let displayValue2 = 0;
 
-function setI2cMultiplexer(channel) {
-  rpio.i2cSetSlaveAddress(ADDRESS_I2C_MUX);
-  if (channel >= 1 & channel <= 8) {
-    const buffer = new Buffer([1 << (channel - 1)]);
-    rpio.i2cWrite(buffer);
-  } else if (channel === 0) {
-    const buffer = new Buffer([0xFF]);
-    rpio.i2cWrite(buffer);
-  }
-}
+// function setI2cMultiplexer(channel) {
+//   rpio.i2cSetSlaveAddress(ADDRESS_I2C_MUX);
+//   if (channel >= 1 & channel <= 8) {
+//     const buffer = new Buffer([1 << (channel - 1)]);
+//     rpio.i2cWrite(buffer);
+//   } else if (channel === 0) {
+//     const buffer = new Buffer([0xFF]);
+//     rpio.i2cWrite(buffer);
+//   }
+// }
 
 export function initOLED() {
   setI2cMultiplexer(0);
