@@ -1,4 +1,4 @@
-import rpio from 'rpio';
+import rpio from 'rpio2';
 
 import config from '../config.json';
 
