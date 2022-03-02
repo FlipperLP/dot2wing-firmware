@@ -1,4 +1,6 @@
-import rpio from 'rpio2';
+import rpio2 from 'rpio2';
+
+import rpio from 'rpio';
 
 import config from '../config.json';
 
@@ -78,13 +80,12 @@ function checkNewButton() {
   prevButtonValues.push(buttonVals4);
 
   function readADC() {
-    // // start ADC sampling
-    // rpio.i2cSetSlaveAddress(ADDRESS_ADC);
-    // // rpio.i2cWrite(ADC_START_SAMPLING);
-    // // read out ADC
-    // rpio.i2cRead(adcReturnBuffer, 2);
-    // return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
-    return 0;
+    // start ADC sampling
+    rpio2.i2cSetSlaveAddress(ADDRESS_ADC);
+    // rpio.i2cWrite(ADC_START_SAMPLING);
+    // read out ADC
+    rpio2.i2cRead(adcReturnBuffer, 2);
+    return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
   }
 
   setInterval(() => {
@@ -126,7 +127,7 @@ export function initGPIO() {
   // define gpio pins
   inputPins.forEach((row) => rpio.open(row, rpio.INPUT, rpio.PULL_UP));
   outputPins.forEach((row) => rpio.open(row, rpio.OUTPUT, rpio.LOW));
-  // rpio.i2cSetBaudRate(800000); // 800kHz
+  rpio2.i2cSetBaudRate(800000); // 800kHz
   // start loop
   checkNewButton();
 }
