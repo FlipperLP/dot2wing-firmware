@@ -79,6 +79,12 @@ export function setNeopixels(playbackData) {
   });
 }
 
+export function testPixels() {
+  const buttonOn = config.intensity.buttonOn;
+  ledColor = rgbColor(config.startup.red, config.startup.green, config.startup.blue, buttonOn);
+  pixels.forEach((plx, i) => pixels[i] = ledColor);
+}
+
 export function initNeopixels() {
   // initalize config:
   ledHandler.configure(config.options);
