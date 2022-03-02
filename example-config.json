@@ -23,6 +23,11 @@
         "green": 189,
         "blue": 7
       },
+      "startup": {
+        "red": 0,
+        "green": 0,
+        "blue": 60
+      },
       "intensity": {
         "buttonOff": 0.2,
         "buttonOn": 1
