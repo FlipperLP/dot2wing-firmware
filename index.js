@@ -11,7 +11,7 @@ initEncoder();
 setInterval(() => {
   const test = readEncoder();
   if (test) console.log(test);
-}, 30);
+}, 10);
 
 // open websocket
 // WSconnection.onopen = () => loginSession();
