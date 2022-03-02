@@ -8,6 +8,10 @@ import { initEncoder } from './modules/encoder';
 
 initEncoder();
 
+setInterval(() => {
+  console.log(readEncoder());
+}, 30);
+
 // open websocket
 // WSconnection.onopen = () => loginSession();
 
