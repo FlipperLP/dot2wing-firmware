@@ -24,6 +24,7 @@
     "oled-font-5x7": "^1.0.3",
     "rpi-ws281x": "^1.0.36",
     "rpio": "^2.4.2",
+    "rpio2": "git+https://github.com/UltraLighting/node-rpio.git",
     "sh1106-js": "0.0.1",
     "ws": "^7.4.6",
     "wspromisify": "^2.4.1"
