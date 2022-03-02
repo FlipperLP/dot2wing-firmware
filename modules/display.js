@@ -47,7 +47,7 @@ export function initOLED() {
     oled.writeString(64, 30, font, `${displayValue1}%  `, 'WHITE', false);
     oled.update();
 
-    rpio.msleep(50);
+    // rpio.msleep(50);
 
     // setI2cMultiplexer(2);
 
