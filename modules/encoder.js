@@ -4,15 +4,23 @@ import config from '../config.json';
 
 const pins = config.controller.gpio.encoder.pins;
 
-let lastValue = false;
+let lastValueEncoder = false;
 
-export function readEncoderSwitch() { return !rpio.read(pins.switch); }
+let lastValueSwitch = false;
+
+export function readEncoderSwitch() {
+  const nowValueSwitch = rpio.read(pins.switch);
+  if (lastValueSwitch !== nowValueSwitch) {
+    lastValueSwitch = nowValueSwitch;
+    return !nowValueSwitch;
+  }
+}
 
 export function readEncoder() {
   const nowValue = rpio.read(pins.A);
   const valuePinB = rpio.read(pins.B);
-  if (lastValue !== nowValue) {
-    lastValue = nowValue;
+  if (lastValueEncoder !== nowValue) {
+    lastValueEncoder = nowValue;
     if (nowValue) {
       if (!valuePinB) return -1;
       return 1;
