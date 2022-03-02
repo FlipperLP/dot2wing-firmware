@@ -82,6 +82,7 @@ export function setNeopixels(playbackData) {
 export function testPixels() {
   const buttonOn = config.intensity.buttonOn;
   const ledColor = rgbColor(config.startup.red, config.startup.green, config.startup.blue, buttonOn);
+  console.log(ledColor);
   pixels.forEach((plx, i) => pixels[i] = ledColor);
 }
 
