@@ -13,6 +13,7 @@ export function readEncoder() {
     if (!rpio.read(pins.B)) return 1;
     return -1;
   }
+  lastValue = nowValue;
   return 0;
 }
 
