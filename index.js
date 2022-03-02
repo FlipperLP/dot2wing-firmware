@@ -4,7 +4,7 @@ import { loginSession, websocketAnswer } from './modules/maRemote';
 
 import { initNeopixels } from './modules/neopixel';
 
-import { initEncoder } from './modules/encoder';
+import { initEncoder, readEncoder } from './modules/encoder';
 
 initEncoder();
 
