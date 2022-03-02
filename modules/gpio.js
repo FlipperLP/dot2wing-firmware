@@ -1,5 +1,3 @@
-import rpio2 from 'rpio2';
-
 import rpio from 'rpio';
 
 import config from '../config.json';
@@ -81,9 +79,9 @@ function checkNewButton() {
 
   function readADC() {
     // start ADC sampling
-    rpio2.i2cSetSlaveAddress(ADDRESS_ADC);
+    rpio.i2cSetSlaveAddress(ADDRESS_ADC);
     // read out ADC
-    rpio2.i2cRead(adcReturnBuffer, 2);
+    rpio.i2cRead(adcReturnBuffer, 2);
     return adcReturnBuffer.readUInt8(0) * 256 + adcReturnBuffer.readUInt8(1);
   }
 
