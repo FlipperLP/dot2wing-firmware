@@ -11,6 +11,8 @@ initEncoder();
 setInterval(() => {
   const test = readEncoder();
   if (test) console.log(test);
+  const test2 = readEncoderSwitch();
+  if (test2) console.log(test2);
 }, 1);
 
 // open websocket
