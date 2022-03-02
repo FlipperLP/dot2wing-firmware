@@ -6,16 +6,7 @@ const pins = config.controller.gpio.encoder.pins;
 
 let lastValue = false;
 
-// export function readEncoder() {
-//   const nowValue = rpio.read(pins.A);
-//   if (lastValue && !nowValue) {
-//     lastValue = nowValue;
-//     if (!rpio.read(pins.B)) return 1;
-//     return -1;
-//   }
-//   lastValue = nowValue;
-//   return 0;
-// }
+function readEncoderSwitch() { return !rpio.read(pins.switch); }
 
 export function readEncoder() {
   const nowValue = rpio.read(pins.A);
