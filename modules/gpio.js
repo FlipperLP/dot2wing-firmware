@@ -7,7 +7,7 @@ import { setButton, setFader } from './maRemote';
 
 const inputPins = config.controller.gpio.buttons.inputPins;
 const outputPins = config.controller.gpio.buttons.outputPins;
-const ADDRESS_ADC = 0x51;
+const ADDRESS_ADC = 0x50;
 
 function dec2bin(dec) {
   return Number(dec).toString(2).split('').reverse();
