@@ -1,13 +1,15 @@
 [Unit]
-Description=Fader Wing Firmware
-Documentation=Fader Wing
+Description=FaderWing!
 After=network.target
 
 [Service]
 Type=simple
-User=pi
-ExecStart=/usr/bin/node /home/pi/dot2wing-firmware/index.js
-Restart=on-failure
+User=root
+ExecStart=/usr/bin/env node --experimental-json-modules --experimental-specifier-resolution=node --no-warnings /home/pi/dot2wing-firmware/index.js
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=nodejs-example
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

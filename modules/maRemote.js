@@ -116,7 +116,7 @@ function playbackData(rawData) {
   if (appType === 'dot2') parsedData = parseValues_dot2(rawData);
   else if (appType === 'gma2') parsedData = parseValues_gma2(rawData);
   setNeopixels(parsedData);
-  setOLED(parsedData);
+  // setOLED(parsedData);
 }
 
 // login provided session
@@ -150,7 +150,7 @@ export function loginSession(requestType, argument) {
         mainLoop();
         // initialize gpio
         initGPIO();
-        initOLED();
+        // initOLED();
       } else debugLoop();
       break;
     default:
