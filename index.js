@@ -4,16 +4,16 @@ import { loginSession, websocketAnswer } from './modules/maRemote';
 
 import { initNeopixels, setAllPixels } from './modules/neopixel';
 
-// import { initEncoder, readEncoder, readEncoderSwitch } from './modules/encoder';
+import { initEncoder, readEncoder, readEncoderSwitch } from './modules/encoder';
 
-// initEncoder();
+initEncoder();
 
-// setInterval(() => {
-//   const test = readEncoder();
-//   if (test) console.log(test);
-//   const test2 = readEncoderSwitch();
-//   if (test2 !== null) console.log(test2);
-// }, 1);
+setInterval(() => {
+  const test = readEncoder();
+  if (test) console.log(test);
+  const test2 = readEncoderSwitch();
+  if (test2 !== null) console.log(test2);
+}, 1);
 
 // init neopixel
 initNeopixels();
