@@ -112,6 +112,7 @@ function checkNewButton() {
       const newFaderVal = faderVal.toFixed(1);
 
       if (prevFaderValues[collum] !== newFaderVal) {
+        console.log(newFaderVal);
         prevFaderValues[collum] = newFaderVal;
         setFader(newFaderVal, (config.maweb.appType === 'gma2') ? 1 + collum : 8 - collum);
       }
